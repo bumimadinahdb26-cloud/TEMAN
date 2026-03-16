@@ -9,7 +9,6 @@
         :root {
             --primary-purple: #6d28d9;
             --primary-purple-light: #8b5cf6;
-            --primary-purple-pastel: #a78bfa;
             --primary-teal: #14b8a6;
             --primary-teal-light: #2dd4bf;
             --primary-teal-dark: #0d9488;
@@ -22,183 +21,61 @@
             --color-danger: #ef4444;
             --color-warning: #f59e0b;
             --color-success: #10b981;
-            --color-info: #3b82f6;
             --accent-coral: #f97316;
-            --accent-mint: #34d399;
             --card-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
-            --card-shadow-hover: 0 8px 24px rgba(0, 0, 0, 0.1);
             --border-light: rgba(0, 0, 0, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { 
-            font-family: 'DM Sans', sans-serif; 
-            background-color: var(--bg-cream); 
-            color: var(--text-dark); 
-            overflow-x: hidden;
-            min-height: 100vh;
-        }
+        body { font-family: 'DM Sans', sans-serif; background-color: var(--bg-cream); color: var(--text-dark); overflow-x: hidden; min-height: 100vh; }
         h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
 
-        /* Background Blobs */
         .bg-blob { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.25; pointer-events: none; }
         .blob-teal { width: 600px; height: 600px; background: var(--primary-teal-light); top: -20%; right: -20%; animation: float 25s infinite ease-in-out; }
-        .blob-purple { width: 500px; height: 500px; background: var(--primary-purple-pastel); bottom: 10%; left: -15%; animation: float 30s infinite ease-in-out reverse; }
+        .blob-purple { width: 500px; height: 500px; background: #a78bfa; bottom: 10%; left: -15%; animation: float 30s infinite ease-in-out reverse; }
         @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(30px, -30px) scale(1.05); } }
 
         /* Header */
-        header { 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            z-index: 100; 
-            padding: 10px 16px; 
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px); 
-            border-bottom-left-radius: 20px; 
-            border-bottom-right-radius: 20px; 
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04); 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            gap: 10px; 
-        }
+        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 10px 16px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
         .brand-container { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
         .logo-img { width: 42px; height: 42px; object-fit: contain; border-radius: 12px; }
-        .brand-text h1 { font-size: 1.1rem; font-weight: 700; color: var(--dark-blue); letter-spacing: -0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .brand-text h1 { font-size: 1.1rem; font-weight: 700; color: var(--dark-blue); letter-spacing: -0.3px; white-space: nowrap; }
         .brand-text p { font-size: 0.65rem; color: var(--text-muted); min-height: 1.1em; }
         .typewriter-cursor { animation: blink 0.7s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
         
         /* Navigation */
-        nav { 
-            position: fixed; 
-            bottom: 0; 
-            left: 0; 
-            right: 0; 
-            z-index: 100; 
-            background: rgba(255, 255, 255, 0.98); 
-            padding: 10px 0; 
-            box-shadow: 0 -4px 20px rgba(0,0,0,0.05); 
-            overflow-x: auto; 
-            scrollbar-width: none; 
-            -ms-overflow-style: none; 
-            -webkit-overflow-scrolling: touch; 
-        }
+        nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: rgba(255, 255, 255, 0.98); padding: 10px 0; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
         nav::-webkit-scrollbar { display: none; }
         .nav-track { display: flex; gap: 10px; padding: 0 14px; width: max-content; }
-        .nav-card { 
-            position: relative; 
-            flex-shrink: 0; 
-            width: 100px; 
-            height: 56px; 
-            border-radius: 14px; 
-            overflow: hidden; 
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08); 
-            border: 2px solid transparent; 
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
-            cursor: pointer; 
-        }
+        .nav-card { position: relative; flex-shrink: 0; width: 100px; height: 56px; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 2px solid transparent; transition: all 0.3s; cursor: pointer; }
         .nav-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
         .text-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 24px 6px 6px 6px; text-align: center; }
         .nav-card .text { color: white; font-size: 9px; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.5); white-space: normal; line-height: 1.2; display: block; }
         .nav-card.active { border: 2px solid var(--primary-teal); transform: scale(1.08); box-shadow: 0 6px 20px rgba(20, 184, 166, 0.3); }
-        .nav-card.active img { transform: scale(1.1); }
         
         /* Main Content */
-        main { 
-            margin-top: 68px; 
-            margin-bottom: 80px; 
-            display: flex; 
-            overflow-x: auto; 
-            scroll-snap-type: x mandatory; 
-            height: calc(100vh - 148px); 
-            min-height: calc(100vh - 148px); 
-            background-color: var(--bg-cream); 
-        }
-        .slide-section { 
-            flex: 0 0 100%; 
-            width: 100%; 
-            padding: 16px; 
-            scroll-snap-align: start; 
-            display: flex; 
-            flex-direction: column; 
-            gap: 16px; 
-            overflow-y: auto; 
-            overflow-x: hidden; 
-            -webkit-overflow-scrolling: touch; 
-            background-color: var(--bg-cream); 
-        }
+        main { margin-top: 68px; margin-bottom: 80px; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; height: calc(100vh - 148px); min-height: calc(100vh - 148px); background-color: var(--bg-cream); }
+        .slide-section { flex: 0 0 100%; width: 100%; padding: 16px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; background-color: var(--bg-cream); }
      
-        /* Hero Banner */
-        .hero-banner { 
-            position: relative; 
-            min-height: 220px; 
-            flex-shrink: 0; 
-            border-radius: 20px; 
-            overflow: hidden; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end; 
-            padding: 20px; 
-            color: white; 
-            box-shadow: 0 8px 32px rgba(0,0,0,0.12); 
-        }
-        .bg-slide { position: absolute; inset: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.5s ease-in-out; z-index: 0; }
-        .bg-slide.active { opacity: 1; }
-        .hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%); z-index: 1; }
-        .hero-content { position: relative; z-index: 2; }
-        .hero-content h2 { font-size: 1.4rem; margin-bottom: 6px; font-weight: 700; }
-        .hero-subtitle { font-size: 0.8rem; opacity: 0.9; margin-bottom: 14px; line-height: 1.5; }
-        .focus-badge { 
-            display: inline-flex; 
-            align-items: center; 
-            gap: 6px; 
-            background: linear-gradient(135deg, var(--accent-coral), #fb923c); 
-            color: white; 
-            padding: 6px 12px; 
-            border-radius: 20px; 
-            font-size: 0.7rem; 
-            font-weight: 700; 
-            text-transform: uppercase; 
-            letter-spacing: 0.5px; 
-            margin-bottom: 10px; 
-            box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3); 
-        }
-        
-        /* Glass Card */
-        .glass-card { 
-            background: var(--bg-white); 
-            border: 1px solid var(--border-light); 
-            border-radius: 20px; 
-            padding: 20px; 
-            box-shadow: var(--card-shadow); 
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-        .glass-card:hover { box-shadow: var(--card-shadow-hover); }
-        
-        /* Card Header & Icons */
+        /* Components */
+        .glass-card { background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 20px; padding: 20px; box-shadow: var(--card-shadow); flex-shrink: 0; transition: all 0.3s ease; }
         .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(0,0,0,0.05); }
         .icon-box { width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary-teal-light), var(--primary-teal)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25); flex-shrink: 0; }
         .icon-box.purple { background: linear-gradient(135deg, var(--primary-purple-light), var(--primary-purple)); box-shadow: 0 4px 12px rgba(109, 40, 217, 0.25); }
         .icon-box.red { background: linear-gradient(135deg, #f87171, #dc2626); box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25); }
         .icon-box.orange { background: linear-gradient(135deg, #fb923c, #ea580c); box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25); }
-        .icon-box.coral { background: linear-gradient(135deg, var(--accent-coral), #fb923c); box-shadow: 0 4px 12px rgba(249, 115, 22, 0.25); }
         .icon-box.blue { background: linear-gradient(135deg, #60a5fa, #3b82f6); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25); }
         .card-header h2 { font-size: 1.1rem; margin-bottom: 0; color: var(--text-dark); font-weight: 700; }
-        .card-header h3 { font-size: 1rem; color: var(--text-dark); font-weight: 600; flex: 1; }
         .card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
         
         /* Buttons */
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 12px; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none; border: none; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; }
-        .btn-primary { background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-dark)); color: white; box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
-        .btn-bright { background: linear-gradient(135deg, var(--primary-purple), var(--primary-purple-light)); color: white; box-shadow: 0 4px 12px rgba(109, 40, 217, 0.3); }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 12px; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none; border: none; transition: all 0.25s; white-space: nowrap; }
+        .btn-primary { background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-dark)); color: white; }
+        .btn-bright { background: linear-gradient(135deg, var(--primary-purple), var(--primary-purple-light)); color: white; }
         .btn-outline { background: transparent; border: 1.5px solid rgba(0,0,0,0.12); color: var(--text-dark); }
-        .btn-teal { background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light)); color: white; box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
-        .btn-coral { background: linear-gradient(135deg, var(--accent-coral), #fb923c); color: white; box-shadow: 0 4px 12px rgba(249, 115, 22, 0.35); }
-        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; box-shadow: 0 4px 12px rgba(220, 38, 38, 0.35); }
+        .btn-teal { background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light)); color: white; }
+        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
         
         /* Modal */
         .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
@@ -206,25 +83,23 @@
         .modal-box { background: white; padding: 28px; border-radius: 20px; width: 320px; max-width: 90vw; max-height: 85vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s; }
         .modal-overlay.active .modal-box { transform: scale(1); }
         .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
-        .modal-btn { flex: 1; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; font-size: 13px; text-decoration: none; transition: all 0.2s; }
+        .modal-btn { flex: 1; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; font-size: 13px; }
         .modal-btn.yes { background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light)); color: white; }
         .modal-btn.no { background: #f1f5f9; color: var(--text-muted); border: 1px solid #e2e8f0; }
         
         /* Form Elements */
         .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .input-field { width: 100%; background: var(--bg-soft); border: 1.5px solid transparent; padding: 12px 14px; border-radius: 10px; font-size: 14px; font-family: inherit; transition: all 0.2s; }
-        .input-field:focus { outline: none; border-color: var(--primary-teal); background: white; box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.1); }
+        .input-field:focus { outline: none; border-color: var(--primary-teal); background: white; }
         .input-group { margin-bottom: 14px; text-align: left; }
         .input-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
-        .input-hint { font-size: 11px; color: var(--text-muted); margin-top: 4px; font-style: italic; }
         
-        /* Checkbox & Radio Custom */
+        /* Checkbox Custom */
         .check-label { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--bg-soft); border: 1.5px solid transparent; border-radius: 12px; cursor: pointer; margin-bottom: 10px; transition: all 0.2s; }
-        .check-label:hover { border-color: var(--primary-teal); background: rgba(20, 184, 166, 0.05); }
+        .check-label:hover { border-color: var(--primary-teal); }
         .check-label input { display: none; }
         .check-box { width: 22px; height: 22px; border: 2px solid #cbd5e1; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; background: white; }
         .check-box.radio-style { border-radius: 50%; } 
-        
         .check-label input:checked + .check-box { background: var(--primary-teal); border-color: var(--primary-teal); }
         .check-label input:checked + .check-box::after { content: '✓'; font-size: 12px; color: white; font-weight: bold; }
         .check-label span { font-size: 13px; color: var(--text-dark); }
@@ -238,27 +113,22 @@
         .badge-red { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
         
         /* Score Circle */
-        .score-circle { width: 100px; height: 100px; margin: 0 auto 14px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-white); border: 4px solid #f1f5f9; box-shadow: inset 0 2px 8px rgba(0,0,0,0.04); }
+        .score-circle { width: 100px; height: 100px; margin: 0 auto 14px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-white); border: 4px solid #f1f5f9; }
         .score-circle.risk-low { border-color: var(--color-success); }
         .score-circle.risk-medium { border-color: var(--color-warning); }
         .score-circle.risk-high { border-color: var(--color-danger); }
         
         /* Staff Grid */
         .staff-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 8px; }
-        .staff-card { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 16px; cursor: pointer; color: white; transition: all 0.3s; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
-        .staff-card.community { background: linear-gradient(135deg, var(--primary-teal-dark), #0f766e); }
-        .staff-card:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0,0,0,0.2); }
-        .staff-avatar { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: rgba(255,255,255,0.15); flex-shrink: 0; backdrop-filter: blur(4px); }
+        .staff-card { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 16px; cursor: pointer; color: white; transition: all 0.3s; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, var(--primary-teal-dark), #0f766e); }
+        .staff-card:hover { transform: translateY(-2px); }
+        .staff-avatar { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: rgba(255,255,255,0.15); flex-shrink: 0; }
         .staff-info { flex: 1; }
         .staff-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
         .staff-role { font-size: 12px; opacity: 0.85; }
-        .staff-icon { font-size: 18px; opacity: 0.9; }
-        
+
         /* Visitor & Comments */
         .visitor-box { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; padding: 10px; background: var(--bg-soft); border-radius: 12px; }
-        .visitor-count { font-weight: 700; color: var(--primary-teal-dark); font-size: 14px; }
-        
-        .comment-section { margin-top: 16px; }
         .comment-card { background: var(--bg-soft); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
         .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
         .comment-name { font-weight: 700; font-size: 12px; color: var(--dark-blue); }
@@ -268,67 +138,52 @@
         /* Onboarding Choice */
         .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
         .choice-btn { background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 16px 10px; cursor: pointer; transition: all 0.3s; text-align: center; }
-        .choice-btn:hover { border-color: var(--primary-teal); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .choice-btn:hover { border-color: var(--primary-teal); }
         .choice-btn.active { border-color: var(--primary-teal); background: rgba(20, 184, 166, 0.05); }
         .choice-icon { font-size: 28px; margin-bottom: 8px; display: block; }
         .choice-text { font-size: 13px; font-weight: 600; color: var(--dark-blue); }
-        .choice-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
 
-        /* Info Box */
-        .info-box { background: var(--bg-soft); border: 1px solid rgba(0,0,0,0.04); border-radius: 14px; padding: 16px; margin-top: 16px; }
-        .info-box p { font-size: 13px; color: var(--dark-blue); text-align: center; line-height: 1.6; }
-        
-        /* Loading Spinner */
+        /* Reference Box Style */
+        .source-ref {
+            margin-top: 16px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(0,0,0,0.1);
+            text-align: left;
+        }
+        .source-ref h4 {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .source-ref p {
+            font-size: 11px;
+            color: var(--text-muted);
+            font-style: italic;
+            line-height: 1.4;
+        }
+        .source-ref p a {
+            color: var(--primary-teal-dark);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Hologram */
+        .holo-container { position: fixed; bottom: 90px; right: 15px; width: 140px; height: 220px; z-index: 9999; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.5s; }
+        .holo-container.show { opacity: 1; visibility: visible; transform: translateY(0); }
+        .holo-body { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); width: 100px; height: 180px; }
+        .holo-avatar { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.9)); opacity: 0.9; }
+        .tour-tooltip { position: fixed; bottom: 130px; right: 165px; background: rgba(255, 255, 255, 0.98); padding: 18px 22px; border-radius: 16px; width: 260px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        .tour-tooltip.active { opacity: 1; visibility: visible; }
+        .tour-tooltip h4 { color: var(--primary-teal-dark); margin-bottom: 6px; font-size: 1rem; }
+        .tour-tooltip p { font-size: 13px; margin-bottom: 0; color: var(--text-dark); }
+
+        /* Spinner */
         .spinner { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary-teal); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 
-        /* HOLOGRAM & TOUR STYLES */
-        .holo-container { position: fixed; bottom: 90px; right: 15px; width: 140px; height: 220px; z-index: 9999; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95); transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), visibility 0.5s; perspective: 1000px; }
-        .holo-container.show { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-        .holo-base { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.6) 0%, rgba(0, 255, 255, 0) 70%); border-radius: 50%; z-index: 1; animation: none; }
-        .holo-container.show .holo-base { animation: basePulse 3s infinite ease-in-out; }
-        .holo-body { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); width: 100px; height: 180px; transform-style: preserve-3d; z-index: 2; }
-        .holo-container.show .holo-body { animation: holoFloat 6s infinite ease-in-out; }
-        .holo-avatar { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.9)) brightness(1.1) contrast(1.1); mix-blend-mode: screen; opacity: 0.9; }
-        .tour-tooltip { position: fixed; bottom: 130px; right: 165px; background: rgba(255, 255, 255, 0.98); padding: 18px 22px; border-radius: 16px 16px 0 16px; width: 260px; max-width: calc(100% - 180px); box-shadow: 0 10px 40px rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.5); z-index: 10000; opacity: 0; visibility: hidden; transform: translateY(10px) scale(0.95); transition: all 0.3s ease; text-align: left; }
-        .tour-tooltip.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
-        .tour-tooltip h4 { color: var(--primary-teal-dark); margin-bottom: 6px; font-size: 1rem; font-weight: 700; }
-        .tour-tooltip p { font-size: 13px; margin-bottom: 0; line-height: 1.5; color: var(--text-dark); }
-
-        @keyframes holoFloat { 0% { transform: translateX(-50%) translateY(0) rotateY(0deg); } 25% { transform: translateX(-50%) translateY(-10px) rotateY(5deg); } 50% { transform: translateX(-50%) translateY(0) rotateY(0deg); } 75% { transform: translateX(-50%) translateY(-10px) rotateY(-5deg); } 100% { transform: translateX(-50%) translateY(0) rotateY(0deg); } }
-        @keyframes basePulse { 0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.1); } }
-
-        /* Credits Overlay */
-        .credits-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: var(--dark-blue); z-index: 10010; display: flex; justify-content: center; align-items: flex-start; overflow: hidden; opacity: 0; visibility: hidden; transition: opacity 1.5s ease; }
-        .credits-overlay.active { opacity: 1; visibility: visible; }
-        .credits-content { width: 100%; text-align: center; color: white; font-family: 'Outfit', sans-serif; padding: 0 24px; padding-top: 100vh; padding-bottom: 50px; animation: scrollDown 150s linear forwards; position: relative; z-index: 2; }
-        @keyframes scrollDown { 0% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
-        .credits-title { font-size: 28px; font-weight: 800; letter-spacing: 5px; margin-bottom: 80px; text-transform: uppercase; color: var(--primary-teal-light); }
-        .star-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; }
-        .star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: fallingStar linear infinite; }
-        @keyframes fallingStar { 0% { transform: translateY(-10px) translateX(0) scale(0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(100vh) translateX(20px) scale(1); opacity: 0; } }
-
-        /* Tambahan CSS untuk Media Edukasi */
-        .video-edu-container {
-            position: relative;
-            border-radius: 14px;
-            overflow: hidden;
-            background: #000;
-            margin-bottom: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        .video-edu-container video {
-            width: 100%;
-            display: block;
-        }
-        .video-label {
-            font-size: 12px;
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-            font-weight: 500;
-        }
-        
     </style>
 </head>
 <body>
@@ -341,19 +196,19 @@
         <div class="modal-box" style="max-width: 340px;">
             <div style="font-size:48px; margin-bottom:10px;">👋</div>
             <h3 style="color:var(--dark-blue); font-size: 18px; font-weight: 700;">Selamat Datang di TEMAN!</h3>
-            <p style="font-size: 14px; color: var(--text-muted); margin-top: 6px;">Sebelum mulai, kenali kondisi akses dialisis Anda.</p>
+            <p style="font-size: 14px; color: var(--text-muted); margin-top: 6px;">Kenali kondisi akses dialisis Anda.</p>
             <div style="margin-top: 20px; text-align: left;">
                 <label style="font-size: 12px; font-weight: 600; color: var(--dark-blue);">Jenis Akses yang Digunakan:</label>
                 <div class="choice-grid" style="margin-top: 8px;">
                     <div class="choice-btn" onclick="selectAccess('cvc')">
                         <span class="choice-icon">🩺</span>
                         <div class="choice-text">CVC</div>
-                        <div class="choice-desc">Kateter Vena Sentral</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Kateter Vena Sentral</div>
                     </div>
                     <div class="choice-btn" onclick="selectAccess('av')">
                         <span class="choice-icon">💪</span>
                         <div class="choice-text">AV Shunt</div>
-                        <div class="choice-desc">Fistula / Graft</div>
+                        <div style="font-size: 11px; color: var(--text-muted);">Fistula / Graft</div>
                     </div>
                 </div>
             </div>
@@ -365,21 +220,19 @@
     <div class="modal-overlay" id="waModal">
         <div class="modal-box">
             <div style="font-size:48px; margin-bottom:10px;">&#128172;</div>
-            <h3 style="color:var(--dark-blue); font-size: 18px; font-weight: 700;">Hubungi Kami</h3>
-            <p style="font-size: 14px; color: var(--text-muted); margin-top: 6px;">Adakah yang bisa kami bantu?</p>
+            <h3 style="color:var(--dark-blue); font-size: 18px;">Hubungi Kami</h3>
             <div class="modal-btns">
                 <button class="modal-btn no" onclick="closeModal('waModal')">Batal</button>
-                <a href="#" id="confirmWaBtn" class="modal-btn yes" target="_blank">Ya, Kirim</a>
+                <a href="#" id="confirmWaBtn" class="modal-btn yes" target="_blank">Kirim</a>
             </div>
         </div>
     </div>
     <div class="modal-overlay" id="passwordModal">
         <div class="modal-box">
             <div style="font-size:48px; margin-bottom:10px;">&#128274;</div>
-            <h3 style="color:var(--dark-blue); font-size: 18px; font-weight: 700;">Akses Terbatas</h3>
-            <p style="font-size: 14px; color: var(--text-muted); margin-top: 6px;">Masukkan kode untuk menambah acara.</p>
+            <h3 style="color:var(--dark-blue); font-size: 18px;">Akses Terbatas</h3>
             <div style="margin-top: 15px;">
-                <input type="password" id="passwordInput" class="input-field" placeholder="Masukkan Kode..." style="text-align: center; letter-spacing: 5px;">
+                <input type="password" id="passwordInput" class="input-field" placeholder="Masukkan Kode..." style="text-align: center;">
             </div>
             <div class="modal-btns">
                 <button class="modal-btn no" onclick="closeModal('passwordModal')">Batal</button>
@@ -390,30 +243,13 @@
     <div class="modal-overlay" id="eventModal">
         <div class="modal-box" style="width: 340px;">
             <div style="font-size:48px; margin-bottom:10px;">&#128197;</div>
-            <h3 style="color:var(--dark-blue); font-size: 18px; font-weight: 700;">Tambah Acara Baru</h3>
+            <h3 style="color:var(--dark-blue); font-size: 18px;">Tambah Acara Baru</h3>
             <div style="margin-top: 15px; text-align: left;">
-                <div class="input-group">
-                    <label>Judul Acara *</label>
-                    <input type="text" id="evTitle" class="input-field" placeholder="Nama acara...">
-                </div>
-                <div class="input-group">
-                    <label>Tanggal & Waktu *</label>
-                    <input type="text" id="evDate" class="input-field" placeholder="Mis: Kamis, 12 Maret 2026">
-                </div>
-                <div class="input-group">
-                    <label>Link Gambar Poster (Wajib "Anyone with the link")</label>
-                    <input type="text" id="evImg" class="input-field" placeholder="Link Google Drive gambar (JPG/PNG)">
-                    <div class="input-hint" style="color: var(--color-warning);">PENTING: Pastikan file di Google Drive sudah di-Share ke "Anyone with the link".</div>
-                </div>
-                <div class="input-group">
-                    <label>Link Tujuan Poster (Opsional)</label>
-                    <input type="text" id="evLink" class="input-field" placeholder="Link Zoom, pendaftaran, dll">
-                    <div class="input-hint">Alamat web yang terbuka saat poster diklik.</div>
-                </div>
-                <div class="input-group">
-                    <label>Deskripsi / Informasi Acara</label>
-                    <textarea id="evDesc" class="input-field" rows="5" placeholder="Detail acara..."></textarea>
-                </div>
+                <div class="input-group"><label>Judul Acara *</label><input type="text" id="evTitle" class="input-field" placeholder="Nama acara..."></div>
+                <div class="input-group"><label>Tanggal & Waktu *</label><input type="text" id="evDate" class="input-field" placeholder="Mis: Kamis, 12 Maret 2026"></div>
+                <div class="input-group"><label>Link Gambar Poster</label><input type="text" id="evImg" class="input-field" placeholder="Link Google Drive"></div>
+                <div class="input-group"><label>Link Tujuan (Opsional)</label><input type="text" id="evLink" class="input-field" placeholder="Link Zoom"></div>
+                <div class="input-group"><label>Deskripsi</label><textarea id="evDesc" class="input-field" rows="3" placeholder="Detail..."></textarea></div>
             </div>
             <div class="modal-btns">
                 <button class="modal-btn no" onclick="closeModal('eventModal')">Batal</button>
@@ -422,72 +258,34 @@
         </div>
     </div>
     
-    <!-- Loading Modal -->
     <div class="modal-overlay" id="loadingModal">
-         <div class="modal-box" style="padding: 20px;">
-             <div class="spinner"></div>
-             <p style="margin-top: 10px; font-size: 13px; color: var(--text-muted);">Menyimpan data...</p>
-         </div>
-    </div>
-
-    <!-- CREDITS OVERLAY -->
-    <div class="credits-overlay" id="creditsOverlay">
-        <div class="star-container" id="starContainer"></div>
-        <div class="credits-content" id="creditsContent">
-            <div class="credits-title">TIM INOCA RSSA PROV. JATIM</div>
-            <div class="credits-section"><p>Jl. Jaksa Agung Suprapto No. 2, Malang<br>Jawa Timur</p></div>
-            <div class="credits-section"><div class="role">Developer</div><p>Tim IT RSSA</p></div>
-            <div style="height: 200px;"></div>
-        </div>
+         <div class="modal-box" style="padding: 20px;"><div class="spinner"></div><p style="margin-top: 10px; font-size: 13px; color: var(--text-muted);">Menyimpan...</p></div>
     </div>
 
     <!-- HEADER -->
     <header>
-        <div class="brand-container" id="tour-step-0">
+        <div class="brand-container">
             <img src="logo.png" alt="Logo" class="logo-img">
             <div class="brand-text">
                 <h1>TEMAN</h1>
                 <p id="tagline"></p>
             </div>
         </div>
-        <button class="btn btn-outline" onclick="startTour()" style="padding: 8px 14px; font-size: 12px; flex-shrink: 0;">
-            &#128270; Panduan
-        </button>
+        <button class="btn btn-outline" onclick="startTour()" style="padding: 8px 14px; font-size: 12px;">&#128270; Panduan</button>
     </header>
 
-  <!-- NAVIGATION -->
-<nav id="navbar">
-    <div class="nav-track" id="navTrack">
-        <div class="nav-card active" onclick="scrollToSlide(0, 'Beranda TEMAN. Pusat informasi dan interaksi.')">
-            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop" alt="Beranda">
-            <div class="text-overlay"><span class="text">Beranda</span></div>
+    <!-- NAVIGATION -->
+    <nav id="navbar">
+        <div class="nav-track">
+            <div class="nav-card active" onclick="scrollToSlide(0, 'Beranda')"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop" alt="Beranda"><div class="text-overlay"><span class="text">Beranda</span></div></div>
+            <div class="nav-card" onclick="scrollToSlide(1, 'Acara')"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop" alt="Acara"><div class="text-overlay"><span class="text">Acara</span></div></div>
+            <div class="nav-card" onclick="scrollToSlide(2, 'CVC')"><img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=2070&auto=format&fit=crop" alt="CVC"><div class="text-overlay"><span class="text">CVC</span></div></div>
+            <div class="nav-card" onclick="scrollToSlide(3, 'AV Shunt')"><img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2072&auto=format&fit=crop" alt="AV Shunt"><div class="text-overlay"><span class="text">AV Shunt</span></div></div>
+            <div class="nav-card" onclick="scrollToSlide(4, 'Edukasi')"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop" alt="Edukasi"><div class="text-overlay"><span class="text">Edukasi</span></div></div>
+            <div class="nav-card" onclick="scrollToSlide(5, 'Konsultasi')"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2032&auto=format&fit=crop" alt="Konsultasi"><div class="text-overlay"><span class="text">Konsultasi</span></div></div>
+            <div class="nav-card" onclick="scrollToSlide(6, 'Info')"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" alt="Info"><div class="text-overlay"><span class="text">Info</span></div></div>
         </div>
-        <div class="nav-card" onclick="scrollToSlide(1, 'Halaman Acara. Lihat jadwal kegiatan.')">
-            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop" alt="Acara">
-            <div class="text-overlay"><span class="text">Acara</span></div>
-        </div>
-        <div class="nav-card" onclick="scrollToSlide(2, 'CVC. Penilaian risiko infeksi kateter.')">
-            <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=2070&auto=format&fit=crop" alt="CVC">
-            <div class="text-overlay"><span class="text">CVC</span></div>
-        </div>
-        <div class="nav-card" onclick="scrollToSlide(3, 'AV Shunt. Cek kondisi fistula Anda.')">
-            <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2072&auto=format&fit=crop" alt="AV Shunt">
-            <div class="text-overlay"><span class="text">AV Shunt</span></div>
-        </div>
-        <div class="nav-card" onclick="scrollToSlide(4, 'Edukasi. Akses materi kesehatan.')">
-            <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop" alt="Edukasi">
-            <div class="text-overlay"><span class="text">Edukasi</span></div>
-        </div>
-        <div class="nav-card" onclick="scrollToSlide(5, 'Konsultasi. Hubungi tim medis.')">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2032&auto=format&fit=crop" alt="Konsultasi">
-            <div class="text-overlay"><span class="text">Konsultasi</span></div>
-        </div>
-        <div class="nav-card" onclick="scrollToSlide(6, 'Info Aplikasi.')">
-            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" alt="Info">
-            <div class="text-overlay"><span class="text">Info</span></div>
-        </div>
-    </div>
-</nav>
+    </nav>
 
     <!-- MAIN CONTENT -->
     <main id="slider">
@@ -497,82 +295,46 @@
                 <div class="bg-slide active" style="background-image: url('banner-saya.png');"></div>
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
-                    <div class="focus-badge">&#128293; Fokus: Kesehatan Akses</div>
+                    <div class="badge" style="background: var(--accent-coral); color: white;">&#128293; Fokus: Kesehatan Akses</div>
                     <h2>Selamat Datang</h2>
-                    <p class="hero-subtitle">Platform edukasi dan monitoring akses dialisis terpadu.</p>
+                    <p class="card-desc" style="color: rgba(255,255,255,0.9);">Platform edukasi dan monitoring akses dialisis terpadu.</p>
                 </div>
             </div>
-
-            <!-- Visitor Counter -->
-            <div class="visitor-box">
-                <span>👁️ Pengunjung:</span>
-                <span id="visitorCount" class="visitor-count">1,250</span>
-            </div>
+            <div class="visitor-box"><span>👁️ Pengunjung:</span><span id="visitorCount" style="font-weight: 700; color: var(--primary-teal-dark);">1,250</span></div>
             
-            <!-- Komentar Pengunjung -->
             <div class="glass-card">
                 <div class="card-header" style="border-bottom: none; padding-bottom: 0; margin-bottom: 10px;">
                     <div class="icon-box blue" style="width: 36px; height: 36px; font-size: 14px;">💬</div>
                     <h3 style="font-size: 14px;">Komentar Pengunjung</h3>
                 </div>
-                
                 <div class="comment-section">
-                    <div class="comment-card">
-                        <div class="comment-header">
-                            <span class="comment-name">Budi S.</span>
-                            <span class="comment-time">2 jam lalu</span>
-                        </div>
-                        <p class="comment-text">Sangat membantu memahami perawatan CVC. Terima kasih TIM INOCA!</p>
-                    </div>
-                    <div class="comment-card">
-                        <div class="comment-header">
-                            <span class="comment-name">Siti A.</span>
-                            <span class="comment-time">5 jam lalu</span>
-                        </div>
-                        <p class="comment-text">Materi AV Shunt nya jelas sekali. Jadi tau cara cek fistula sendiri.</p>
-                    </div>
+                    <div class="comment-card"><div class="comment-header"><span class="comment-name">Budi S.</span><span class="comment-time">2 jam lalu</span></div><p class="comment-text">Sangat membantu memahami perawatan CVC.</p></div>
+                    <div class="comment-card"><div class="comment-header"><span class="comment-name">Siti A.</span><span class="comment-time">5 jam lalu</span></div><p class="comment-text">Materi AV Shunt nya jelas sekali.</p></div>
                 </div>
-
-                <div style="margin-top: 12px;">
-                    <a href="#" id="addCommentBtn" class="btn btn-outline" style="width: 100%; font-size: 12px;">
-                        ✍️ Tulis Komentar
-                    </a>
-                </div>
+                <div style="margin-top: 12px;"><a href="#" id="addCommentBtn" class="btn btn-outline" style="width: 100%; font-size: 12px;">✍️ Tulis Komentar</a></div>
             </div>
         </section>
 
         <!-- SLIDE 1: ACARA -->
         <section class="slide-section" id="slide-1">
             <div class="glass-card">
-                <div class="card-header">
-                    <div class="icon-box purple">&#128197;</div>
-                    <h2>Agenda & Acara</h2>
-                </div>
-                <p class="card-desc">Daftar kegiatan yang akan atau sedang berlangsung.</p>
+                <div class="card-header"><div class="icon-box purple">&#128197;</div><h2>Agenda & Acara</h2></div>
                 <button class="btn btn-bright" style="width: 100%; margin-bottom: 16px;" onclick="openModal('passwordModal')">+ Tambah Acara</button>
-                <div id="eventList" class="event-list-container">
-                    <div class="spinner"></div>
-                </div>
+                <div id="eventList"><div class="spinner"></div></div>
             </div>
         </section>
         
         <!-- SLIDE 2: CVC -->
         <section class="slide-section" id="slide-2">
              <div class="glass-card">
-                
-                <!-- Intro Box -->
-                <div style="background: rgba(20, 184, 166, 0.05); border-left: 4px solid var(--primary-teal); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                <div style="background: rgba(239, 68, 68, 0.05); border-left: 4px solid var(--color-danger); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
                     <h3 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 4px;">🩺 Tentang CVC</h3>
-                    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">CVC (Kateter Vena Sentral) adalah akses sementara untuk hemodialisis. Perawatan kebersihan adalah kunci utama mencegah infeksi.</p>
+                    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">CVC (Kateter Vena Sentral) adalah akses sementara. <strong>Risiko utama: Infeksi.</strong></p>
                 </div>
 
-                <div class="card-header">
-                    <div class="icon-box red">&#129656;</div>
-                    <h2>Cek Risiko Infeksi CVC</h2>
-                </div>
-                <p class="card-desc">Identifikasi risiko infeksi pada kateter vena sentral Anda.</p>
+                <div class="card-header"><div class="icon-box red">&#129656;</div><h2>Cek Risiko Infeksi CVC</h2></div>
                 
-                <div id="cvc-form" style="margin-top: 14px;">
+                <div id="cvc-form">
                     <div class="grid-2">
                         <div class="input-group"><label>ID Pasien</label><input type="text" class="input-field" id="cvc_id" placeholder="RM-001"></div>
                         <div class="input-group"><label>Hari Terpasang</label><input type="number" class="input-field" id="cvc_days" placeholder="14"></div>
@@ -584,18 +346,24 @@
                         <label class="check-label"><input type="checkbox" id="q4"><span class="check-box"></span><span>Keluar nanah/cairan (Kritis)</span></label>
                         <label class="check-label"><input type="checkbox" id="q5"><span class="check-box"></span><span>Demam/Menggigil (Kritis)</span></label>
                     </div>
-                    <button class="btn btn-teal" style="width: 100%; margin-top: 16px; color: white; font-size: 13px;" onclick="calculateCVC()">Hitung Risiko</button>
+                    <button class="btn btn-teal" style="width: 100%; margin-top: 16px; color: white;" onclick="calculateCVC()">Hitung Risiko</button>
                 </div>
                 
                 <div id="cvc-result" style="display: none; text-align: center; padding-top: 16px;">
-                    <div class="score-circle" id="cvc-score-circle">
-                        <span id="score-val" style="font-size: 32px; font-weight: 700; color: var(--text-dark);">0</span>
-                        <span style="font-size: 11px; color: var(--text-muted);">Gejala</span>
-                    </div>
+                    <div class="score-circle" id="cvc-score-circle"><span id="score-val" style="font-size: 32px; font-weight: 700;">0</span><span style="font-size: 11px; color: var(--text-muted);">Gejala</span></div>
                     <span id="risk-badge" class="badge badge-teal">Aman</span>
                     <p style="margin-top: 10px; color: var(--text-dark); font-size: 13px; font-weight: 500;" id="risk-msg">Tidak ada tanda masalah.</p>
                     <div id="cvc-critical-action" style="display:none; margin-top:14px;"></div>
-                    <button class="btn btn-outline" style="margin-top: 16px; font-size: 13px;" onclick="resetCVC()">Ulangi</button>
+                    <button class="btn btn-outline" style="margin-top: 16px;" onclick="resetCVC()">Ulangi</button>
+                </div>
+
+                <!-- Sumber CVC -->
+                <div class="source-ref">
+                    <h4>📚 Sumber & Referensi</h4>
+                    <p>Penilaian infeksi berdasarkan gejala klinis sesuai pedoman:
+                    <br>• <a href="https://www.cdc.gov/infectioncontrol/guidelines/bsi/index.html" target="_blank">CDC Guidelines for the Prevention of Intravascular Catheter-Related Infection (2017)</a>
+                    <br>• <a href="https://kdigo.org/" target="_blank">KDOQI Clinical Practice Guideline for Vascular Access (2019 Update)</a>
+                    <br>• Pedoman Pernefri (Perhimpunan Nefrologi Indonesia).</p>
                 </div>
             </div>
         </section>
@@ -603,26 +371,17 @@
         <!-- SLIDE 3: AV SHUNT -->
         <section class="slide-section" id="slide-3">
             <div class="glass-card">
-                
-                <!-- AV Shunt Visual Placeholder -->
                 <div style="text-align: center; margin-bottom: 16px;">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80" alt="Ilustrasi AV Shunt" style="width: 100%; height: 140px; object-fit: cover; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px; font-style: italic;">Ilustrasi: Pemeriksaan AV Shunt</p>
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80" alt="Ilustrasi AV Shunt" style="width: 100%; height: 140px; object-fit: cover; border-radius: 12px;">
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Ilustrasi: Pemeriksaan AV Shunt</p>
                 </div>
 
-                <div class="card-header">
-                    <div class="icon-box orange">&#128140;</div>
-                    <h2>Penilaian Mandiri AV Shunt</h2>
-                </div>
-                <p class="card-desc">Periksa kondisi fistula/jalan darah Anda.</p>
-                <div id="av-form" style="margin-top: 14px;">
-                    
-                    <div class="input-group">
-                        <label>ID Pasien</label>
-                        <input type="text" class="input-field" id="av_id" placeholder="Nama / No RM">
-                    </div>
+                <div class="card-header"><div class="icon-box orange">&#128140;</div><h2>Penilaian Mandiri AV Shunt</h2></div>
+                <p class="card-desc">Periksa kondisi fistula/jalan darah (Look, Listen, Feel).</p>
+                <div id="av-form">
+                    <div class="input-group"><label>ID Pasien</label><input type="text" class="input-field" id="av_id" placeholder="Nama / No RM"></div>
 
-                    <div class="section-title-sm">1. Pemeriksaan Visual</div>
+                    <div class="section-title-sm">1. Pemeriksaan Visual (Look)</div>
                     <label class="check-label"><input type="checkbox" id="av_vis_red"><span class="check-box"></span><span>Kemerahan / Bengkak / Lepuhan</span></label>
                     <label class="check-label"><input type="checkbox" id="av_vis_pus"><span class="check-box"></span><span>Keluar Nanah (Kritis)</span></label>
                     <label class="check-label"><input type="checkbox" id="av_vis_bleed"><span class="check-box"></span><span>Perdarahan Aktif (Kritis)</span></label>
@@ -630,19 +389,19 @@
                     <div class="section-title-sm">2. Arm Elevation Test</div>
                     <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Angkat lengan shunt setinggi bahu. Apakah pembuluh darah mengempis?</p>
                     <label class="check-label"><input type="radio" name="av_elev" value="yes" checked><span class="check-box radio-style"></span><span>Ya, Mengempis (Normal)</span></label>
-                    <label class="check-label"><input type="radio" name="av_elev" value="no"><span class="check-box radio-style"></span><span>Tidak, Tetap Bengkak (Kemungkinan Stenosis)</span></label>
+                    <label class="check-label"><input type="radio" name="av_elev" value="no"><span class="check-box radio-style"></span><span>Tidak, Tetap Bengkak (Tanda Stenosis)</span></label>
 
-                    <div class="section-title-sm">3. Pemeriksaan Raba (Thrill)</div>
+                    <div class="section-title-sm">3. Pemeriksaan Raba (Feel/Thrill)</div>
                     <label class="check-label"><input type="radio" name="av_thrill" value="normal" checked><span class="check-box radio-style"></span><span>Terasa Getaran (Normal)</span></label>
                     <label class="check-label"><input type="radio" name="av_thrill" value="weak"><span class="check-box radio-style"></span><span>Lemah / Berkurang</span></label>
-                    <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box radio-style"></span><span>Hilang (Kritis)</span></label>
+                    <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box radio-style"></span><span>Hilang (Kritis - Thrombosis)</span></label>
                     
                     <label class="check-label" style="margin-top:8px;"><input type="checkbox" id="av_palp_pain"><span class="check-box"></span><span>Nyeri hebat saat disentuh</span></label>
 
                     <div class="section-title-sm">4. Tanda Peringatan Lain</div>
-                    <label class="check-label"><input type="checkbox" id="av_other_cold"><span class="check-box"></span><span>Tangan pucat, dingin, atau mati rasa (Kritis)</span></label>
+                    <label class="check-label"><input type="checkbox" id="av_other_cold"><span class="check-box"></span><span>Tangan pucat, dingin, mati rasa (Steal Syndrome)</span></label>
 
-                    <button class="btn btn-teal" style="width: 100%; margin-top: 20px; color: white; font-size: 13px;" onclick="calculateAV()">Cek Kondisi</button>
+                    <button class="btn btn-teal" style="width: 100%; margin-top: 20px; color: white;" onclick="calculateAV()">Cek Kondisi</button>
                 </div>
                 
                 <div id="av-result" style="display: none; text-align: center; padding-top: 16px;">
@@ -650,98 +409,46 @@
                     <p style="margin-top: 14px; font-weight: 600; color: var(--text-dark); font-size: 15px;" id="av-msg">Kondisi fistula baik.</p>
                     <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px; line-height: 1.5;" id="av-recom">Rekomendasi.</p>
                     <div id="av-critical-action" style="display:none; margin-top:16px;"></div>
-                    <button class="btn btn-outline" style="margin-top: 16px; font-size: 13px;" onclick="resetAV()">Cek Ulang</button>
+                    <button class="btn btn-outline" style="margin-top: 16px;" onclick="resetAV()">Cek Ulang</button>
+                </div>
+
+                <!-- Sumber AV Shunt -->
+                <div class="source-ref">
+                    <h4>📚 Sumber & Referensi</h4>
+                    <p>Penilaian fisik (Inspeksi, Palpasi, Auskultasi) mengacu pada:
+                    <br>• <a href="https://kdigo.org/" target="_blank">KDOQI Clinical Practice Guideline for Vascular Access (2019)</a> - Update Recommendations.
+                    <br>• <a href="https://www.vascularaccesssociety.org/" target="_blank">Vascular Access Society Guidelines</a>.
+                    <br>• Pedoman Pernefri: "Tata Laksana Akses Vaskuler Hemodialisis".
+                    <br><em>Arm Elevation Test merupakan metode klinis sederhana untuk skrining stenosis vena outflow.</em></p>
                 </div>
             </div>
         </section>
         
         <!-- SLIDE 4: EDUKASI -->
         <section class="slide-section" id="slide-4">
-             
-            <!-- VIDEO CVC -->
-            <div class="glass-card">
-                <div class="card-header">
-                    <div class="icon-box coral">&#127909;</div>
-                    <h3>Video Edukasi</h3>
-                </div>
+             <div class="glass-card">
+                <div class="card-header"><div class="icon-box" style="background: linear-gradient(135deg, #f97316, #ea580c);">&#127909;</div><h3>Video Edukasi</h3></div>
                 <a href="https://drive.google.com/file/d/16_RQIDh7VcxzXJw_-dmkdnAANP0pZg8x/view?usp=sharing" target="_blank" style="text-decoration: none;">
-                    <div class="video-preview"><div class="play-btn">&#9658;</div></div>
-                </a>
-                <p style="font-size: 13px; text-align: center; color: var(--text-muted); margin:0;">Klik untuk tonton video perawatan</p>
-            </div>
-
-            <!-- VIDEO KARTUN -->
-            <div class="glass-card">
-                <div class="card-header">
-                    <div class="icon-box coral">&#127909;</div>
-                    <h2>Video Kartun Edukasi</h2>
-                </div>
-                <div style="margin-top: 12px;">
-                    <div class="video-edu-container">
-                        <video controls playsinline>
-                            <source src="kartun1.mp4" type="video/mp4">
-                            Browser Anda tidak mendukung video.
-                        </video>
+                    <div style="position: relative; border-radius: 14px; overflow: hidden; background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
+                        <div style="width: 56px; height: 56px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary-teal);">&#9658;</div>
                     </div>
-                </div>
+                </a>
+                <p style="font-size: 13px; text-align: center; color: var(--text-muted); margin-top:8px;">Klik untuk tonton video perawatan</p>
             </div>
-
-            <!-- KOMIK EDUKASI -->
             <div class="glass-card">
-                <div class="card-header">
-                    <div class="icon-box orange">&#128214;</div>
-                    <h2>Komik Edukasi</h2>
-                </div>
-                <div style="border-radius: 14px; overflow: hidden; margin-top: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                    <img src="komik1.png" alt="Komik Edukasi" style="width: 100%; height: auto; display: block;">
-                </div>
+                <div class="card-header"><div class="icon-box orange">&#128214;</div><h2>Komik Edukasi</h2></div>
+                <div style="border-radius: 14px; overflow: hidden; margin-top: 12px;"><img src="komik1.png" alt="Komik" style="width: 100%; display: block;"></div>
             </div>
         </section>
         
         <!-- SLIDE 5: KONSULTASI -->
         <section class="slide-section" id="slide-5">
             <div class="glass-card">
-                <div class="card-header">
-                    <div class="icon-box">&#128101;</div>
-                    <h2>Konsultasi</h2>
-                </div>
-                <p class="card-desc">Hubungi Tim Edukator untuk konsultasi lebih lanjut.</p>
-                <div style="margin-top: 14px;">
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px; font-weight: 500;">Tim Edukasi:</p>
-                    <div class="staff-grid">
-                        <div class="staff-card community" onclick="confirmWA('6282227707573', 'Kak Ginjal')">
-                            <div class="staff-avatar">🩺</div>
-                            <div class="staff-info">
-                                <div class="staff-name">Kak Ginjal</div>
-                                <div class="staff-role">Edukator</div>
-                            </div>
-                            <div class="staff-icon">&#128172;</div>
-                        </div>
-                        <div class="staff-card community" onclick="confirmWA('6283831217784', 'Kak Vena')">
-                            <div class="staff-avatar">💉</div>
-                            <div class="staff-info">
-                                <div class="staff-name">Kak Vena</div>
-                                <div class="staff-role">Edukator</div>
-                            </div>
-                            <div class="staff-icon">&#128172;</div>
-                        </div>
-                        <div class="staff-card community" onclick="confirmWA('6282124700093', 'Kak Filter')">
-                            <div class="staff-avatar">🧬</div>
-                            <div class="staff-info">
-                                <div class="staff-name">Kak Filter</div>
-                                <div class="staff-role">Edukator</div>
-                            </div>
-                            <div class="staff-icon">&#128172;</div>
-                        </div>
-                        <div class="staff-card community" onclick="confirmWA('6285210622568', 'Kak Darah')">
-                            <div class="staff-avatar">🩸</div>
-                            <div class="staff-info">
-                                <div class="staff-name">Kak Darah</div>
-                                <div class="staff-role">Edukator</div>
-                            </div>
-                            <div class="staff-icon">&#128172;</div>
-                        </div>
-                    </div>
+                <div class="card-header"><div class="icon-box">&#128101;</div><h2>Konsultasi</h2></div>
+                <p class="card-desc">Hubungi Tim Edukator.</p>
+                <div class="staff-grid">
+                    <div class="staff-card" onclick="confirmWA('6282227707573', 'Kak Ginjal')"><div class="staff-avatar">🩺</div><div class="staff-info"><div class="staff-name">Kak Ginjal</div><div class="staff-role">Edukator</div></div><div class="staff-icon">&#128172;</div></div>
+                    <div class="staff-card" onclick="confirmWA('6283831217784', 'Kak Vena')"><div class="staff-avatar">💉</div><div class="staff-info"><div class="staff-name">Kak Vena</div><div class="staff-role">Edukator</div></div><div class="staff-icon">&#128172;</div></div>
                 </div>
             </div>
         </section>
@@ -749,99 +456,45 @@
         <!-- SLIDE 6: INFO -->
         <section class="slide-section" id="slide-6">
             <div class="glass-card">
-                <div class="card-header">
-                    <div class="icon-box purple">&#9432;</div>
-                    <h2>Tentang TEMAN</h2>
+                <div class="card-header"><div class="icon-box purple">&#9432;</div><h2>Tentang TEMAN</h2></div>
+                <div style="background: rgba(20, 184, 166, 0.05); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                     <p style="font-size: 13px; font-weight: 600; color: var(--dark-blue);">TEMAN (Terapi dan Monitoring Akses Dialisis)</p>
+                     <p style="font-size: 12px; color: var(--text-muted); margin-top:4px;">Platform edukasi pasien.</p>
                 </div>
-                
-                <div style="background: rgba(20, 184, 166, 0.05); border-left: 4px solid var(--primary-teal); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-                     <p style="font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--dark-blue);">TEMAN (Terapi dan Monitoring Akses Dialisis)</p>
-                     <p style="font-size: 12px; color: var(--text-muted); margin:0;">Platform edukasi pasien untuk memantau kesehatan akses dialisis secara mandiri.</p>
-                </div>
-
-                <div class="info-box">
-                    <p><strong>Developer:</strong><br>TIM INOCA INSTALASI DIALISIS RSSA</p>
-                </div>
+                <div style="background: var(--bg-soft); padding: 12px; border-radius: 8px;"><p style="font-size: 12px; color: var(--text-dark);"><strong>Developer:</strong> TIM INOCA RSSA</p></div>
             </div>
         </section>
     </main>
 
-    <!-- HOLOGRAM ELEMENT -->
-    <div class="holo-container" id="holoContainer">
-        <div class="holo-body">
-            <img src="dokter.gif" alt="AI Doctor" class="holo-avatar">
-        </div>
-    </div>
+    <!-- HOLOGRAM -->
+    <div class="holo-container" id="holoContainer"><div class="holo-body"><img src="dokter.gif" alt="AI" class="holo-avatar"></div></div>
 
     <script>
-    // --- URL API ANDA ---
     const API_URL = 'https://script.google.com/macros/s/AKfycbzu_WfyID_ggPD9TFbbdQFysAvcQyO5w7W22cD1udUF6ZHx5xG313ejhGwDmAXrJT4C/exec';
-
-    // --- GLOBALS ---
     const holoContainer = document.getElementById('holoContainer');
     const tourTooltip = document.getElementById('tourTooltip');
     const tooltipTitle = document.getElementById('tooltipTitle');
     const tooltipDesc = document.getElementById('tooltipDesc');
 
-    // --- ONBOARDING LOGIC ---
+    // --- ONBOARDING ---
     function selectAccess(type) {
         const infoDiv = document.getElementById('accessInfo');
         const choiceBtns = document.querySelectorAll('.choice-btn');
-        
         choiceBtns.forEach(btn => btn.classList.remove('active'));
         event.currentTarget.classList.add('active');
-
         let content = '';
         if (type === 'cvc') {
-            content = `
-                <div style="background: rgba(239, 68, 68, 0.05); padding: 12px; border-radius: 10px; border: 1px solid rgba(239, 68, 68, 0.1);">
-                    <h4 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 6px;">🩺 Info CVC (Kateter)</h4>
-                    <p style="font-size: 12px; color: var(--text-dark); margin-bottom: 8px;">
-                        <strong>Keuntungan:</strong> Bisa langsung dipakai.<br>
-                        <strong>Risiko:</strong> Infeksi lebih tinggi, umur pakai terbatas.
-                    </p>
-                    <p style="font-size: 12px; color: var(--text-dark); margin-bottom: 8px;">
-                        <strong>Perawatan:</strong> Jaga kebersihan, kasa kering, jangan basah.
-                    </p>
-                    <button class="btn btn-danger" style="width: 100%; font-size: 12px; margin-top: 8px;" onclick="goToAssessment('cvc')">Lanjut Cek Risiko CVC</button>
-                </div>
-            `;
-        } else if (type === 'av') {
-            content = `
-                <div style="background: rgba(249, 115, 22, 0.05); padding: 12px; border-radius: 10px; border: 1px solid rgba(249, 115, 22, 0.1);">
-                    <h4 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 6px;">💪 Info AV Shunt (Fistula)</h4>
-                    <p style="font-size: 12px; color: var(--text-dark); margin-bottom: 8px;">
-                        <strong>Keuntungan:</strong> Infeksi rendah, umur panjang.<br>
-                        <strong>Risiko:</strong> Pembekuan, penyempitan (stenosis).
-                    </p>
-                    <p style="font-size: 12px; color: var(--text-dark); margin-bottom: 8px;">
-                        <strong>Perawatan:</strong> Cek getaran (thrill) setiap hari, hindari tekanan.
-                    </p>
-                    <button class="btn btn-coral" style="width: 100%; font-size: 12px; margin-top: 8px;" onclick="goToAssessment('av')">Lanjut Cek Kondisi AV Shunt</button>
-                </div>
-            `;
+            content = `<div style="background: rgba(239, 68, 68, 0.05); padding: 12px; border-radius: 10px;"><h4 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 6px;">🩺 Info CVC</h4><p style="font-size: 12px; color: var(--text-dark);"><strong>Risiko:</strong> Infeksi tinggi.<br><strong>Perawatan:</strong> Jaga kasa kering.</p><button class="btn btn-danger" style="width: 100%; font-size: 12px; margin-top: 10px;" onclick="goToAssessment('cvc')">Lanjut Cek CVC</button></div>`;
+        } else {
+            content = `<div style="background: rgba(249, 115, 22, 0.05); padding: 12px; border-radius: 10px;"><h4 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 6px;">💪 Info AV Shunt</h4><p style="font-size: 12px; color: var(--text-dark);"><strong>Risiko:</strong> Penyumbatan.<br><strong>Perawatan:</strong> Cek getaran harian.</p><button class="btn btn-teal" style="width: 100%; font-size: 12px; margin-top: 10px;" onclick="goToAssessment('av')">Lanjut Cek AV</button></div>`;
         }
-        
         infoDiv.innerHTML = content;
         infoDiv.style.display = 'block';
     }
+    function goToAssessment(type) { closeModal('onboardingModal'); scrollToSlide(type === 'cvc' ? 2 : 3, 'Silakan isi form penilaian.'); }
 
-    function goToAssessment(type) {
-        closeModal('onboardingModal');
-        if (type === 'cvc') {
-            scrollToSlide(2, 'Silakan isi form penilaian risiko infeksi CVC berikut.');
-        } else {
-            scrollToSlide(3, 'Silakan ikuti langkah penilaian kondisi AV Shunt Anda.');
-        }
-    }
-
-    // --- HEADER ANIMATION ---
-    const phrases = [ 
-        "Terapi & Monitoring Akses", 
-        "Cek Kondisi Akses Vaskular", 
-        "Edukasi Interaktif", 
-        "Platform Pasien Dialisis" 
-    ];
+    // --- HEADER ---
+    const phrases = ["Terapi & Monitoring Akses", "Cek Kondisi Akses", "Edukasi Interaktif"];
     const taglineElement = document.getElementById('tagline');
     let phraseIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 70;
     function typeWriter() {
@@ -852,187 +505,50 @@
     }
     setTimeout(typeWriter, 400);
 
-   // --- NAVIGATION LOGIC ---
+    // --- NAVIGATION ---
     const navCards = document.querySelectorAll('.nav-card');
     const mainSlider = document.getElementById('slider');
-    
-    function scrollToSlide(index, msg) {
-        const targetSlide = document.getElementById('slide-' + index);
-        if (targetSlide) {
-            targetSlide.scrollIntoView({ behavior: 'smooth' });
-            updateActiveNav(index);
-        }
-        if(msg) { showHoloMessageSimple("Pemandu", msg); }
-    }
-    
-    function showHoloMessageSimple(title, text) {
-        tooltipTitle.innerText = title;
-        tooltipDesc.innerText = text;
-        holoContainer.classList.add('show');
-        tourTooltip.classList.add('active');
-        setTimeout(() => {
-            holoContainer.classList.remove('show');
-            tourTooltip.classList.remove('active');
-        }, 4000);
-    }
-    
+    function scrollToSlide(index, msg) { document.getElementById('slide-' + index).scrollIntoView({ behavior: 'smooth' }); updateActiveNav(index); if(msg) showHoloMessageSimple("Pemandu", msg); }
+    function showHoloMessageSimple(title, text) { tooltipTitle.innerText = title; tooltipDesc.innerText = text; holoContainer.classList.add('show'); tourTooltip.classList.add('active'); setTimeout(() => { holoContainer.classList.remove('show'); tourTooltip.classList.remove('active'); }, 4000); }
     function updateActiveNav(index) { navCards.forEach((card, i) => { card.classList.toggle('active', i === index); }); }
     mainSlider.addEventListener('scroll', () => { const scrollLeft = mainSlider.scrollLeft; const slideWidth = mainSlider.clientWidth; const activeIndex = Math.round(scrollLeft / slideWidth); updateActiveNav(activeIndex); });
 
-    // --- HOLOGRAM FUNCTIONS ---
-    function showHoloMessage(title, text, audioFile, callback) {
-        tooltipTitle.innerText = title;
-        tooltipDesc.innerText = text;
-        holoContainer.classList.add('show');
-        tourTooltip.classList.add('active');
-        setTimeout(() => {
-            holoContainer.classList.remove('show');
-            tourTooltip.classList.remove('active');
-            if(callback) callback();
-        }, 3000);
-    }
-
-    // --- TOUR LOGIC ---
-    const tourSteps = [
-        { element: '#tour-step-0', title: 'Selamat Datang!', desc: 'Ini adalah beranda TEMAN.', slide: 0 },
-        { element: '#navbar', title: 'Navigasi', desc: 'Geser menu di bawah untuk pindah halaman.', slide: 0 }
-    ];
-    let currentTourStep = -1;
-    
-    function startTour() { 
-        currentTourStep = -1; 
-        nextTourStep(); 
-    }
-
-    function nextTourStep() {
-        currentTourStep++;
-        if (currentTourStep >= tourSteps.length) { endTour(); return; }
-        
-        const step = tourSteps[currentTourStep];
-        const targetEl = document.querySelector(step.element);
-        const targetSlide = document.getElementById('slide-' + step.slide);
-        
-        if (targetSlide) {
-            targetSlide.scrollIntoView({ behavior: 'smooth' });
-            updateActiveNav(step.slide);
-        }
-
-        setTimeout(() => {
-            if (targetEl) {
-                showHoloMessage(step.title, step.desc, null, () => { setTimeout(nextTourStep, 500); });
-            }
-        }, 800);
-    }
-    
-    function endTour() { 
-        showHoloMessage("Selesai", "Tur selesai. Selamat menggunakan aplikasi!", null, null);
-    }
-
-    // --- BACKGROUND SLIDER ---
-    const slides = document.querySelectorAll('.bg-slide'); 
-    let currentSlide = 0;
-    function nextSlide() { 
-        slides[currentSlide].classList.remove('active'); 
-        currentSlide = (currentSlide + 1) % slides.length; 
-        slides[currentSlide].classList.add('active'); 
-    }
-    if(slides.length > 1) setInterval(nextSlide, 5000);
-
-    // --- MODALS & HELPERS ---
+    // --- MODALS ---
     function openModal(id) { document.getElementById(id).classList.add('active'); }
     function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    function confirmWA(phone, name) { 
-        const text = `Halo ${name}, saya ingin bertanya.`; 
-        const linkBtn = document.getElementById('confirmWaBtn'); 
-        linkBtn.href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`; 
-        openModal('waModal'); 
-    }
-
-    // --- EVENT LOGIC (API) ---
+    function confirmWA(phone, name) { const text = `Halo ${name}, saya ingin bertanya.`; document.getElementById('confirmWaBtn').href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`; openModal('waModal'); }
+    
+    // --- EVENT LOGIC ---
     const PASSWORD = "1111";
-    
-    function checkPassword() { 
-        if (document.getElementById('passwordInput').value === PASSWORD) {
-            closeModal('passwordModal'); 
-            openModal('eventModal'); 
-            document.getElementById('passwordInput').value = ""; 
-        } else { alert("Kode salah!"); } 
-    }
-
-    function makeLinksClickable(text) {
-        if (!text) return '';
-        const urlRegex = /(https?:\/\/[^\s<]+)/g;
-        const escapedText = text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
-        return escapedText.replace(urlRegex, function(url) {
-            return '<a href="' + url + '" target="_blank" rel="noopener noreferrer">' + url + '</a>';
-        });
-    }
-
-    function convertToDirectLink(url) {
-        if (!url) return '';
-        let match = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
-        if (match && match[1]) {
-            return `https://drive.google.com/uc?export=view&id=${match[1]}`;
-        }
-        match = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
-        if (match && match[1]) {
-            return `https://drive.google.com/uc?export=view&id=${match[1]}`;
-        }
-        if (url.includes('drive.google.com/uc?')) return url;
-        return url;
-    }
-    
+    function checkPassword() { if (document.getElementById('passwordInput').value === PASSWORD) { closeModal('passwordModal'); openModal('eventModal'); document.getElementById('passwordInput').value = ""; } else { alert("Kode salah!"); } }
+    function convertToDirectLink(url) { if (!url) return ''; let match = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/); if (match && match[1]) return `https://drive.google.com/uc?export=view&id=${match[1]}`; return url; }
     function loadEvents() {
         const container = document.getElementById('eventList');
-        fetch(API_URL)
-            .then(response => response.json())
-            .then(data => {
-                if (!data.length) { container.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Belum ada acara.</p>'; return; }
-                
-                container.innerHTML = data.map(ev => {
-                    const clickableDesc = makeLinksClickable(ev.desc);
-                    const directImgUrl = convertToDirectLink(ev.img);
-                    let posterHtml = '';
-                    if (directImgUrl) {
-                        const linkTag = ev.link ? `href="${ev.link}" target="_blank"` : `href="${directImgUrl}" target="_blank"`;
-                        const linkClass = ev.link ? 'has-link' : '';
-                        posterHtml = `<a ${linkTag} class="event-item-img-container ${linkClass}">
-                            <img src="${directImgUrl}" alt="Poster" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23f1f5f9%22 width=%22100%25%22 height=%22100%25%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2212%22 fill=%22%2364748b%22>Error</text></svg>';">
-                        </a>`;
-                    }
-                    return `<div class="event-item-card">${posterHtml}<div class="event-item-body"><div class="event-item-title">${ev.title}</div><div class="event-item-date">🗓 ${ev.date}</div><div class="event-item-desc">${clickableDesc}</div></div></div>`;
-                }).join('');
-            })
-            .catch(err => { container.innerHTML = '<p style="text-align:center; color:var(--color-danger); margin-top:20px;">Gagal memuat data.</p>'; });
+        fetch(API_URL).then(response => response.json()).then(data => {
+            if (!data.length) { container.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Belum ada acara.</p>'; return; }
+            container.innerHTML = data.map(ev => {
+                const directImgUrl = convertToDirectLink(ev.img);
+                let posterHtml = directImgUrl ? `<a href="${ev.link || directImgUrl}" target="_blank" style="display:block; border-radius:12px; overflow:hidden; margin-bottom:10px;"><img src="${directImgUrl}" style="width:100%; display:block;" onerror="this.style.display='none'"></a>` : '';
+                return `<div class="glass-card" style="padding:12px; margin-bottom:10px;">${posterHtml}<div style="font-weight:700; font-size:14px; margin-bottom:4px;">${ev.title}</div><div style="font-size:11px; color:var(--primary-teal); margin-bottom:6px;">🗓 ${ev.date}</div><div style="font-size:12px; color:var(--text-muted);">${ev.desc || ''}</div></div>`;
+            }).join('');
+        }).catch(() => { container.innerHTML = '<p style="text-align:center; color:var(--color-danger); margin-top:20px;">Gagal memuat.</p>'; });
     }
-
     function saveEvent() {
-        const title = document.getElementById('evTitle').value;
-        const date = document.getElementById('evDate').value;
-        const img = document.getElementById('evImg').value;
-        const link = document.getElementById('evLink').value;
-        const desc = document.getElementById('evDesc').value;
-        
-        if (!title || !date) { alert("Judul & Tanggal wajib diisi!"); return; }
+        const data = { password: PASSWORD, title: document.getElementById('evTitle').value, date: document.getElementById('evDate').value, img: document.getElementById('evImg').value, link: document.getElementById('evLink').value, desc: document.getElementById('evDesc').value };
+        if (!data.title || !data.date) { alert("Judul & Tanggal wajib!"); return; }
         openModal('loadingModal');
-        const data = { password: PASSWORD, title, date, img, link, desc };
         fetch(API_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-        .then(() => { closeModal('loadingModal'); closeModal('eventModal'); alert("Acara berhasil ditambahkan!"); ['evTitle', 'evDate', 'evImg', 'evLink', 'evDesc'].forEach(id => document.getElementById(id).value = ''); loadEvents(); })
-        .catch(err => { closeModal('loadingModal'); alert("Gagal menyimpan acara."); });
+        .then(() => { closeModal('loadingModal'); closeModal('eventModal'); alert("Sukses!"); loadEvents(); })
+        .catch(() => { closeModal('loadingModal'); alert("Gagal."); });
     }
     
     window.addEventListener('load', () => {
         loadEvents();
-        // Simulasi visitor count
         document.getElementById('visitorCount').innerText = Math.floor(Math.random() * 500) + 1200;
-        
-        // Setup comment link
-        document.getElementById('addCommentBtn').href = `https://wa.me/6282227707573?text=${encodeURIComponent("Halo, saya ingin memberikan komentar untuk aplikasi TEMAN...")}`;
+        document.getElementById('addCommentBtn').href = `https://wa.me/6282227707573?text=${encodeURIComponent("Komentar untuk TEMAN:")}`;
     });
 
     // --- CALCULATORS ---
-    const WA_DOKTER = '6281252651083'; 
-
     function calculateCVC() {
         let symptomCount = 0; let hasCriticalSign = false; 
         if (document.getElementById('q1')?.checked) symptomCount++; 
@@ -1054,56 +570,37 @@
         document.getElementById('cvc-result').style.display = 'block';
         document.getElementById('score-val').innerText = symptomCount; 
         document.getElementById('risk-msg').innerText = msg;
-        const badge = document.getElementById('risk-badge');
-        badge.innerText = level; badge.className = 'badge ' + bc;
+        document.getElementById('risk-badge').innerText = level;
+        document.getElementById('risk-badge').className = 'badge ' + bc;
         
         const criticalDiv = document.getElementById('cvc-critical-action');
-        const patientId = document.getElementById('cvc_id').value || 'Pasien CVC';
-        
-        let actionHTML = '';
-        if (level === "Tinggi") {
-            const waTextDokter = `🚨 LAPORAN DARURAT CVC%0AID: ${patientId}%0AStatus: ${level}`;
-            actionHTML += `<a href="https://wa.me/${WA_DOKTER}?text=${waTextDokter}" target="_blank" class="btn btn-danger" style="width:100%; text-decoration:none; margin-bottom: 10px;">&#128680; Lapor Dokter (Darurat)</a>`;
-            actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('CVC', '${patientId}', '${level}')">Lapor Admin</button>`;
-        } else if (level === "Sedang" || level === "Rendah") {
-             actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('CVC', '${patientId}', '${level}')">Lapor Admin</button>`;
-        }
+        const patientId = document.getElementById('cvc_id').value || 'Pasien';
+        let actionHTML = (level === "Tinggi") ? `<a href="tel:119" class="btn btn-danger" style="width:100%; margin-bottom:10px;">🚨 Hubungi Darurat</a>` : '';
+        actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('CVC', '${patientId}', '${level}')">Lapor Admin</button>`;
         
         criticalDiv.innerHTML = actionHTML;
-        criticalDiv.style.display = actionHTML ? 'block' : 'none';
+        criticalDiv.style.display = 'block';
     }
     function resetCVC() { document.getElementById('cvc-form').style.display = 'block'; document.getElementById('cvc-result').style.display = 'none'; document.querySelectorAll('#cvc-form input').forEach(c => c.checked = false); }
 
     function calculateAV() {
         const patientId = document.getElementById('av_id').value || 'Pasien';
-        
         const c_vis_red = document.getElementById('av_vis_red').checked;
         const c_vis_pus = document.getElementById('av_vis_pus').checked;
         const c_vis_bleed = document.getElementById('av_vis_bleed').checked;
         const c_palp_pain = document.getElementById('av_palp_pain').checked;
         const c_other_cold = document.getElementById('av_other_cold').checked;
-
         const thrillVal = document.querySelector('input[name="av_thrill"]:checked')?.value;
         const elevVal = document.querySelector('input[name="av_elev"]:checked')?.value;
         
         let status = "BAIK";
         let msg = "Kondisi fistula baik.";
-        let recom = "Lanjutkan perawatan rutin. Cek getaran (thrill) setiap hari.";
+        let recom = "Lanjutkan perawatan rutin.";
         let isCritical = false;
         let isWarning = false;
 
-        // Critical Logic
-        if (c_vis_pus || c_vis_bleed || c_other_cold || thrillVal === 'gone') {
-            status = "DARURAT";
-            msg = "🚨 Kondisi Kritis!";
-            recom = "Segera pergi ke IGD atau hubungi dokter. Jangan tunda!";
-            isCritical = true;
-        } else if (c_vis_red || c_palp_pain || thrillVal === 'weak' || elevVal === 'no') {
-            status = "PERHATIAN";
-            msg = "⚠️ Ada tanda yang perlu diwaspadai.";
-            recom = "Hindari tekanan pada area shunt. Segera konsultasi dengan perawat/admin.";
-            isWarning = true;
-        }
+        if (c_vis_pus || c_vis_bleed || c_other_cold || thrillVal === 'gone') { status = "DARURAT"; msg = "🚨 Kondisi Kritis!"; recom = "Segera ke IGD!"; isCritical = true; }
+        else if (c_vis_red || c_palp_pain || thrillVal === 'weak' || elevVal === 'no') { status = "PERHATIAN"; msg = "⚠️ Ada tanda peringatan."; recom = "Segera konsultasi."; isWarning = true; }
 
         document.getElementById('av-form').style.display = 'none';
         document.getElementById('av-result').style.display = 'block';
@@ -1116,35 +613,29 @@
         document.getElementById('av-recom').innerText = recom;
 
         const criticalDiv = document.getElementById('av-critical-action');
-        let actionHTML = '';
-
-        if (isCritical) {
-            actionHTML += `<a href="tel:119" class="btn btn-danger" style="width:100%; margin-bottom:10px; text-decoration:none;">🚨 Hubungi Layanan Darurat</a>`;
-            actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('AV Shunt', '${patientId}', 'DARURAT')">Lapor Admin</button>`;
-        } else if (isWarning) {
-            actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('AV Shunt', '${patientId}', 'PERHATIAN')">Lapor Admin</button>`;
-        }
-
+        let actionHTML = isCritical ? `<a href="tel:119" class="btn btn-danger" style="width:100%; margin-bottom:10px;">🚨 Hubungi Darurat</a>` : '';
+        actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('AV', '${patientId}', '${status}')">Lapor Admin</button>`;
+        
         criticalDiv.innerHTML = actionHTML;
-        criticalDiv.style.display = actionHTML ? 'block' : 'none';
+        criticalDiv.style.display = 'block';
     }
 
     function resetAV() { 
         document.getElementById('av-form').style.display = 'block'; 
         document.getElementById('av-result').style.display = 'none'; 
         document.querySelectorAll('#av-form input[type="checkbox"]').forEach(c => c.checked = false);
-        const normalRadio = document.querySelector('input[name="av_thrill"][value="normal"]');
-        if(normalRadio) normalRadio.checked = true;
-        const normalElev = document.querySelector('input[name="av_elev"][value="yes"]');
-        if(normalElev) normalElev.checked = true;
+        document.querySelector('input[name="av_thrill"][value="normal"]').checked = true;
+        document.querySelector('input[name="av_elev"][value="yes"]').checked = true;
     }
 
     function reportToAdmin(type, patientId, status) {
-        // Using first admin as default contact
         const phone = '6282227707573';
         const text = `Laporan ${type}%0AID: ${patientId}%0AStatus: ${status}`;
         window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
+
+    function startTour() { showHoloMessageSimple("Panduan", "Gunakan menu navigasi di bawah untuk berpindah halaman."); }
+    function showHoloMessage(title, text, audioFile, callback) { showHoloMessageSimple(title, text); }
 
 </script>
 </body>

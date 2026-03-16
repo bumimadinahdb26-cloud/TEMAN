@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TEMAN - Akses Dialisis</title>
+    <title>TEMAN - Dashboard Akses Dialisis</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -22,168 +22,369 @@
             --color-warning: #f59e0b;
             --color-success: #10b981;
             --accent-coral: #f97316;
-            --card-shadow: 0 2px 16px rgba(0, 0, 0, 0.06);
+            --accent-pink: #ec4899;
+            --accent-blue: #3b82f6;
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             --border-light: rgba(0, 0, 0, 0.05);
+            
+            --header-height: 70px;
+            --footer-height: 60px;
+            --sidebar-width-left: 280px;
+            --sidebar-width-right: 320px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'DM Sans', sans-serif; background-color: var(--bg-cream); color: var(--text-dark); overflow-x: hidden; min-height: 100vh; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'DM Sans', sans-serif; background-color: var(--bg-cream); color: var(--text-dark); overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column; }
         h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
 
-        .bg-blob { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.25; pointer-events: none; }
-        .blob-teal { width: 600px; height: 600px; background: var(--primary-teal-light); top: -20%; right: -20%; animation: float 25s infinite ease-in-out; }
-        .blob-purple { width: 500px; height: 500px; background: #a78bfa; bottom: 10%; left: -15%; animation: float 30s infinite ease-in-out reverse; }
-        @keyframes float { 0%, 100% { transform: translate(0, 0) scale(1); } 50% { transform: translate(30px, -30px) scale(1.05); } }
+        /* Background Effects */
+        .bg-blob { position: fixed; border-radius: 50%; filter: blur(120px); z-index: -1; opacity: 0.2; pointer-events: none; }
+        .blob-teal { width: 600px; height: 600px; background: var(--primary-teal-light); top: -20%; right: -10%; }
+        .blob-purple { width: 500px; height: 500px; background: #a78bfa; bottom: 10%; left: -10%; }
 
-        /* Header */
-        header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 10px 16px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); border-bottom-left-radius: 20px; border-bottom-right-radius: 20px; box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
-        .brand-container { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
-        .logo-img { width: 42px; height: 42px; object-fit: contain; border-radius: 12px; }
-        .brand-text h1 { font-size: 1.1rem; font-weight: 700; color: var(--dark-blue); letter-spacing: -0.3px; white-space: nowrap; }
-        .brand-text p { font-size: 0.65rem; color: var(--text-muted); min-height: 1.1em; }
-        .typewriter-cursor { animation: blink 0.7s infinite; }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        
-        /* Navigation */
-        nav { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100; background: rgba(255, 255, 255, 0.98); padding: 10px 0; box-shadow: 0 -4px 20px rgba(0,0,0,0.05); overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; }
-        nav::-webkit-scrollbar { display: none; }
-        .nav-track { display: flex; gap: 10px; padding: 0 14px; width: max-content; }
-        .nav-card { position: relative; flex-shrink: 0; width: 100px; height: 56px; border-radius: 14px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.08); border: 2px solid transparent; transition: all 0.3s; cursor: pointer; }
-        .nav-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s ease; }
-        .text-overlay { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.8), transparent); padding: 24px 6px 6px 6px; text-align: center; }
-        .nav-card .text { color: white; font-size: 9px; font-weight: 700; text-shadow: 0 1px 3px rgba(0,0,0,0.5); white-space: normal; line-height: 1.2; display: block; }
-        .nav-card.active { border: 2px solid var(--primary-teal); transform: scale(1.08); box-shadow: 0 6px 20px rgba(20, 184, 166, 0.3); }
-        
-        /* Main Content */
-        main { margin-top: 68px; margin-bottom: 80px; display: flex; overflow-x: auto; scroll-snap-type: x mandatory; height: calc(100vh - 148px); min-height: calc(100vh - 148px); background-color: var(--bg-cream); }
-        .slide-section { flex: 0 0 100%; width: 100%; padding: 16px; scroll-snap-align: start; display: flex; flex-direction: column; gap: 16px; overflow-y: auto; overflow-x: hidden; -webkit-overflow-scrolling: touch; background-color: var(--bg-cream); }
-     
-        /* Components */
-        .glass-card { background: var(--bg-white); border: 1px solid var(--border-light); border-radius: 20px; padding: 20px; box-shadow: var(--card-shadow); flex-shrink: 0; transition: all 0.3s ease; }
-        .card-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; padding-bottom: 14px; border-bottom: 1px solid rgba(0,0,0,0.05); }
-        .icon-box { width: 44px; height: 44px; background: linear-gradient(135deg, var(--primary-teal-light), var(--primary-teal)); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25); flex-shrink: 0; }
-        .icon-box.purple { background: linear-gradient(135deg, var(--primary-purple-light), var(--primary-purple)); box-shadow: 0 4px 12px rgba(109, 40, 217, 0.25); }
-        .icon-box.red { background: linear-gradient(135deg, #f87171, #dc2626); box-shadow: 0 4px 12px rgba(220, 38, 38, 0.25); }
-        .icon-box.orange { background: linear-gradient(135deg, #fb923c, #ea580c); box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25); }
-        .icon-box.blue { background: linear-gradient(135deg, #60a5fa, #3b82f6); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25); }
-        .card-header h2 { font-size: 1.1rem; margin-bottom: 0; color: var(--text-dark); font-weight: 700; }
-        .card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 16px; }
-        
-        /* Buttons */
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 20px; border-radius: 12px; font-weight: 600; font-size: 13px; cursor: pointer; text-decoration: none; border: none; transition: all 0.25s; white-space: nowrap; }
-        .btn-primary { background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-dark)); color: white; }
-        .btn-bright { background: linear-gradient(135deg, var(--primary-purple), var(--primary-purple-light)); color: white; }
-        .btn-outline { background: transparent; border: 1.5px solid rgba(0,0,0,0.12); color: var(--text-dark); }
-        .btn-teal { background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light)); color: white; }
-        .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); color: white; }
-        
-        /* Modal */
-        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
+        /* HEADER */
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: var(--header-height);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 12px; }
+        .logo-img { width: 42px; height: 42px; object-fit: contain; border-radius: 10px; }
+        .brand-text h1 { font-size: 1.3rem; font-weight: 800; color: var(--dark-blue); letter-spacing: -0.5px; }
+        .brand-text p { font-size: 0.7rem; color: var(--text-muted); }
+
+        .top-nav ul { display: flex; list-style: none; gap: 8px; }
+        .nav-item { 
+            padding: 10px 18px; 
+            border-radius: 12px; 
+            font-size: 12px; 
+            font-weight: 700; 
+            cursor: pointer; 
+            transition: all 0.3s; 
+            color: var(--text-muted);
+            background: transparent;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .nav-item:hover { background: var(--bg-soft); color: var(--text-dark); }
+        .nav-item.active { background: var(--primary-teal); color: white; box-shadow: 0 4px 12px rgba(20, 184, 166, 0.3); }
+
+        /* User Profile Button */
+        .user-profile-btn {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 8px 16px;
+            background: var(--bg-soft);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid transparent;
+        }
+        .user-profile-btn:hover { border-color: var(--primary-teal); background: white; }
+        .user-avatar-small {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-teal-light), var(--primary-teal));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            overflow: hidden;
+        }
+        .user-avatar-small img { width: 100%; height: 100%; object-fit: cover; }
+        .user-info-text { text-align: left; }
+        .user-name-display { font-size: 13px; font-weight: 700; color: var(--dark-blue); }
+        .user-email-display { font-size: 10px; color: var(--text-muted); }
+
+        /* MAIN LAYOUT */
+        .main-content {
+            margin-top: var(--header-height);
+            margin-bottom: var(--footer-height);
+            display: flex;
+            flex: 1;
+            height: calc(100vh - var(--header-height) - var(--footer-height));
+            overflow: hidden;
+        }
+
+        /* SIDEBARS */
+        .team-sidebar, .events-sidebar {
+            flex-shrink: 0;
+            background: var(--bg-white);
+            padding: 24px;
+            overflow-y: auto;
+            border-right: 1px solid var(--border-light);
+        }
+        .team-sidebar { width: var(--sidebar-width-left); }
+        .events-sidebar { width: var(--sidebar-width-right); border-right: none; border-left: 1px solid var(--border-light); }
+
+        .center-content {
+            flex: 1;
+            padding: 24px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            background: var(--bg-cream);
+        }
+
+        /* SIDEBAR COMPONENTS */
+        .team-badge { text-align: center; margin-bottom: 24px; }
+        .badge-circle { 
+            width: 100px; height: 100px; 
+            margin: 0 auto 16px; 
+            border-radius: 50%; 
+            background: linear-gradient(135deg, var(--primary-teal-light), var(--primary-teal)); 
+            display: flex; align-items: center; justify-content: center; 
+            color: white; font-size: 32px; font-weight: 800;
+            box-shadow: 0 8px 20px rgba(20, 184, 166, 0.3);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .badge-circle:hover { transform: scale(1.05); }
+        .badge-circle img { width: 100%; height: 100%; object-fit: cover; }
+        .team-name { font-size: 1.2rem; font-weight: 700; color: var(--dark-blue); margin-bottom: 4px; }
+        .team-rating { font-size: 0.85rem; color: var(--text-muted); }
+        .rating-value { color: var(--primary-teal-dark); font-weight: 700; }
+
+        .team-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px; }
+        .stat-item { background: var(--bg-soft); padding: 12px; border-radius: 12px; text-align: center; }
+        .stat-label { display: block; font-size: 11px; color: var(--text-muted); margin-bottom: 4px; text-transform: uppercase; }
+        .stat-value { font-size: 18px; font-weight: 700; color: var(--dark-blue); }
+
+        .formation-preview { background: linear-gradient(135deg, var(--dark-blue), #0f172a); border-radius: 16px; padding: 20px; color: white; }
+        .formation-preview h3 { font-size: 14px; margin-bottom: 16px; text-align: center; opacity: 0.9; }
+        .formation-grid { position: relative; height: 180px; border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; }
+        .player-dot { 
+            position: absolute; width: 28px; height: 28px; 
+            background: rgba(255,255,255,0.15); border: 2px solid var(--primary-teal-light); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
+            font-size: 10px; font-weight: 700; cursor: pointer; transition: all 0.3s; 
+        }
+        .player-dot:hover { background: var(--primary-teal); transform: scale(1.1); }
+
+        /* CENTER CONTENT COMPONENTS */
+        .featured-player { display: flex; justify-content: center; }
+        .player-card {
+            width: 240px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-teal-dark));
+            border-radius: 20px;
+            padding: 20px;
+            color: white;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(109, 40, 217, 0.25);
+            transform: rotate(-2deg);
+            transition: transform 0.3s;
+        }
+        .player-card:hover { transform: rotate(0deg) scale(1.02); }
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .player-rating { font-size: 32px; font-weight: 800; }
+        .player-position { background: rgba(255,255,255,0.2); padding: 4px 10px; border-radius: 8px; font-size: 12px; font-weight: 700; }
+        .player-image { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 64px; opacity: 0.9; }
+        .player-name { font-size: 18px; font-weight: 700; text-align: center; margin-bottom: 12px; }
+        .player-stats-mini { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; text-align: center; }
+        .mini-stat { background: rgba(0,0,0,0.2); padding: 6px; border-radius: 8px; }
+        .mini-label { display: block; font-size: 10px; opacity: 0.7; }
+        .mini-value { font-weight: 700; font-size: 14px; }
+
+        /* GAME MODES GRID */
+        .game-modes { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+        .mode-card {
+            background: var(--bg-white);
+            border: 1px solid var(--border-light);
+            border-radius: 20px;
+            padding: 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: var(--card-shadow);
+        }
+        .mode-card:hover { transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.1); border-color: var(--primary-teal); }
+        .mode-icon { width: 48px; height: 48px; margin: 0 auto 12px; color: var(--primary-teal); }
+        .mode-card h3 { font-size: 1rem; color: var(--dark-blue); margin-bottom: 4px; }
+        .mode-card p { font-size: 12px; color: var(--text-muted); }
+
+        /* EVENTS SIDEBAR */
+        .events-section, .news-section { margin-bottom: 24px; }
+        .section-title { 
+            display: flex; align-items: center; gap: 8px; 
+            font-size: 14px; font-weight: 700; color: var(--dark-blue); 
+            margin-bottom: 16px; text-transform: uppercase; letter-spacing: 0.5px; 
+        }
+        .section-title svg { color: var(--primary-teal); }
+
+        .event-card { background: var(--bg-white); border-radius: 16px; overflow: hidden; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+        .event-banner { height: 80px; background: linear-gradient(135deg, var(--primary-teal-light), var(--primary-purple-light)); }
+        .event-info { padding: 12px; }
+        .event-info h4 { font-size: 14px; color: var(--dark-blue); margin-bottom: 4px; }
+        .event-info p { font-size: 12px; color: var(--text-muted); margin-bottom: 8px; }
+        .event-timer { font-size: 11px; font-weight: 700; color: var(--primary-teal-dark); background: var(--bg-soft); padding: 4px 8px; border-radius: 6px; display: inline-block; }
+
+        .news-list { list-style: none; }
+        .news-item { padding: 12px; border-bottom: 1px solid var(--border-light); transition: background 0.2s; cursor: pointer; }
+        .news-item:last-child { border-bottom: none; }
+        .news-item:hover { background: var(--bg-soft); }
+        .news-tag { 
+            display: inline-block; font-size: 10px; font-weight: 700; 
+            padding: 2px 6px; border-radius: 4px; margin-right: 8px; 
+            background: var(--bg-soft); color: var(--text-muted); 
+        }
+        .news-tag.new { background: var(--color-success); color: white; }
+
+        /* FOOTER */
+        .main-footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: var(--footer-height);
+            background: var(--dark-blue);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+            z-index: 100;
+        }
+        .footer-left, .footer-right { display: flex; gap: 16px; align-items: center; }
+        .footer-btn { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: none; color: white; padding: 10px 20px; border-radius: 12px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+        .footer-btn:hover { background: rgba(255,255,255,0.2); }
+        .connection-status { display: flex; align-items: center; gap: 6px; font-size: 12px; }
+        .connection-status.online { color: var(--color-success); }
+
+        /* MODAL STYLES */
+        .modal-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(6px); display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-box { background: white; padding: 28px; border-radius: 20px; width: 320px; max-width: 90vw; max-height: 85vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s; }
+        .modal-box { background: white; padding: 28px; border-radius: 24px; width: 420px; max-width: 95vw; max-height: 90vh; overflow-y: auto; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2); transform: scale(0.9); transition: transform 0.3s; }
         .modal-overlay.active .modal-box { transform: scale(1); }
         .modal-btns { display: flex; gap: 10px; margin-top: 20px; }
-        .modal-btn { flex: 1; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; font-size: 13px; }
+        .modal-btn { flex: 1; padding: 14px; border-radius: 12px; font-weight: 600; cursor: pointer; border: none; font-size: 14px; transition: all 0.3s; }
         .modal-btn.yes { background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light)); color: white; }
+        .modal-btn.yes:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(20, 184, 166, 0.4); }
         .modal-btn.no { background: #f1f5f9; color: var(--text-muted); border: 1px solid #e2e8f0; }
-        
-        /* Form Elements */
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .input-field { width: 100%; background: var(--bg-soft); border: 1.5px solid transparent; padding: 12px 14px; border-radius: 10px; font-size: 14px; font-family: inherit; transition: all 0.2s; }
-        .input-field:focus { outline: none; border-color: var(--primary-teal); background: white; }
-        .input-group { margin-bottom: 14px; text-align: left; }
+        .modal-btn.no:hover { background: #e2e8f0; }
+
+        /* AUTH MODAL */
+        .auth-tabs { display: flex; gap: 8px; margin-bottom: 20px; }
+        .auth-tab { flex: 1; padding: 12px; border-radius: 12px; font-weight: 700; cursor: pointer; border: 2px solid transparent; background: var(--bg-soft); color: var(--text-muted); transition: all 0.3s; }
+        .auth-tab.active { background: white; border-color: var(--primary-teal); color: var(--primary-teal); box-shadow: 0 4px 12px rgba(20, 184, 166, 0.15); }
+        .auth-form { display: none; }
+        .auth-form.active { display: block; }
+
+        /* AVATAR SELECTION */
+        .avatar-section { margin: 20px 0; }
+        .avatar-section h4 { font-size: 14px; color: var(--text-dark); margin-bottom: 12px; text-align: left; }
+        .avatar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+        .avatar-option {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px solid transparent;
+            transition: all 0.3s;
+            overflow: hidden;
+            background: var(--bg-soft);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .avatar-option:hover { transform: scale(1.1); border-color: var(--primary-teal-light); }
+        .avatar-option.selected { border-color: var(--primary-teal); box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.2); }
+        .avatar-option svg { width: 70%; height: 70%; }
+        .avatar-option img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Custom Upload Avatar */
+        .avatar-upload {
+            aspect-ratio: 1;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 3px dashed #cbd5e1;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-soft);
+        }
+        .avatar-upload:hover { border-color: var(--primary-teal); background: white; }
+        .avatar-upload svg { width: 32px; height: 32px; color: var(--text-muted); }
+        .avatar-upload span { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
+        .avatar-upload.has-image { border-style: solid; border-color: var(--primary-teal); }
+        .avatar-upload.has-image svg, .avatar-upload.has-image span { display: none; }
+
+        /* FORM ELEMENTS */
+        .input-field { width: 100%; background: var(--bg-soft); border: 2px solid transparent; padding: 14px 16px; border-radius: 12px; font-size: 14px; font-family: inherit; transition: all 0.2s; margin-bottom: 12px; }
+        .input-field:focus { outline: none; border-color: var(--primary-teal); background: white; box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.1); }
+        .input-group { margin-bottom: 16px; text-align: left; }
         .input-group label { display: block; font-size: 12px; color: var(--text-muted); margin-bottom: 6px; font-weight: 600; }
         
-        /* Checkbox Custom */
-        .check-label { display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: var(--bg-soft); border: 1.5px solid transparent; border-radius: 12px; cursor: pointer; margin-bottom: 10px; transition: all 0.2s; }
+        .check-label { display: flex; align-items: center; gap: 12px; padding: 12px; background: var(--bg-soft); border-radius: 10px; cursor: pointer; margin-bottom: 8px; text-align: left; transition: all 0.2s; }
         .check-label:hover { border-color: var(--primary-teal); }
         .check-label input { display: none; }
-        .check-box { width: 22px; height: 22px; border: 2px solid #cbd5e1; border-radius: 6px; display: flex; align-items: center; justify-content: center; transition: all 0.2s; flex-shrink: 0; background: white; }
-        .check-box.radio-style { border-radius: 50%; } 
+        .check-box { width: 20px; height: 20px; border: 2px solid #cbd5e1; border-radius: 5px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: white; transition: all 0.2s; }
         .check-label input:checked + .check-box { background: var(--primary-teal); border-color: var(--primary-teal); }
         .check-label input:checked + .check-box::after { content: '✓'; font-size: 12px; color: white; font-weight: bold; }
         .check-label span { font-size: 13px; color: var(--text-dark); }
         
-        .section-title-sm { font-size: 12px; font-weight: 700; color: var(--primary-teal-dark); margin: 16px 0 8px 0; text-transform: uppercase; letter-spacing: 0.5px; }
-        
-        /* Badges */
-        .badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; }
+        /* Badge */
+        .badge { padding: 5px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
         .badge-teal { background: rgba(20, 184, 166, 0.15); color: #0f766e; }
-        .badge-orange { background: rgba(249, 115, 22, 0.15); color: #c2410c; }
         .badge-red { background: rgba(239, 68, 68, 0.15); color: #dc2626; }
+        .badge-orange { background: rgba(249, 115, 22, 0.15); color: #c2410c; }
         
         /* Score Circle */
-        .score-circle { width: 100px; height: 100px; margin: 0 auto 14px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-white); border: 4px solid #f1f5f9; }
-        .score-circle.risk-low { border-color: var(--color-success); }
-        .score-circle.risk-medium { border-color: var(--color-warning); }
-        .score-circle.risk-high { border-color: var(--color-danger); }
-        
-        /* Staff Grid */
-        .staff-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 8px; }
-        .staff-card { display: flex; align-items: center; gap: 14px; padding: 16px; border-radius: 16px; cursor: pointer; color: white; transition: all 0.3s; text-decoration: none; box-shadow: 0 4px 12px rgba(0,0,0,0.15); background: linear-gradient(135deg, var(--primary-teal-dark), #0f766e); }
-        .staff-card:hover { transform: translateY(-2px); }
-        .staff-avatar { width: 48px; height: 48px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 20px; background: rgba(255,255,255,0.15); flex-shrink: 0; }
-        .staff-info { flex: 1; }
-        .staff-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; }
-        .staff-role { font-size: 12px; opacity: 0.85; }
+        .score-circle { width: 100px; height: 100px; margin: 0 auto 14px; border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: var(--bg-white); border: 4px solid #f1f5f9; transition: all 0.3s; }
+        .score-circle.risk-high { border-color: var(--color-danger); background: rgba(239, 68, 68, 0.05); }
+        .score-circle.risk-medium { border-color: var(--color-warning); background: rgba(245, 158, 11, 0.05); }
+        .score-circle.risk-low { border-color: var(--color-success); background: rgba(16, 185, 129, 0.05); }
 
-        /* Visitor & Comments */
-        .visitor-box { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; padding: 10px; background: var(--bg-soft); border-radius: 12px; }
-        .comment-card { background: var(--bg-soft); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
-        .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-        .comment-name { font-weight: 700; font-size: 12px; color: var(--dark-blue); }
-        .comment-time { font-size: 10px; color: var(--text-muted); }
-        .comment-text { font-size: 13px; color: var(--text-dark); line-height: 1.4; }
-        
-        /* Onboarding Choice */
-        .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
-        .choice-btn { background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 16px 10px; cursor: pointer; transition: all 0.3s; text-align: center; }
-        .choice-btn:hover { border-color: var(--primary-teal); }
-        .choice-btn.active { border-color: var(--primary-teal); background: rgba(20, 184, 166, 0.05); }
-        .choice-icon { font-size: 28px; margin-bottom: 8px; display: block; }
-        .choice-text { font-size: 13px; font-weight: 600; color: var(--dark-blue); }
+        /* Sync Status */
+        .sync-status { display: flex; align-items: center; gap: 8px; padding: 10px 14px; background: var(--bg-soft); border-radius: 10px; margin-bottom: 16px; }
+        .sync-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--color-success); animation: pulse 2s infinite; }
+        .sync-dot.offline { background: var(--color-warning); animation: none; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .sync-text { font-size: 12px; color: var(--text-muted); }
 
-        /* Reference Box Style */
-        .source-ref {
-            margin-top: 16px;
-            padding-top: 12px;
-            border-top: 1px dashed rgba(0,0,0,0.1);
-            text-align: left;
+        /* Divider */
+        .divider { display: flex; align-items: center; gap: 12px; margin: 16px 0; }
+        .divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border-light); }
+        .divider span { font-size: 12px; color: var(--text-muted); }
+
+        /* Social Login Buttons */
+        .social-btn { width: 100%; padding: 12px; border-radius: 12px; font-weight: 600; cursor: pointer; border: 2px solid #e2e8f0; background: white; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 10px; transition: all 0.3s; }
+        .social-btn:hover { border-color: var(--primary-teal); background: var(--bg-soft); }
+        .social-btn.google { border-color: #ea4335; color: #ea4335; }
+        .social-btn.google:hover { background: rgba(234, 67, 53, 0.05); }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .team-sidebar { width: 240px; }
+            .events-sidebar { width: 280px; }
         }
-        .source-ref h4 {
-            font-size: 11px;
-            color: var(--text-muted);
-            margin-bottom: 4px;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+        @media (max-width: 992px) {
+            .main-content { flex-direction: column; height: auto; margin-bottom: 80px; }
+            .team-sidebar, .events-sidebar { width: 100%; border: none; border-bottom: 1px solid var(--border-light); }
+            .top-nav { display: none; }
         }
-        .source-ref p {
-            font-size: 11px;
-            color: var(--text-muted);
-            font-style: italic;
-            line-height: 1.4;
+        @media (max-width: 576px) {
+            .main-header { padding: 0 12px; }
+            .user-info-text { display: none; }
+            .footer-center { display: none; }
+            .modal-box { padding: 20px; }
         }
-        .source-ref p a {
-            color: var(--primary-teal-dark);
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        /* Hologram */
-        .holo-container { position: fixed; bottom: 90px; right: 15px; width: 140px; height: 220px; z-index: 9999; pointer-events: none; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.5s; }
-        .holo-container.show { opacity: 1; visibility: visible; transform: translateY(0); }
-        .holo-body { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); width: 100px; height: 180px; }
-        .holo-avatar { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.9)); opacity: 0.9; }
-        .tour-tooltip { position: fixed; bottom: 130px; right: 165px; background: rgba(255, 255, 255, 0.98); padding: 18px 22px; border-radius: 16px; width: 260px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 10000; opacity: 0; visibility: hidden; transition: all 0.3s; }
-        .tour-tooltip.active { opacity: 1; visibility: visible; }
-        .tour-tooltip h4 { color: var(--primary-teal-dark); margin-bottom: 6px; font-size: 1rem; }
-        .tour-tooltip p { font-size: 13px; margin-bottom: 0; color: var(--text-dark); }
-
-        /* Spinner */
-        .spinner { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary-teal); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 20px auto; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
     </style>
 </head>
 <body>
@@ -191,452 +392,1013 @@
     <div class="bg-blob blob-teal"></div>
     <div class="bg-blob blob-purple"></div>
 
-    <!-- ONBOARDING MODAL -->
-    <div class="modal-overlay active" id="onboardingModal">
-        <div class="modal-box" style="max-width: 340px;">
-            <div style="font-size:48px; margin-bottom:10px;">👋</div>
-            <h3 style="color:var(--dark-blue); font-size: 18px; font-weight: 700;">Selamat Datang di TEMAN!</h3>
-            <p style="font-size: 14px; color: var(--text-muted); margin-top: 6px;">Kenali kondisi akses dialisis Anda.</p>
-            <div style="margin-top: 20px; text-align: left;">
-                <label style="font-size: 12px; font-weight: 600; color: var(--dark-blue);">Jenis Akses yang Digunakan:</label>
-                <div class="choice-grid" style="margin-top: 8px;">
-                    <div class="choice-btn" onclick="selectAccess('cvc')">
-                        <span class="choice-icon">🩺</span>
-                        <div class="choice-text">CVC</div>
-                        <div style="font-size: 11px; color: var(--text-muted);">Kateter Vena Sentral</div>
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+            <div class="brand-text">
+                <h1>TEMAN</h1>
+                <p>Dashboard Akses Dialisis</p>
+            </div>
+        </div>
+        <nav class="top-nav">
+            <ul>
+                <li class="nav-item active">BERANDA</li>
+                <li class="nav-item" onclick="openModal('cvcModal')">CVC</li>
+                <li class="nav-item" onclick="openModal('avModal')">AV SHUNT</li>
+                <li class="nav-item" onclick="openModal('eventModal')">AGENDA</li>
+            </ul>
+        </nav>
+        <div id="userArea">
+            <!-- Will be populated by JS -->
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        
+        <!-- LEFT SIDEBAR - User Profile -->
+        <aside class="team-sidebar">
+            <div class="team-badge">
+                <div class="badge-circle" id="mainAvatar" onclick="openModal('profileModal')">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <h2 class="team-name" id="userName">Tamu</h2>
+                <p class="team-rating">Status: <span class="rating-value" id="userStatus">Belum Login</span></p>
+            </div>
+
+            <div class="team-stats">
+                <div class="stat-item">
+                    <span class="stat-label">Tipe Akses</span>
+                    <span class="stat-value" id="tipeAkses">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Terakhir Cek</span>
+                    <span class="stat-value" id="lastCheck">-</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Total Cek</span>
+                    <span class="stat-value" id="totalCheck">0</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">Skor</span>
+                    <span class="stat-value" id="healthScore" style="color: var(--color-success);">-</span>
+                </div>
+            </div>
+
+            <div class="formation-preview">
+                <h3>VISUALISASI AKSES</h3>
+                <div class="formation-grid">
+                    <div class="player-dot" style="left:50%; bottom:10%; transform:translateX(-50%);">👤</div>
+                    <div class="player-dot" style="left:30%; bottom:40%;" data-pos="CVC">🩺</div>
+                    <div class="player-dot" style="left:70%; bottom:20%;" data-pos="AV">💪</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <button class="footer-btn" style="width:100%; justify-content:center; background: var(--primary-teal); color:white;" onclick="openModal('onboardingModal')">
+                    Atur Tipe Akses
+                </button>
+            </div>
+        </aside>
+
+        <!-- CENTER CONTENT -->
+        <section class="center-content">
+            <div class="featured-player">
+                <div class="player-card">
+                    <div class="card-header">
+                        <span class="player-rating">94</span>
+                        <span class="player-position">EDU</span>
                     </div>
-                    <div class="choice-btn" onclick="selectAccess('av')">
-                        <span class="choice-icon">💪</span>
-                        <div class="choice-text">AV Shunt</div>
-                        <div style="font-size: 11px; color: var(--text-muted);">Fistula / Graft</div>
+                    <div class="player-image">🎓</div>
+                    <div class="player-name">MATERI UNGGULAN</div>
+                    <div class="player-stats-mini">
+                        <div class="mini-stat"><span class="mini-label">Views</span><span class="mini-value">1.2k</span></div>
+                        <div class="mini-stat"><span class="mini-label">Likes</span><span class="mini-value">840</span></div>
+                        <div class="mini-stat"><span class="mini-label">Saved</span><span class="mini-value">210</span></div>
+                    </div>
+                    <div style="margin-top:12px;">
+                         <a href="#" class="footer-btn" style="background:rgba(255,255,255,0.2); width:100%;">▶ Tonton Video</a>
                     </div>
                 </div>
             </div>
-            <div id="accessInfo" style="display: none; margin-top: 16px; text-align: left;"></div>
+
+            <h2 style="font-size: 18px; color: var(--dark-blue); margin-bottom: 8px; padding-left: 8px;">Menu Utama</h2>
+            <div class="game-modes">
+                <div class="mode-card" onclick="openModal('cvcModal')">
+                    <div class="mode-icon"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="2"/><path d="M25 10 L25 25 L35 35" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    <h3>CEK RISIKO CVC</h3>
+                    <p>Penilaian Infeksi Kateter</p>
+                </div>
+                <div class="mode-card" onclick="openModal('avModal')">
+                    <div class="mode-icon"><svg viewBox="0 0 50 50"><path d="M25 5 L40 40 L10 40 Z" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    <h3>CEK AV SHUNT</h3>
+                    <p>Monitoring Fistula</p>
+                </div>
+                <div class="mode-card" onclick="openModal('eventModal')">
+                    <div class="mode-icon"><svg viewBox="0 0 50 50"><rect x="10" y="10" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    <h3>AGENDA</h3>
+                    <p>Jadwal Edukasi</p>
+                </div>
+                <div class="mode-card" onclick="openModal('konsultasiModal')">
+                    <div class="mode-icon"><svg viewBox="0 0 50 50"><circle cx="25" cy="15" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 40 Q25 30 35 40" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    <h3>KONSULTASI</h3>
+                    <p>Hubungi Tim Medis</p>
+                </div>
+            </div>
+
+            <div class="mode-card" style="margin-top: 0;">
+                 <h3 style="text-align:left; margin-bottom:12px;">📊 Statistik Kunjungan</h3>
+                 <div style="display:flex; justify-content:space-around; text-align:center;">
+                    <div><div style="font-size:24px; font-weight:700; color:var(--primary-teal);">52</div><div style="font-size:12px; color:var(--text-muted);">Hari Ini</div></div>
+                    <div><div style="font-size:24px; font-weight:700; color:var(--primary-purple);">1,240</div><div style="font-size:12px; color:var(--text-muted);">Total</div></div>
+                    <div><div style="font-size:24px; font-weight:700; color:var(--accent-coral);">98%</div><div style="font-size:12px; color:var(--text-muted);">Puas</div></div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="events-sidebar">
+            <div class="events-section">
+                <h3 class="section-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    AGENDA TERDEKAT
+                </h3>
+                <div id="eventListDashboard">
+                    <div class="event-card"><div class="event-banner"></div><div class="event-info"><h4>Loading...</h4></div></div>
+                </div>
+            </div>
+
+            <div class="news-section">
+                <h3 class="section-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3Z"/></svg>
+                    INFO & TIPS
+                </h3>
+                <ul class="news-list">
+                    <li class="news-item"><span class="news-tag new">NEW</span><p>Video Perawatan CVC Terbaru</p></li>
+                    <li class="news-item"><span class="news-tag">TIPS</span><p>Cara Mengenali Tanda Infeksi</p></li>
+                    <li class="news-item"><span class="news-tag">INFO</span><p>Jadwal Konsultasi Bulan Ini</p></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-left">
+            <button class="footer-btn" onclick="openModal('konsultasiModal')">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                <span>HUBUNGI ADMIN</span>
+            </button>
+        </div>
+        <div class="footer-center">
+            <span style="font-size: 12px; opacity: 0.7;">RSUD Dr. Saiful Anwar Malang &copy; 2026</span>
+        </div>
+        <div class="footer-right">
+            <span class="version-info">Ver. 2.1.0</span>
+            <span class="connection-status online">
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>
+                ONLINE
+            </span>
+        </div>
+    </footer>
+
+    <!-- ========== MODALS ========== -->
+
+    <!-- AUTH MODAL (Login/Register) -->
+    <div class="modal-overlay" id="authModal">
+        <div class="modal-box" style="width: 450px;">
+            <div style="font-size:48px; margin-bottom:8px;">👋</div>
+            <h3 style="font-size: 20px; margin-bottom: 6px;">Selamat Datang di TEMAN</h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Masuk atau daftar untuk menyimpan data Anda</p>
+            
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('login')">Masuk</div>
+                <div class="auth-tab" onclick="switchAuthTab('register')">Daftar</div>
+            </div>
+
+            <!-- Login Form -->
+            <div class="auth-form active" id="loginForm">
+                <input type="email" class="input-field" id="loginEmail" placeholder="Email">
+                <input type="password" class="input-field" id="loginPassword" placeholder="Password">
+                <div class="modal-btns" style="margin-top: 16px;">
+                    <button class="modal-btn yes" onclick="handleLogin()">Masuk</button>
+                </div>
+                <div class="divider"><span>atau</span></div>
+                <button class="social-btn google" onclick="handleGoogleLogin()">
+                    <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.76A7.05 7.05 0 0 1 12 5c1.61 0 3.08.55 4.21 1.64l3.15-3.15A11.97 11.97 0 0 0 12 0C7.39 0 3.4 2.7 1.39 6.65l3.87 3.11z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.76-3.01c-1.1.74-2.52 1.17-4.17 1.17a7.05 7.05 0 0 1-6.74-5.09l-3.87 3.11A11.97 11.97 0 0 0 12 24z"/><path fill="#4A90E2" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58l3.76 3.01c2.2-2.03 3.66-5.02 3.66-8.83z"/><path fill="#FBBC05" d="M5.26 14.24A7.05 7.05 0 0 1 4.95 12c0-.79.14-1.55.37-2.24L1.39 6.65A11.97 11.97 0 0 0 0 12c0 1.92.45 3.74 1.39 5.35l3.87-3.11z"/></svg>
+                    Masuk dengan Google
+                </button>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">
+                    Belum punya akun? <a href="#" onclick="switchAuthTab('register')" style="color: var(--primary-teal); font-weight: 600;">Daftar sekarang</a>
+                </p>
+            </div>
+
+            <!-- Register Form -->
+            <div class="auth-form" id="registerForm">
+                <input type="text" class="input-field" id="regName" placeholder="Nama Lengkap">
+                <input type="email" class="input-field" id="regEmail" placeholder="Email">
+                <input type="password" class="input-field" id="regPassword" placeholder="Password (min. 6 karakter)">
+                <input type="password" class="input-field" id="regPasswordConfirm" placeholder="Konfirmasi Password">
+                
+                <div class="avatar-section">
+                    <h4>Pilih Avatar:</h4>
+                    <div class="avatar-grid">
+                        <!-- Avatar Options -->
+                        <div class="avatar-option" data-avatar="man-adult" onclick="selectAvatar(this)">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="35" r="25" fill="#6d28d9"/>
+                                <path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#1e3a5f"/>
+                                <circle cx="50" cy="32" r="18" fill="#fcd5b8"/>
+                                <ellipse cx="50" cy="25" rx="20" ry="12" fill="#2d2013"/>
+                            </svg>
+                        </div>
+                        <div class="avatar-option" data-avatar="man-teen" onclick="selectAvatar(this)">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="35" r="25" fill="#14b8a6"/>
+                                <path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#0f766e"/>
+                                <circle cx="50" cy="32" r="18" fill="#fcd5b8"/>
+                                <ellipse cx="50" cy="22" rx="18" ry="10" fill="#2d2013"/>
+                            </svg>
+                        </div>
+                        <div class="avatar-option" data-avatar="boy" onclick="selectAvatar(this)">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="35" r="25" fill="#f97316"/>
+                                <path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#ea580c"/>
+                                <circle cx="50" cy="35" r="18" fill="#fcd5b8"/>
+                                <ellipse cx="50" cy="28" rx="16" ry="8" fill="#2d2013"/>
+                            </svg>
+                        </div>
+                        <div class="avatar-option" data-avatar="woman-adult" onclick="selectAvatar(this)">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="35" r="25" fill="#ec4899"/>
+                                <path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/>
+                                <circle cx="50" cy="32" r="18" fill="#fcd5b8"/>
+                                <path d="M32 30 Q35 15 50 15 Q65 15 68 30 L68 40 Q65 50 50 50 Q35 50 32 40 Z" fill="#2d2013"/>
+                            </svg>
+                        </div>
+                        <div class="avatar-option" data-avatar="woman-teen" onclick="selectAvatar(this)">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="35" r="25" fill="#a78bfa"/>
+                                <path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/>
+                                <circle cx="50" cy="32" r="18" fill="#fcd5b8"/>
+                                <path d="M35 25 Q40 12 50 12 Q60 12 65 25 L65 38 Q60 48 50 48 Q40 48 35 38 Z" fill="#2d2013"/>
+                                <path d="M30 40 Q35 50 50 50 Q65 50 70 40" fill="none" stroke="#2d2013" stroke-width="8"/>
+                            </svg>
+                        </div>
+                        <div class="avatar-option" data-avatar="girl" onclick="selectAvatar(this)">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="35" r="25" fill="#fb7185"/>
+                                <path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#f472b6"/>
+                                <circle cx="50" cy="35" r="18" fill="#fcd5b8"/>
+                                <path d="M35 30 Q38 18 50 18 Q62 18 65 30 L65 40 Q62 50 50 50 Q38 50 35 40 Z" fill="#2d2013"/>
+                                <circle cx="38" cy="28" r="4" fill="#fb7185"/>
+                            </svg>
+                        </div>
+                        <!-- Custom Upload -->
+                        <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
+                            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            <span>Upload</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-btns">
+                    <button class="modal-btn yes" onclick="handleRegister()">Daftar</button>
+                </div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">
+                    Sudah punya akun? <a href="#" onclick="switchAuthTab('login')" style="color: var(--primary-teal); font-weight: 600;">Masuk</a>
+                </p>
+            </div>
         </div>
     </div>
 
-    <!-- MODALS -->
-    <div class="modal-overlay" id="waModal">
-        <div class="modal-box">
-            <div style="font-size:48px; margin-bottom:10px;">&#128172;</div>
-            <h3 style="color:var(--dark-blue); font-size: 18px;">Hubungi Kami</h3>
+    <!-- PROFILE MODAL -->
+    <div class="modal-overlay" id="profileModal">
+        <div class="modal-box" style="width: 450px;">
+            <div class="sync-status">
+                <div class="sync-dot" id="syncDot"></div>
+                <span class="sync-text" id="syncText">Tersinkronisasi dengan cloud</span>
+            </div>
+            
+            <div style="margin-bottom: 20px;">
+                <div class="badge-circle" id="profileAvatarBig" style="width: 100px; height: 100px; margin: 0 auto; cursor: pointer;" onclick="document.getElementById('profileAvatarInput').click()">
+                    <input type="file" id="profileAvatarInput" accept="image/*" style="display:none" onchange="handleProfileAvatarUpload(event)">
+                </div>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Klik untuk ganti avatar</p>
+            </div>
+
+            <input type="text" class="input-field" id="profileName" placeholder="Nama Lengkap">
+            <input type="email" class="input-field" id="profileEmail" placeholder="Email" disabled>
+            
+            <div class="input-group" style="margin-top: 12px;">
+                <label>Jenis Akses Dialisis</label>
+                <div style="display: flex; gap: 8px;">
+                    <label class="check-label" style="flex: 1; justify-content: center;" onclick="setProfileAccessType('CVC')">
+                        <input type="radio" name="profileAccessType" value="CVC">
+                        <span class="check-box" style="border-radius:50%;"></span>
+                        <span>CVC</span>
+                    </label>
+                    <label class="check-label" style="flex: 1; justify-content: center;" onclick="setProfileAccessType('AV Shunt')">
+                        <input type="radio" name="profileAccessType" value="AV Shunt">
+                        <span class="check-box" style="border-radius:50%;"></span>
+                        <span>AV Shunt</span>
+                    </label>
+                </div>
+            </div>
+
             <div class="modal-btns">
-                <button class="modal-btn no" onclick="closeModal('waModal')">Batal</button>
-                <a href="#" id="confirmWaBtn" class="modal-btn yes" target="_blank">Kirim</a>
+                <button class="modal-btn no" onclick="handleLogout()">Keluar</button>
+                <button class="modal-btn yes" onclick="saveProfile()">Simpan</button>
             </div>
         </div>
     </div>
+
+    <!-- ONBOARDING MODAL -->
+    <div class="modal-overlay" id="onboardingModal">
+        <div class="modal-box">
+            <div style="font-size:48px; margin-bottom:10px;">🏥</div>
+            <h3 style="font-size: 18px;">Pilih Tipe Akses Anda</h3>
+            <div style="margin-top: 20px; text-align: left;">
+                <label class="check-label" onclick="setAccessType('CVC')">
+                    <input type="radio" name="accessType" value="CVC">
+                    <span class="check-box" style="border-radius:50%;"></span>
+                    <span>🩺 CVC (Kateter Vena Sentral)</span>
+                </label>
+                <label class="check-label" onclick="setAccessType('AV Shunt')">
+                    <input type="radio" name="accessType" value="AV Shunt">
+                    <span class="check-box" style="border-radius:50%;"></span>
+                    <span>💪 AV Shunt (Fistula / Graft)</span>
+                </label>
+            </div>
+            <div class="modal-btns">
+                <button class="modal-btn no" onclick="closeModal('onboardingModal')">Nanti Saja</button>
+                <button class="modal-btn yes" onclick="saveAccessType()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CVC MODAL -->
+    <div class="modal-overlay" id="cvcModal">
+        <div class="modal-box" style="width: 380px;">
+            <div class="card-header" style="border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:10px;">
+                <div style="width:40px; height:40px; background:linear-gradient(135deg, #ef4444, #dc2626); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; margin-right:12px;">🩺</div>
+                <div style="text-align:left;">
+                    <h3 style="font-size:16px; margin:0;">Cek Risiko Infeksi CVC</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin:0;">Penilaian mandiri</p>
+                </div>
+            </div>
+            
+            <div id="cvc-form">
+                <input type="text" class="input-field" id="cvc_id" placeholder="ID/Nama Pasien">
+                <div style="text-align:left;">
+                    <label class="check-label"><input type="checkbox" id="q1"><span class="check-box"></span><span>Kemerahan</span></label>
+                    <label class="check-label"><input type="checkbox" id="q2"><span class="check-box"></span><span>Bengkak</span></label>
+                    <label class="check-label"><input type="checkbox" id="q3"><span class="check-box"></span><span>Nyeri</span></label>
+                    <label class="check-label"><input type="checkbox" id="q4"><span class="check-box"></span><span>Nanah/Cairan (Kritis)</span></label>
+                    <label class="check-label"><input type="checkbox" id="q5"><span class="check-box"></span><span>Demam (Kritis)</span></label>
+                </div>
+                <button class="modal-btn yes" style="width:100%; margin-top:10px;" onclick="calculateCVC()">Hitung Risiko</button>
+            </div>
+            
+            <div id="cvc-result" style="display:none; text-align:center;">
+                <div class="score-circle" id="cvc-score-circle"><span id="score-val" style="font-size:32px; font-weight:700;">0</span></div>
+                <span id="risk-badge" class="badge badge-teal">Aman</span>
+                <p style="margin-top:10px; font-size:13px;" id="risk-msg">Tidak ada tanda.</p>
+                <div id="cvc-critical-action" style="margin-top:10px;"></div>
+                <button class="modal-btn no" style="width:100%; margin-top:10px;" onclick="resetCVC()">Ulangi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- AV MODAL -->
+    <div class="modal-overlay" id="avModal">
+        <div class="modal-box" style="width: 380px;">
+             <div class="card-header" style="border-bottom:1px solid #eee; padding-bottom:10px; margin-bottom:10px;">
+                <div style="width:40px; height:40px; background:linear-gradient(135deg, #f97316, #ea580c); border-radius:10px; display:flex; align-items:center; justify-content:center; color:white; margin-right:12px;">💪</div>
+                <div style="text-align:left;">
+                    <h3 style="font-size:16px; margin:0;">Cek Kondisi AV Shunt</h3>
+                    <p style="font-size:12px; color:var(--text-muted); margin:0;">Look, Listen, Feel</p>
+                </div>
+            </div>
+            
+            <div id="av-form">
+                <input type="text" class="input-field" id="av_id" placeholder="ID/Nama Pasien">
+                <p style="font-size:12px; color:var(--text-muted); text-align:left; margin-bottom:5px;">Pemeriksaan Visual:</p>
+                <label class="check-label"><input type="checkbox" id="av_vis_red"><span class="check-box"></span><span>Kemerahan/Bengkak</span></label>
+                <label class="check-label"><input type="checkbox" id="av_vis_pus"><span class="check-box"></span><span>Nanah (Kritis)</span></label>
+                
+                <p style="font-size:12px; color:var(--text-muted); text-align:left; margin:10px 0 5px;">Pemeriksaan Raba (Thrill):</p>
+                <label class="check-label"><input type="radio" name="av_thrill" value="normal" checked><span class="check-box" style="border-radius:50%;"></span><span>Terasa Getar</span></label>
+                <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box" style="border-radius:50%;"></span><span>Hilang (Kritis)</span></label>
+
+                <button class="modal-btn yes" style="width:100%; margin-top:10px;" onclick="calculateAV()">Cek Kondisi</button>
+            </div>
+
+            <div id="av-result" style="display:none; text-align:center;">
+                <span id="av-badge" class="badge badge-teal" style="font-size:16px; padding:10px;">BAIK</span>
+                <p style="margin-top:10px; font-weight:600;" id="av-msg">Kondisi baik.</p>
+                <div id="av-critical-action" style="margin-top:10px;"></div>
+                <button class="modal-btn no" style="width:100%; margin-top:10px;" onclick="resetAV()">Ulangi</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- EVENT MODAL -->
+    <div class="modal-overlay" id="eventModal">
+        <div class="modal-box" style="width: 400px;">
+            <h3 style="margin-bottom:15px;">📅 Agenda & Acara</h3>
+            <div id="eventListFull" style="text-align:left; max-height: 400px; overflow-y:auto;"></div>
+            <div style="margin-top:15px; border-top:1px solid #eee; padding-top:15px;">
+                <button class="modal-btn yes" style="width:100%;" onclick="closeModal('eventModal'); openModal('passwordModal')">+ Tambah Acara (Admin)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD EVENT MODAL -->
+    <div class="modal-overlay" id="addEventModal">
+        <div class="modal-box" style="width: 380px;">
+            <h3 style="margin-bottom:15px;">➕ Tambah Acara Baru</h3>
+            <input type="text" id="evTitle" class="input-field" placeholder="Judul Acara">
+            <input type="text" id="evDate" class="input-field" placeholder="Tanggal (mis: 12 Maret 2026)">
+            <input type="text" id="evImg" class="input-field" placeholder="Link Gambar Poster">
+            <input type="text" id="evLink" class="input-field" placeholder="Link Pendaftaran (Opsional)">
+            <textarea id="evDesc" class="input-field" rows="3" placeholder="Deskripsi"></textarea>
+            <div class="modal-btns">
+                <button class="modal-btn no" onclick="closeModal('addEventModal')">Batal</button>
+                <button class="modal-btn yes" onclick="saveEvent()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASSWORD MODAL -->
     <div class="modal-overlay" id="passwordModal">
         <div class="modal-box">
-            <div style="font-size:48px; margin-bottom:10px;">&#128274;</div>
-            <h3 style="color:var(--dark-blue); font-size: 18px;">Akses Terbatas</h3>
-            <div style="margin-top: 15px;">
-                <input type="password" id="passwordInput" class="input-field" placeholder="Masukkan Kode..." style="text-align: center;">
-            </div>
+            <h3 style="margin-bottom:10px;">🔒 Masukkan Kode Admin</h3>
+            <input type="password" id="passwordInput" class="input-field" placeholder="Kode..." style="text-align:center; letter-spacing:5px;">
             <div class="modal-btns">
                 <button class="modal-btn no" onclick="closeModal('passwordModal')">Batal</button>
                 <button class="modal-btn yes" onclick="checkPassword()">Lanjut</button>
             </div>
         </div>
     </div>
-    <div class="modal-overlay" id="eventModal">
-        <div class="modal-box" style="width: 340px;">
-            <div style="font-size:48px; margin-bottom:10px;">&#128197;</div>
-            <h3 style="color:var(--dark-blue); font-size: 18px;">Tambah Acara Baru</h3>
-            <div style="margin-top: 15px; text-align: left;">
-                <div class="input-group"><label>Judul Acara *</label><input type="text" id="evTitle" class="input-field" placeholder="Nama acara..."></div>
-                <div class="input-group"><label>Tanggal & Waktu *</label><input type="text" id="evDate" class="input-field" placeholder="Mis: Kamis, 12 Maret 2026"></div>
-                <div class="input-group"><label>Link Gambar Poster</label><input type="text" id="evImg" class="input-field" placeholder="Link Google Drive"></div>
-                <div class="input-group"><label>Link Tujuan (Opsional)</label><input type="text" id="evLink" class="input-field" placeholder="Link Zoom"></div>
-                <div class="input-group"><label>Deskripsi</label><textarea id="evDesc" class="input-field" rows="3" placeholder="Detail..."></textarea></div>
-            </div>
-            <div class="modal-btns">
-                <button class="modal-btn no" onclick="closeModal('eventModal')">Batal</button>
-                <button class="modal-btn yes" onclick="saveEvent()">Simpan</button>
+
+    <!-- KONSULTASI MODAL -->
+    <div class="modal-overlay" id="konsultasiModal">
+        <div class="modal-box">
+            <h3 style="margin-bottom:15px;">📞 Hubungi Admin</h3>
+            <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">Pilih admin yang ingin dihubungi via WhatsApp.</p>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <a href="https://wa.me/6282227707573?text=Halo%20Kak%20Ginjal" target="_blank" class="footer-btn" style="background:#25D366; justify-content:center; color:white;">Kak Ginjal (Edukator)</a>
+                <a href="https://wa.me/6283831217784?text=Halo%20Kak%20Vena" target="_blank" class="footer-btn" style="background:#25D366; justify-content:center; color:white;">Kak Vena (Edukator)</a>
             </div>
         </div>
     </div>
-    
-    <div class="modal-overlay" id="loadingModal">
-         <div class="modal-box" style="padding: 20px;"><div class="spinner"></div><p style="margin-top: 10px; font-size: 13px; color: var(--text-muted);">Menyimpan...</p></div>
-    </div>
-
-    <!-- HEADER -->
-    <header>
-        <div class="brand-container">
-            <img src="logo.png" alt="Logo" class="logo-img">
-            <div class="brand-text">
-                <h1>TEMAN</h1>
-                <p id="tagline"></p>
-            </div>
-        </div>
-        <button class="btn btn-outline" onclick="startTour()" style="padding: 8px 14px; font-size: 12px;">&#128270; Panduan</button>
-    </header>
-
-    <!-- NAVIGATION -->
-    <nav id="navbar">
-        <div class="nav-track">
-            <div class="nav-card active" onclick="scrollToSlide(0, 'Beranda')"><img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop" alt="Beranda"><div class="text-overlay"><span class="text">Beranda</span></div></div>
-            <div class="nav-card" onclick="scrollToSlide(1, 'Acara')"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop" alt="Acara"><div class="text-overlay"><span class="text">Acara</span></div></div>
-            <div class="nav-card" onclick="scrollToSlide(2, 'CVC')"><img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=2070&auto=format&fit=crop" alt="CVC"><div class="text-overlay"><span class="text">CVC</span></div></div>
-            <div class="nav-card" onclick="scrollToSlide(3, 'AV Shunt')"><img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2072&auto=format&fit=crop" alt="AV Shunt"><div class="text-overlay"><span class="text">AV Shunt</span></div></div>
-            <div class="nav-card" onclick="scrollToSlide(4, 'Edukasi')"><img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop" alt="Edukasi"><div class="text-overlay"><span class="text">Edukasi</span></div></div>
-            <div class="nav-card" onclick="scrollToSlide(5, 'Konsultasi')"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2032&auto=format&fit=crop" alt="Konsultasi"><div class="text-overlay"><span class="text">Konsultasi</span></div></div>
-            <div class="nav-card" onclick="scrollToSlide(6, 'Info')"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" alt="Info"><div class="text-overlay"><span class="text">Info</span></div></div>
-        </div>
-    </nav>
-
-    <!-- MAIN CONTENT -->
-    <main id="slider">
-        <!-- SLIDE 0: BERANDA -->
-        <section class="slide-section" id="slide-0">
-            <div class="hero-banner">
-                <div class="bg-slide active" style="background-image: url('banner-saya.png');"></div>
-                <div class="hero-overlay"></div>
-                <div class="hero-content">
-                    <div class="badge" style="background: var(--accent-coral); color: white;">&#128293; Fokus: Kesehatan Akses</div>
-                    <h2>Selamat Datang</h2>
-                    <p class="card-desc" style="color: rgba(255,255,255,0.9);">Platform edukasi dan monitoring akses dialisis terpadu.</p>
-                </div>
-            </div>
-            <div class="visitor-box"><span>👁️ Pengunjung:</span><span id="visitorCount" style="font-weight: 700; color: var(--primary-teal-dark);">1,250</span></div>
-            
-            <div class="glass-card">
-                <div class="card-header" style="border-bottom: none; padding-bottom: 0; margin-bottom: 10px;">
-                    <div class="icon-box blue" style="width: 36px; height: 36px; font-size: 14px;">💬</div>
-                    <h3 style="font-size: 14px;">Komentar Pengunjung</h3>
-                </div>
-                <div class="comment-section">
-                    <div class="comment-card"><div class="comment-header"><span class="comment-name">Budi S.</span><span class="comment-time">2 jam lalu</span></div><p class="comment-text">Sangat membantu memahami perawatan CVC.</p></div>
-                    <div class="comment-card"><div class="comment-header"><span class="comment-name">Siti A.</span><span class="comment-time">5 jam lalu</span></div><p class="comment-text">Materi AV Shunt nya jelas sekali.</p></div>
-                </div>
-                <div style="margin-top: 12px;"><a href="#" id="addCommentBtn" class="btn btn-outline" style="width: 100%; font-size: 12px;">✍️ Tulis Komentar</a></div>
-            </div>
-        </section>
-
-        <!-- SLIDE 1: ACARA -->
-        <section class="slide-section" id="slide-1">
-            <div class="glass-card">
-                <div class="card-header"><div class="icon-box purple">&#128197;</div><h2>Agenda & Acara</h2></div>
-                <button class="btn btn-bright" style="width: 100%; margin-bottom: 16px;" onclick="openModal('passwordModal')">+ Tambah Acara</button>
-                <div id="eventList"><div class="spinner"></div></div>
-            </div>
-        </section>
-        
-        <!-- SLIDE 2: CVC -->
-        <section class="slide-section" id="slide-2">
-             <div class="glass-card">
-                <div style="background: rgba(239, 68, 68, 0.05); border-left: 4px solid var(--color-danger); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-                    <h3 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 4px;">🩺 Tentang CVC</h3>
-                    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">CVC (Kateter Vena Sentral) adalah akses sementara. <strong>Risiko utama: Infeksi.</strong></p>
-                </div>
-
-                <div class="card-header"><div class="icon-box red">&#129656;</div><h2>Cek Risiko Infeksi CVC</h2></div>
-                
-                <div id="cvc-form">
-                    <div class="grid-2">
-                        <div class="input-group"><label>ID Pasien</label><input type="text" class="input-field" id="cvc_id" placeholder="RM-001"></div>
-                        <div class="input-group"><label>Hari Terpasang</label><input type="number" class="input-field" id="cvc_days" placeholder="14"></div>
-                    </div>
-                    <div style="margin-top: 12px;">
-                        <label class="check-label"><input type="checkbox" id="q1"><span class="check-box"></span><span>Kemerahan di area kateter</span></label>
-                        <label class="check-label"><input type="checkbox" id="q2"><span class="check-box"></span><span>Bengkak di area kateter</span></label>
-                        <label class="check-label"><input type="checkbox" id="q3"><span class="check-box"></span><span>Nyeri atau sakit</span></label>
-                        <label class="check-label"><input type="checkbox" id="q4"><span class="check-box"></span><span>Keluar nanah/cairan (Kritis)</span></label>
-                        <label class="check-label"><input type="checkbox" id="q5"><span class="check-box"></span><span>Demam/Menggigil (Kritis)</span></label>
-                    </div>
-                    <button class="btn btn-teal" style="width: 100%; margin-top: 16px; color: white;" onclick="calculateCVC()">Hitung Risiko</button>
-                </div>
-                
-                <div id="cvc-result" style="display: none; text-align: center; padding-top: 16px;">
-                    <div class="score-circle" id="cvc-score-circle"><span id="score-val" style="font-size: 32px; font-weight: 700;">0</span><span style="font-size: 11px; color: var(--text-muted);">Gejala</span></div>
-                    <span id="risk-badge" class="badge badge-teal">Aman</span>
-                    <p style="margin-top: 10px; color: var(--text-dark); font-size: 13px; font-weight: 500;" id="risk-msg">Tidak ada tanda masalah.</p>
-                    <div id="cvc-critical-action" style="display:none; margin-top:14px;"></div>
-                    <button class="btn btn-outline" style="margin-top: 16px;" onclick="resetCVC()">Ulangi</button>
-                </div>
-
-                <!-- Sumber CVC -->
-                <div class="source-ref">
-                    <h4>📚 Sumber & Referensi</h4>
-                    <p>Penilaian infeksi berdasarkan gejala klinis sesuai pedoman:
-                    <br>• <a href="https://www.cdc.gov/infectioncontrol/guidelines/bsi/index.html" target="_blank">CDC Guidelines for the Prevention of Intravascular Catheter-Related Infection (2017)</a>
-                    <br>• <a href="https://kdigo.org/" target="_blank">KDOQI Clinical Practice Guideline for Vascular Access (2019 Update)</a>
-                    <br>• Pedoman Pernefri (Perhimpunan Nefrologi Indonesia).</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- SLIDE 3: AV SHUNT -->
-        <section class="slide-section" id="slide-3">
-            <div class="glass-card">
-                <div style="text-align: center; margin-bottom: 16px;">
-                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80" alt="Ilustrasi AV Shunt" style="width: 100%; height: 140px; object-fit: cover; border-radius: 12px;">
-                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">Ilustrasi: Pemeriksaan AV Shunt</p>
-                </div>
-
-                <div class="card-header"><div class="icon-box orange">&#128140;</div><h2>Penilaian Mandiri AV Shunt</h2></div>
-                <p class="card-desc">Periksa kondisi fistula/jalan darah (Look, Listen, Feel).</p>
-                <div id="av-form">
-                    <div class="input-group"><label>ID Pasien</label><input type="text" class="input-field" id="av_id" placeholder="Nama / No RM"></div>
-
-                    <div class="section-title-sm">1. Pemeriksaan Visual (Look)</div>
-                    <label class="check-label"><input type="checkbox" id="av_vis_red"><span class="check-box"></span><span>Kemerahan / Bengkak / Lepuhan</span></label>
-                    <label class="check-label"><input type="checkbox" id="av_vis_pus"><span class="check-box"></span><span>Keluar Nanah (Kritis)</span></label>
-                    <label class="check-label"><input type="checkbox" id="av_vis_bleed"><span class="check-box"></span><span>Perdarahan Aktif (Kritis)</span></label>
-
-                    <div class="section-title-sm">2. Arm Elevation Test</div>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Angkat lengan shunt setinggi bahu. Apakah pembuluh darah mengempis?</p>
-                    <label class="check-label"><input type="radio" name="av_elev" value="yes" checked><span class="check-box radio-style"></span><span>Ya, Mengempis (Normal)</span></label>
-                    <label class="check-label"><input type="radio" name="av_elev" value="no"><span class="check-box radio-style"></span><span>Tidak, Tetap Bengkak (Tanda Stenosis)</span></label>
-
-                    <div class="section-title-sm">3. Pemeriksaan Raba (Feel/Thrill)</div>
-                    <label class="check-label"><input type="radio" name="av_thrill" value="normal" checked><span class="check-box radio-style"></span><span>Terasa Getaran (Normal)</span></label>
-                    <label class="check-label"><input type="radio" name="av_thrill" value="weak"><span class="check-box radio-style"></span><span>Lemah / Berkurang</span></label>
-                    <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box radio-style"></span><span>Hilang (Kritis - Thrombosis)</span></label>
-                    
-                    <label class="check-label" style="margin-top:8px;"><input type="checkbox" id="av_palp_pain"><span class="check-box"></span><span>Nyeri hebat saat disentuh</span></label>
-
-                    <div class="section-title-sm">4. Tanda Peringatan Lain</div>
-                    <label class="check-label"><input type="checkbox" id="av_other_cold"><span class="check-box"></span><span>Tangan pucat, dingin, mati rasa (Steal Syndrome)</span></label>
-
-                    <button class="btn btn-teal" style="width: 100%; margin-top: 20px; color: white;" onclick="calculateAV()">Cek Kondisi</button>
-                </div>
-                
-                <div id="av-result" style="display: none; text-align: center; padding-top: 16px;">
-                    <span id="av-badge" class="badge badge-teal" style="font-size: 14px; padding: 8px 18px;">BAIK</span>
-                    <p style="margin-top: 14px; font-weight: 600; color: var(--text-dark); font-size: 15px;" id="av-msg">Kondisi fistula baik.</p>
-                    <p style="font-size: 13px; color: var(--text-muted); margin-top: 4px; line-height: 1.5;" id="av-recom">Rekomendasi.</p>
-                    <div id="av-critical-action" style="display:none; margin-top:16px;"></div>
-                    <button class="btn btn-outline" style="margin-top: 16px;" onclick="resetAV()">Cek Ulang</button>
-                </div>
-
-                <!-- Sumber AV Shunt -->
-                <div class="source-ref">
-                    <h4>📚 Sumber & Referensi</h4>
-                    <p>Penilaian fisik (Inspeksi, Palpasi, Auskultasi) mengacu pada:
-                    <br>• <a href="https://kdigo.org/" target="_blank">KDOQI Clinical Practice Guideline for Vascular Access (2019)</a> - Update Recommendations.
-                    <br>• <a href="https://www.vascularaccesssociety.org/" target="_blank">Vascular Access Society Guidelines</a>.
-                    <br>• Pedoman Pernefri: "Tata Laksana Akses Vaskuler Hemodialisis".
-                    <br><em>Arm Elevation Test merupakan metode klinis sederhana untuk skrining stenosis vena outflow.</em></p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- SLIDE 4: EDUKASI -->
-        <section class="slide-section" id="slide-4">
-             <div class="glass-card">
-                <div class="card-header"><div class="icon-box" style="background: linear-gradient(135deg, #f97316, #ea580c);">&#127909;</div><h3>Video Edukasi</h3></div>
-                <a href="https://drive.google.com/file/d/16_RQIDh7VcxzXJw_-dmkdnAANP0pZg8x/view?usp=sharing" target="_blank" style="text-decoration: none;">
-                    <div style="position: relative; border-radius: 14px; overflow: hidden; background: #000; aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center;">
-                        <div style="width: 56px; height: 56px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary-teal);">&#9658;</div>
-                    </div>
-                </a>
-                <p style="font-size: 13px; text-align: center; color: var(--text-muted); margin-top:8px;">Klik untuk tonton video perawatan</p>
-            </div>
-            <div class="glass-card">
-                <div class="card-header"><div class="icon-box orange">&#128214;</div><h2>Komik Edukasi</h2></div>
-                <div style="border-radius: 14px; overflow: hidden; margin-top: 12px;"><img src="komik1.png" alt="Komik" style="width: 100%; display: block;"></div>
-            </div>
-        </section>
-        
-        <!-- SLIDE 5: KONSULTASI -->
-        <section class="slide-section" id="slide-5">
-            <div class="glass-card">
-                <div class="card-header"><div class="icon-box">&#128101;</div><h2>Konsultasi</h2></div>
-                <p class="card-desc">Hubungi Tim Edukator.</p>
-                <div class="staff-grid">
-                    <div class="staff-card" onclick="confirmWA('6282227707573', 'Kak Ginjal')"><div class="staff-avatar">🩺</div><div class="staff-info"><div class="staff-name">Kak Ginjal</div><div class="staff-role">Edukator</div></div><div class="staff-icon">&#128172;</div></div>
-                    <div class="staff-card" onclick="confirmWA('6283831217784', 'Kak Vena')"><div class="staff-avatar">💉</div><div class="staff-info"><div class="staff-name">Kak Vena</div><div class="staff-role">Edukator</div></div><div class="staff-icon">&#128172;</div></div>
-                </div>
-            </div>
-        </section>
-        
-        <!-- SLIDE 6: INFO -->
-        <section class="slide-section" id="slide-6">
-            <div class="glass-card">
-                <div class="card-header"><div class="icon-box purple">&#9432;</div><h2>Tentang TEMAN</h2></div>
-                <div style="background: rgba(20, 184, 166, 0.05); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
-                     <p style="font-size: 13px; font-weight: 600; color: var(--dark-blue);">TEMAN (Terapi dan Monitoring Akses Dialisis)</p>
-                     <p style="font-size: 12px; color: var(--text-muted); margin-top:4px;">Platform edukasi pasien.</p>
-                </div>
-                <div style="background: var(--bg-soft); padding: 12px; border-radius: 8px;"><p style="font-size: 12px; color: var(--text-dark);"><strong>Developer:</strong> TIM INOCA RSSA</p></div>
-            </div>
-        </section>
-    </main>
-
-    <!-- HOLOGRAM -->
-    <div class="holo-container" id="holoContainer"><div class="holo-body"><img src="dokter.gif" alt="AI" class="holo-avatar"></div></div>
 
     <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzu_WfyID_ggPD9TFbbdQFysAvcQyO5w7W22cD1udUF6ZHx5xG313ejhGwDmAXrJT4C/exec';
-    const holoContainer = document.getElementById('holoContainer');
-    const tourTooltip = document.getElementById('tourTooltip');
-    const tooltipTitle = document.getElementById('tooltipTitle');
-    const tooltipDesc = document.getElementById('tooltipDesc');
+        // ========== CONFIGURATION ==========
+        const API_URL = 'https://script.google.com/macros/s/AKfycbzu_WfyID_ggPD9TFbbdQFysAvcQyO5w7W22cD1udUF6ZHx5xG313ejhGwDmAXrJT4C/exec';
+        const PASSWORD = "1111";
+        
+        // ========== STATE ==========
+        let currentUser = null;
+        let selectedAccessType = "CVC";
+        let selectedAvatarData = null;
+        let uploadedAvatarData = null;
 
-    // --- ONBOARDING ---
-    function selectAccess(type) {
-        const infoDiv = document.getElementById('accessInfo');
-        const choiceBtns = document.querySelectorAll('.choice-btn');
-        choiceBtns.forEach(btn => btn.classList.remove('active'));
-        event.currentTarget.classList.add('active');
-        let content = '';
-        if (type === 'cvc') {
-            content = `<div style="background: rgba(239, 68, 68, 0.05); padding: 12px; border-radius: 10px;"><h4 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 6px;">🩺 Info CVC</h4><p style="font-size: 12px; color: var(--text-dark);"><strong>Risiko:</strong> Infeksi tinggi.<br><strong>Perawatan:</strong> Jaga kasa kering.</p><button class="btn btn-danger" style="width: 100%; font-size: 12px; margin-top: 10px;" onclick="goToAssessment('cvc')">Lanjut Cek CVC</button></div>`;
-        } else {
-            content = `<div style="background: rgba(249, 115, 22, 0.05); padding: 12px; border-radius: 10px;"><h4 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 6px;">💪 Info AV Shunt</h4><p style="font-size: 12px; color: var(--text-dark);"><strong>Risiko:</strong> Penyumbatan.<br><strong>Perawatan:</strong> Cek getaran harian.</p><button class="btn btn-teal" style="width: 100%; font-size: 12px; margin-top: 10px;" onclick="goToAssessment('av')">Lanjut Cek AV</button></div>`;
+        // ========== AVATAR SVG TEMPLATES ==========
+        const avatarSVGs = {
+            'man-adult': `<svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#6d28d9"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#1e3a5f"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><ellipse cx="50" cy="25" rx="20" ry="12" fill="#2d2013"/></svg>`,
+            'man-teen': `<svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#14b8a6"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#0f766e"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><ellipse cx="50" cy="22" rx="18" ry="10" fill="#2d2013"/></svg>`,
+            'boy': `<svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#f97316"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#ea580c"/><circle cx="50" cy="35" r="18" fill="#fcd5b8"/><ellipse cx="50" cy="28" rx="16" ry="8" fill="#2d2013"/></svg>`,
+            'woman-adult': `<svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#ec4899"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><path d="M32 30 Q35 15 50 15 Q65 15 68 30 L68 40 Q65 50 50 50 Q35 50 32 40 Z" fill="#2d2013"/></svg>`,
+            'woman-teen': `<svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#a78bfa"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><path d="M35 25 Q40 12 50 12 Q60 12 65 25 L65 38 Q60 48 50 48 Q40 48 35 38 Z" fill="#2d2013"/><path d="M30 40 Q35 50 50 50 Q65 50 70 40" fill="none" stroke="#2d2013" stroke-width="8"/></svg>`,
+            'girl': `<svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#fb7185"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#f472b6"/><circle cx="50" cy="35" r="18" fill="#fcd5b8"/><path d="M35 30 Q38 18 50 18 Q62 18 65 30 L65 40 Q62 50 50 50 Q38 50 35 40 Z" fill="#2d2013"/><circle cx="38" cy="28" r="4" fill="#fb7185"/></svg>`
+        };
+
+        // ========== UI FUNCTIONS ==========
+        function openModal(id) { document.getElementById(id).classList.add('active'); }
+        function closeModal(id) { document.getElementById(id).classList.remove('active'); }
+
+        function switchAuthTab(tab) {
+            document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+            
+            if (tab === 'login') {
+                document.querySelector('.auth-tab:first-child').classList.add('active');
+                document.getElementById('loginForm').classList.add('active');
+            } else {
+                document.querySelector('.auth-tab:last-child').classList.add('active');
+                document.getElementById('registerForm').classList.add('active');
+            }
         }
-        infoDiv.innerHTML = content;
-        infoDiv.style.display = 'block';
-    }
-    function goToAssessment(type) { closeModal('onboardingModal'); scrollToSlide(type === 'cvc' ? 2 : 3, 'Silakan isi form penilaian.'); }
 
-    // --- HEADER ---
-    const phrases = ["Terapi & Monitoring Akses", "Cek Kondisi Akses", "Edukasi Interaktif"];
-    const taglineElement = document.getElementById('tagline');
-    let phraseIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 70;
-    function typeWriter() {
-        const currentPhrase = phrases[phraseIndex];
-        if (isDeleting) { taglineElement.innerHTML = currentPhrase.substring(0, charIndex - 1) + '<span class="typewriter-cursor">|</span>'; charIndex--; typingSpeed = 25; if (charIndex === 0) { isDeleting = false; phraseIndex = (phraseIndex + 1) % phrases.length; typingSpeed = 400; } }
-        else { taglineElement.innerHTML = currentPhrase.substring(0, charIndex + 1) + '<span class="typewriter-cursor">|</span>'; charIndex++; typingSpeed = 60; if (charIndex === currentPhrase.length) { isDeleting = true; typingSpeed = 1500; } }
-        setTimeout(typeWriter, typingSpeed);
-    }
-    setTimeout(typeWriter, 400);
+        // ========== AVATAR FUNCTIONS ==========
+        function selectAvatar(element) {
+            document.querySelectorAll('.avatar-option, .avatar-upload').forEach(a => a.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedAvatarData = element.dataset.avatar;
+            uploadedAvatarData = null;
+        }
 
-    // --- NAVIGATION ---
-    const navCards = document.querySelectorAll('.nav-card');
-    const mainSlider = document.getElementById('slider');
-    function scrollToSlide(index, msg) { document.getElementById('slide-' + index).scrollIntoView({ behavior: 'smooth' }); updateActiveNav(index); if(msg) showHoloMessageSimple("Pemandu", msg); }
-    function showHoloMessageSimple(title, text) { tooltipTitle.innerText = title; tooltipDesc.innerText = text; holoContainer.classList.add('show'); tourTooltip.classList.add('active'); setTimeout(() => { holoContainer.classList.remove('show'); tourTooltip.classList.remove('active'); }, 4000); }
-    function updateActiveNav(index) { navCards.forEach((card, i) => { card.classList.toggle('active', i === index); }); }
-    mainSlider.addEventListener('scroll', () => { const scrollLeft = mainSlider.scrollLeft; const slideWidth = mainSlider.clientWidth; const activeIndex = Math.round(scrollLeft / slideWidth); updateActiveNav(activeIndex); });
+        function handleAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedAvatarData = e.target.result;
+                    selectedAvatarData = 'custom';
+                    
+                    // Update upload button preview
+                    const uploadBtn = document.querySelector('.avatar-upload');
+                    uploadBtn.classList.add('selected', 'has-image');
+                    uploadBtn.innerHTML = `<img src="${uploadedAvatarData}" alt="Custom Avatar">`;
+                    document.querySelectorAll('.avatar-option').forEach(a => a.classList.remove('selected'));
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
-    // --- MODALS ---
-    function openModal(id) { document.getElementById(id).classList.add('active'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('active'); }
-    function confirmWA(phone, name) { const text = `Halo ${name}, saya ingin bertanya.`; document.getElementById('confirmWaBtn').href = `https://wa.me/${phone}?text=${encodeURIComponent(text)}`; openModal('waModal'); }
-    
-    // --- EVENT LOGIC ---
-    const PASSWORD = "1111";
-    function checkPassword() { if (document.getElementById('passwordInput').value === PASSWORD) { closeModal('passwordModal'); openModal('eventModal'); document.getElementById('passwordInput').value = ""; } else { alert("Kode salah!"); } }
-    function convertToDirectLink(url) { if (!url) return ''; let match = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/); if (match && match[1]) return `https://drive.google.com/uc?export=view&id=${match[1]}`; return url; }
-    function loadEvents() {
-        const container = document.getElementById('eventList');
-        fetch(API_URL).then(response => response.json()).then(data => {
-            if (!data.length) { container.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Belum ada acara.</p>'; return; }
-            container.innerHTML = data.map(ev => {
-                const directImgUrl = convertToDirectLink(ev.img);
-                let posterHtml = directImgUrl ? `<a href="${ev.link || directImgUrl}" target="_blank" style="display:block; border-radius:12px; overflow:hidden; margin-bottom:10px;"><img src="${directImgUrl}" style="width:100%; display:block;" onerror="this.style.display='none'"></a>` : '';
-                return `<div class="glass-card" style="padding:12px; margin-bottom:10px;">${posterHtml}<div style="font-weight:700; font-size:14px; margin-bottom:4px;">${ev.title}</div><div style="font-size:11px; color:var(--primary-teal); margin-bottom:6px;">🗓 ${ev.date}</div><div style="font-size:12px; color:var(--text-muted);">${ev.desc || ''}</div></div>`;
-            }).join('');
-        }).catch(() => { container.innerHTML = '<p style="text-align:center; color:var(--color-danger); margin-top:20px;">Gagal memuat.</p>'; });
-    }
-    function saveEvent() {
-        const data = { password: PASSWORD, title: document.getElementById('evTitle').value, date: document.getElementById('evDate').value, img: document.getElementById('evImg').value, link: document.getElementById('evLink').value, desc: document.getElementById('evDesc').value };
-        if (!data.title || !data.date) { alert("Judul & Tanggal wajib!"); return; }
-        openModal('loadingModal');
-        fetch(API_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
-        .then(() => { closeModal('loadingModal'); closeModal('eventModal'); alert("Sukses!"); loadEvents(); })
-        .catch(() => { closeModal('loadingModal'); alert("Gagal."); });
-    }
-    
-    window.addEventListener('load', () => {
-        loadEvents();
-        document.getElementById('visitorCount').innerText = Math.floor(Math.random() * 500) + 1200;
-        document.getElementById('addCommentBtn').href = `https://wa.me/6282227707573?text=${encodeURIComponent("Komentar untuk TEMAN:")}`;
-    });
+        function handleProfileAvatarUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedAvatarData = e.target.result;
+                    selectedAvatarData = 'custom';
+                    updateAvatarDisplay();
+                    saveProfile();
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
-    // --- CALCULATORS ---
-    function calculateCVC() {
-        let symptomCount = 0; let hasCriticalSign = false; 
-        if (document.getElementById('q1')?.checked) symptomCount++; 
-        if (document.getElementById('q2')?.checked) symptomCount++; 
-        if (document.getElementById('q3')?.checked) symptomCount++; 
-        if (document.getElementById('q4')?.checked) { symptomCount++; hasCriticalSign = true; }
-        if (document.getElementById('q5')?.checked) { symptomCount++; hasCriticalSign = true; }
+        function getAvatarHTML(avatarData) {
+            if (avatarData === 'custom' && uploadedAvatarData) {
+                return `<img src="${uploadedAvatarData}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;">`;
+            } else if (avatarSVGs[avatarData]) {
+                return avatarSVGs[avatarData];
+            }
+            return avatarSVGs['man-adult'];
+        }
 
-        let level = "", msg = "", bc = ""; 
-        const scoreCircle = document.getElementById('cvc-score-circle');
-        scoreCircle.classList.remove('risk-low', 'risk-medium', 'risk-high');
+        function updateAvatarDisplay() {
+            if (!currentUser) return;
+            
+            const avatarHTML = getAvatarHTML(currentUser.avatar);
+            
+            // Update main avatar
+            document.getElementById('mainAvatar').innerHTML = avatarHTML;
+            
+            // Update header avatar
+            const headerAvatar = document.querySelector('.user-avatar-small');
+            if (headerAvatar) {
+                headerAvatar.innerHTML = avatarHTML;
+            }
+            
+            // Update profile modal avatar
+            document.getElementById('profileAvatarBig').innerHTML = avatarHTML;
+        }
 
-        if (hasCriticalSign || symptomCount >= 4) { level = "Tinggi"; msg = "🚨 DARURAT! Segera ke RS."; bc = "badge-red"; scoreCircle.classList.add('risk-high'); }
-        else if (symptomCount >= 2) { level = "Sedang"; msg = "⚠️ SEGERA LAPOR."; bc = "badge-orange"; scoreCircle.classList.add('risk-medium'); }
-        else if (symptomCount === 1) { level = "Rendah"; msg = "⚠️ Perlu Perhatian."; bc = "badge-teal"; scoreCircle.classList.add('risk-low'); }
-        else { level = "Aman"; msg = "✔️ Kondisi Aman."; bc = "badge-teal"; scoreCircle.classList.add('risk-low'); }
+        // ========== AUTH FUNCTIONS ==========
+        function handleRegister() {
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const passwordConfirm = document.getElementById('regPasswordConfirm').value;
 
-        document.getElementById('cvc-form').style.display = 'none';
-        document.getElementById('cvc-result').style.display = 'block';
-        document.getElementById('score-val').innerText = symptomCount; 
-        document.getElementById('risk-msg').innerText = msg;
-        document.getElementById('risk-badge').innerText = level;
-        document.getElementById('risk-badge').className = 'badge ' + bc;
-        
-        const criticalDiv = document.getElementById('cvc-critical-action');
-        const patientId = document.getElementById('cvc_id').value || 'Pasien';
-        let actionHTML = (level === "Tinggi") ? `<a href="tel:119" class="btn btn-danger" style="width:100%; margin-bottom:10px;">🚨 Hubungi Darurat</a>` : '';
-        actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('CVC', '${patientId}', '${level}')">Lapor Admin</button>`;
-        
-        criticalDiv.innerHTML = actionHTML;
-        criticalDiv.style.display = 'block';
-    }
-    function resetCVC() { document.getElementById('cvc-form').style.display = 'block'; document.getElementById('cvc-result').style.display = 'none'; document.querySelectorAll('#cvc-form input').forEach(c => c.checked = false); }
+            if (!name || !email || !password) {
+                alert('Mohon lengkapi semua field!');
+                return;
+            }
 
-    function calculateAV() {
-        const patientId = document.getElementById('av_id').value || 'Pasien';
-        const c_vis_red = document.getElementById('av_vis_red').checked;
-        const c_vis_pus = document.getElementById('av_vis_pus').checked;
-        const c_vis_bleed = document.getElementById('av_vis_bleed').checked;
-        const c_palp_pain = document.getElementById('av_palp_pain').checked;
-        const c_other_cold = document.getElementById('av_other_cold').checked;
-        const thrillVal = document.querySelector('input[name="av_thrill"]:checked')?.value;
-        const elevVal = document.querySelector('input[name="av_elev"]:checked')?.value;
-        
-        let status = "BAIK";
-        let msg = "Kondisi fistula baik.";
-        let recom = "Lanjutkan perawatan rutin.";
-        let isCritical = false;
-        let isWarning = false;
+            if (password.length < 6) {
+                alert('Password minimal 6 karakter!');
+                return;
+            }
 
-        if (c_vis_pus || c_vis_bleed || c_other_cold || thrillVal === 'gone') { status = "DARURAT"; msg = "🚨 Kondisi Kritis!"; recom = "Segera ke IGD!"; isCritical = true; }
-        else if (c_vis_red || c_palp_pain || thrillVal === 'weak' || elevVal === 'no') { status = "PERHATIAN"; msg = "⚠️ Ada tanda peringatan."; recom = "Segera konsultasi."; isWarning = true; }
+            if (password !== passwordConfirm) {
+                alert('Konfirmasi password tidak cocok!');
+                return;
+            }
 
-        document.getElementById('av-form').style.display = 'none';
-        document.getElementById('av-result').style.display = 'block';
-        
-        const badge = document.getElementById('av-badge');
-        badge.innerText = status;
-        badge.className = 'badge ' + (isCritical ? 'badge-red' : isWarning ? 'badge-orange' : 'badge-teal');
-        
-        document.getElementById('av-msg').innerText = msg;
-        document.getElementById('av-recom').innerText = recom;
+            if (!selectedAvatarData) {
+                alert('Pilih avatar terlebih dahulu!');
+                return;
+            }
 
-        const criticalDiv = document.getElementById('av-critical-action');
-        let actionHTML = isCritical ? `<a href="tel:119" class="btn btn-danger" style="width:100%; margin-bottom:10px;">🚨 Hubungi Darurat</a>` : '';
-        actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('AV', '${patientId}', '${status}')">Lapor Admin</button>`;
-        
-        criticalDiv.innerHTML = actionHTML;
-        criticalDiv.style.display = 'block';
-    }
+            // Create user object
+            currentUser = {
+                id: 'user_' + Date.now(),
+                name: name,
+                email: email,
+                password: password, // In production, never store plain password!
+                avatar: selectedAvatarData,
+                customAvatar: uploadedAvatarData,
+                accessType: 'CVC',
+                createdAt: new Date().toISOString(),
+                stats: {
+                    totalChecks: 0,
+                    lastCheck: null,
+                    healthScore: 100
+                }
+            };
 
-    function resetAV() { 
-        document.getElementById('av-form').style.display = 'block'; 
-        document.getElementById('av-result').style.display = 'none'; 
-        document.querySelectorAll('#av-form input[type="checkbox"]').forEach(c => c.checked = false);
-        document.querySelector('input[name="av_thrill"][value="normal"]').checked = true;
-        document.querySelector('input[name="av_elev"][value="yes"]').checked = true;
-    }
+            // Save to localStorage
+            saveUserToStorage();
+            
+            // Update UI
+            updateUIForLoggedInUser();
+            closeModal('authModal');
+            
+            // Show onboarding for access type
+            setTimeout(() => openModal('onboardingModal'), 500);
+        }
 
-    function reportToAdmin(type, patientId, status) {
-        const phone = '6282227707573';
-        const text = `Laporan ${type}%0AID: ${patientId}%0AStatus: ${status}`;
-        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
-    }
+        function handleLogin() {
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
 
-    function startTour() { showHoloMessageSimple("Panduan", "Gunakan menu navigasi di bawah untuk berpindah halaman."); }
-    function showHoloMessage(title, text, audioFile, callback) { showHoloMessageSimple(title, text); }
+            if (!email || !password) {
+                alert('Mohon isi email dan password!');
+                return;
+            }
 
-</script>
+            // Try to load user from storage
+            const storedUser = localStorage.getItem('teman_user_' + email);
+            
+            if (storedUser) {
+                const user = JSON.parse(storedUser);
+                if (user.password === password) {
+                    currentUser = user;
+                    if (user.customAvatar) {
+                        uploadedAvatarData = user.customAvatar;
+                    }
+                    saveUserToStorage();
+                    updateUIForLoggedInUser();
+                    closeModal('authModal');
+                    return;
+                }
+            }
+
+            // Check if using stored session
+            const session = localStorage.getItem('teman_current_user');
+            if (session) {
+                const sessionUser = JSON.parse(session);
+                if (sessionUser.email === email && sessionUser.password === password) {
+                    currentUser = sessionUser;
+                    if (sessionUser.customAvatar) {
+                        uploadedAvatarData = sessionUser.customAvatar;
+                    }
+                    updateUIForLoggedInUser();
+                    closeModal('authModal');
+                    return;
+                }
+            }
+
+            alert('Email atau password salah!');
+        }
+
+        function handleGoogleLogin() {
+            // Simulated Google Login
+            // In production, use Firebase Auth or OAuth
+            const googleEmail = 'user.google@example.com';
+            const googleName = 'Google User';
+            
+            currentUser = {
+                id: 'google_' + Date.now(),
+                name: googleName,
+                email: googleEmail,
+                avatar: 'man-adult',
+                provider: 'google',
+                accessType: 'CVC',
+                createdAt: new Date().toISOString(),
+                stats: { totalChecks: 0, lastCheck: null, healthScore: 100 }
+            };
+            
+            saveUserToStorage();
+            updateUIForLoggedInUser();
+            closeModal('authModal');
+            
+            setTimeout(() => openModal('onboardingModal'), 500);
+        }
+
+        function handleLogout() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                localStorage.removeItem('teman_current_user');
+                currentUser = null;
+                uploadedAvatarData = null;
+                
+                // Reset UI
+                document.getElementById('userArea').innerHTML = `
+                    <button class="user-profile-btn" onclick="openModal('authModal')">
+                        <div class="user-avatar-small">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                            </svg>
+                        </div>
+                        <span style="font-weight:600; color:var(--dark-blue);">Masuk</span>
+                    </button>
+                `;
+                
+                document.getElementById('userName').innerText = 'Tamu';
+                document.getElementById('userStatus').innerText = 'Belum Login';
+                document.getElementById('mainAvatar').innerHTML = `
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                `;
+                document.getElementById('tipeAkses').innerText = '-';
+                document.getElementById('lastCheck').innerText = '-';
+                document.getElementById('totalCheck').innerText = '0';
+                document.getElementById('healthScore').innerText = '-';
+                
+                closeModal('profileModal');
+            }
+        }
+
+        function saveUserToStorage() {
+            if (currentUser) {
+                localStorage.setItem('teman_current_user', JSON.stringify(currentUser));
+                localStorage.setItem('teman_user_' + currentUser.email, JSON.stringify(currentUser));
+            }
+        }
+
+        function loadUserFromStorage() {
+            const stored = localStorage.getItem('teman_current_user');
+            if (stored) {
+                currentUser = JSON.parse(stored);
+                if (currentUser.customAvatar) {
+                    uploadedAvatarData = currentUser.customAvatar;
+                }
+                updateUIForLoggedInUser();
+                return true;
+            }
+            return false;
+        }
+
+        function updateUIForLoggedInUser() {
+            if (!currentUser) return;
+
+            const avatarHTML = getAvatarHTML(currentUser.avatar);
+            
+            // Update header
+            document.getElementById('userArea').innerHTML = `
+                <div class="user-profile-btn" onclick="openModal('profileModal')">
+                    <div class="user-avatar-small">${avatarHTML}</div>
+                    <div class="user-info-text">
+                        <div class="user-name-display">${currentUser.name}</div>
+                        <div class="user-email-display">${currentUser.email}</div>
+                    </div>
+                </div>
+            `;
+
+            // Update sidebar
+            document.getElementById('userName').innerText = currentUser.name;
+            document.getElementById('userStatus').innerText = 'Aktif';
+            document.getElementById('mainAvatar').innerHTML = avatarHTML;
+            document.getElementById('tipeAkses').innerText = currentUser.accessType || '-';
+            
+            if (currentUser.stats) {
+                document.getElementById('totalCheck').innerText = currentUser.stats.totalChecks || 0;
+                document.getElementById('healthScore').innerText = currentUser.stats.healthScore || '-';
+                if (currentUser.stats.lastCheck) {
+                    document.getElementById('lastCheck').innerText = currentUser.stats.lastCheck;
+                }
+            }
+
+            // Update profile modal
+            document.getElementById('profileName').value = currentUser.name;
+            document.getElementById('profileEmail').value = currentUser.email;
+            document.getElementById('profileAvatarBig').innerHTML = avatarHTML;
+            
+            // Set access type radio
+            if (currentUser.accessType === 'CVC') {
+                document.querySelector('input[name="profileAccessType"][value="CVC"]').checked = true;
+            } else if (currentUser.accessType === 'AV Shunt') {
+                document.querySelector('input[name="profileAccessType"][value="AV Shunt"]').checked = true;
+            }
+
+            // Update sync status
+            document.getElementById('syncDot').classList.remove('offline');
+            document.getElementById('syncText').innerText = 'Tersinkronisasi dengan lokal';
+        }
+
+        // ========== PROFILE FUNCTIONS ==========
+        function setProfileAccessType(type) {
+            document.querySelectorAll('input[name="profileAccessType"]').forEach(r => r.checked = false);
+            document.querySelector(`input[name="profileAccessType"][value="${type}"]`).checked = true;
+        }
+
+        function saveProfile() {
+            if (!currentUser) return;
+
+            currentUser.name = document.getElementById('profileName').value;
+            currentUser.avatar = selectedAvatarData || currentUser.avatar;
+            if (uploadedAvatarData) {
+                currentUser.customAvatar = uploadedAvatarData;
+            }
+            
+            // Get selected access type
+            const accessTypeRadio = document.querySelector('input[name="profileAccessType"]:checked');
+            if (accessTypeRadio) {
+                currentUser.accessType = accessTypeRadio.value;
+                document.getElementById('tipeAkses').innerText = currentUser.accessType;
+            }
+
+            saveUserToStorage();
+            updateUIForLoggedInUser();
+            closeModal('profileModal');
+            
+            // Show success message
+            const btn = event.target;
+            const originalText = btn.innerText;
+            btn.innerText = 'Tersimpan!';
+            btn.style.background = 'var(--color-success)';
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = '';
+            }, 1500);
+        }
+
+        function setAccessType(type) {
+            selectedAccessType = type;
+            document.querySelectorAll('input[name="accessType"]').forEach(r => r.checked = false);
+            document.querySelector(`input[name="accessType"][value="${type}"]`).checked = true;
+        }
+
+        function saveAccessType() {
+            if (currentUser) {
+                currentUser.accessType = selectedAccessType;
+                saveUserToStorage();
+                document.getElementById('tipeAkses').innerText = selectedAccessType;
+            }
+            closeModal('onboardingModal');
+        }
+
+        // ========== EVENTS API ==========
+        function loadEvents() {
+            fetch(API_URL)
+                .then(response => response.json())
+                .then(data => {
+                    renderEvents(data, 'eventListDashboard', true);
+                    renderEvents(data, 'eventListFull', false);
+                })
+                .catch(err => {
+                    console.error(err);
+                    document.getElementById('eventListDashboard').innerHTML = "<p style='padding:10px; font-size:12px; color:red;'>Gagal memuat agenda.</p>";
+                });
+        }
+
+        function renderEvents(data, elementId, truncate) {
+            if (!data.length) {
+                document.getElementById(elementId).innerHTML = "<p style='padding:10px; font-size:12px; color:#64748b;'>Belum ada agenda.</p>";
+                return;
+            }
+            const limit = truncate ? 2 : data.length;
+            const html = data.slice(0, limit).map(ev => `
+                <div class="event-card">
+                    <div class="event-banner" style="background: linear-gradient(135deg, #14b8a6, #0d9488); height: 60px;"></div>
+                    <div class="event-info">
+                        <h4 style="font-size: 14px;">${ev.title}</h4>
+                        <p>🗓 ${ev.date}</p>
+                        ${ev.link ? `<a href="${ev.link}" target="_blank" style="font-size:11px; color:var(--primary-teal); font-weight:700;">Buka Link &rarr;</a>` : ''}
+                    </div>
+                </div>
+            `).join('');
+            document.getElementById(elementId).innerHTML = html;
+        }
+
+        function checkPassword() {
+            if (document.getElementById('passwordInput').value === PASSWORD) {
+                closeModal('passwordModal');
+                openModal('addEventModal');
+                document.getElementById('passwordInput').value = "";
+            } else {
+                alert("Kode salah!");
+            }
+        }
+
+        function saveEvent() {
+            const data = {
+                password: PASSWORD,
+                title: document.getElementById('evTitle').value,
+                date: document.getElementById('evDate').value,
+                img: document.getElementById('evImg').value,
+                link: document.getElementById('evLink').value,
+                desc: document.getElementById('evDesc').value
+            };
+            if (!data.title || !data.date) { alert("Judul & Tanggal wajib!"); return; }
+            
+            fetch(API_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            }).then(() => {
+                closeModal('addEventModal');
+                alert("Acara berhasil ditambahkan!");
+                loadEvents();
+                ['evTitle', 'evDate', 'evImg', 'evLink', 'evDesc'].forEach(id => document.getElementById(id).value = '');
+            }).catch(() => alert("Gagal menyimpan."));
+        }
+
+        // ========== CALCULATIONS ==========
+        function calculateCVC() {
+            let symptomCount = 0;
+            let hasCriticalSign = false;
+            
+            if (document.getElementById('q1')?.checked) symptomCount++;
+            if (document.getElementById('q2')?.checked) symptomCount++;
+            if (document.getElementById('q3')?.checked) symptomCount++;
+            if (document.getElementById('q4')?.checked) { symptomCount++; hasCriticalSign = true; }
+            if (document.getElementById('q5')?.checked) { symptomCount++; hasCriticalSign = true; }
+
+            let level = "", msg = "";
+            const scoreCircle = document.getElementById('cvc-score-circle');
+            scoreCircle.className = "score-circle";
+            
+            if (hasCriticalSign || symptomCount >= 4) {
+                level = "Tinggi"; msg = "🚨 DARURAT! Segera ke RS."; scoreCircle.classList.add('risk-high');
+            } else if (symptomCount >= 2) {
+                level = "Sedang"; msg = "⚠️ SEGERA LAPOR."; scoreCircle.classList.add('risk-medium');
+            } else if (symptomCount === 1) {
+                level = "Rendah"; msg = "⚠️ Perlu Perhatian."; scoreCircle.classList.add('risk-low');
+            } else {
+                level = "Aman"; msg = "✔️ Kondisi Aman."; scoreCircle.classList.add('risk-low');
+            }
+
+            document.getElementById('cvc-form').style.display = 'none';
+            document.getElementById('cvc-result').style.display = 'block';
+            document.getElementById('score-val').innerText = symptomCount;
+            document.getElementById('risk-msg').innerText = msg;
+            document.getElementById('risk-badge').innerText = level;
+            document.getElementById('risk-badge').className = `badge ${level === 'Tinggi' ? 'badge-red' : level === 'Sedang' ? 'badge-orange' : 'badge-teal'}`;
+            
+            document.getElementById('cvc-critical-action').innerHTML = level === "Tinggi" 
+                ? `<a href="tel:119" class="modal-btn yes" style="background:var(--color-danger);">🚨 Hubungi 119</a>` 
+                : "";
+
+            // Update user stats
+            if (currentUser) {
+                currentUser.stats.totalChecks = (currentUser.stats.totalChecks || 0) + 1;
+                currentUser.stats.lastCheck = 'Hari Ini';
+                saveUserToStorage();
+                updateUIForLoggedInUser();
+            }
+        }
+
+        function resetCVC() {
+            document.getElementById('cvc-form').style.display = 'block';
+            document.getElementById('cvc-result').style.display = 'none';
+            document.querySelectorAll('#cvc-form input').forEach(c => c.checked = false);
+        }
+
+        function calculateAV() {
+            const c_vis_red = document.getElementById('av_vis_red').checked;
+            const c_vis_pus = document.getElementById('av_vis_pus').checked;
+            const thrillVal = document.querySelector('input[name="av_thrill"]:checked')?.value;
+            
+            let status = "BAIK", msg = "Kondisi fistula baik.", color = "badge-teal";
+            
+            if (c_vis_pus || thrillVal === 'gone') {
+                status = "DARURAT"; msg = "🚨 Segera ke IGD!"; color = "badge-red";
+            } else if (c_vis_red) {
+                status = "PERHATIAN"; msg = "⚠️ Konsultasi admin."; color = "badge-orange";
+            }
+
+            document.getElementById('av-form').style.display = 'none';
+            document.getElementById('av-result').style.display = 'block';
+            document.getElementById('av-badge').innerText = status;
+            document.getElementById('av-badge').className = `badge ${color}`;
+            document.getElementById('av-msg').innerText = msg;
+
+            // Update user stats
+            if (currentUser) {
+                currentUser.stats.totalChecks = (currentUser.stats.totalChecks || 0) + 1;
+                currentUser.stats.lastCheck = 'Hari Ini';
+                saveUserToStorage();
+                updateUIForLoggedInUser();
+            }
+        }
+
+        function resetAV() {
+            document.getElementById('av-form').style.display = 'block';
+            document.getElementById('av-result').style.display = 'none';
+            document.querySelector('input[name="av_thrill"][value="normal"]').checked = true;
+        }
+
+        // ========== INIT ==========
+        window.addEventListener('load', () => {
+            loadEvents();
+            
+            // Check if user is logged in
+            if (!loadUserFromStorage()) {
+                // Show auth modal for new users
+                setTimeout(() => openModal('authModal'), 1000);
+            }
+        });
+    </script>
 </body>
 </html>

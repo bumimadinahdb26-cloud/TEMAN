@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>asahginjal</title>
+    <title>TEMAN - Akses Dialisis</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -66,7 +66,7 @@
         }
         .brand-container { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
         .logo-img { width: 42px; height: 42px; object-fit: contain; border-radius: 12px; }
-        .brand-text h1 { font-size: 1rem; font-weight: 700; color: var(--dark-blue); letter-spacing: -0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .brand-text h1 { font-size: 1.1rem; font-weight: 700; color: var(--dark-blue); letter-spacing: -0.3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         .brand-text p { font-size: 0.65rem; color: var(--text-muted); min-height: 1.1em; }
         .typewriter-cursor { animation: blink 0.7s infinite; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
@@ -134,7 +134,7 @@
         /* Hero Banner */
         .hero-banner { 
             position: relative; 
-            min-height: 260px; 
+            min-height: 220px; 
             flex-shrink: 0; 
             border-radius: 20px; 
             overflow: hidden; 
@@ -254,57 +254,30 @@
         .staff-role { font-size: 12px; opacity: 0.85; }
         .staff-icon { font-size: 18px; opacity: 0.9; }
         
-        /* Content Slider */
-        .content-slider { position: relative; overflow: hidden; border-radius: 20px; flex-shrink: 0; }
-        .content-track { display: flex; transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1); }
-        .content-slide { flex: 0 0 100%; min-width: 100%; }
-        .slider-dots { display: flex; justify-content: center; gap: 6px; padding: 12px 0; }
-        .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(0,0,0,0.15); cursor: pointer; transition: all 0.3s; }
-        .dot.active { width: 20px; border-radius: 3px; background: var(--primary-teal); }
+        /* Visitor & Comments */
+        .visitor-box { display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 12px; padding: 10px; background: var(--bg-soft); border-radius: 12px; }
+        .visitor-count { font-weight: 700; color: var(--primary-teal-dark); font-size: 14px; }
         
-        /* Video Preview */
-        .video-preview { position: relative; border-radius: 14px; overflow: hidden; background: linear-gradient(135deg, var(--dark-blue), #0f172a); aspect-ratio: 16/9; display: flex; align-items: center; justify-content: center; margin-bottom: 12px; }
-        .play-btn { width: 56px; height: 56px; background: rgba(255,255,255,0.95); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; color: var(--primary-teal); box-shadow: 0 8px 24px rgba(0,0,0,0.3); transition: transform 0.3s; }
+        .comment-section { margin-top: 16px; }
+        .comment-card { background: var(--bg-soft); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+        .comment-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .comment-name { font-weight: 700; font-size: 12px; color: var(--dark-blue); }
+        .comment-time { font-size: 10px; color: var(--text-muted); }
+        .comment-text { font-size: 13px; color: var(--text-dark); line-height: 1.4; }
         
-        /* PPT Grid */
-        .ppt-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; margin-top: 16px; }
-        .ppt-card { text-decoration: none; border-radius: 16px; overflow: hidden; background: var(--bg-white); border: 1px solid rgba(0,0,0,0.05); transition: all 0.3s ease; color: inherit; box-shadow: var(--card-shadow); }
-        .ppt-card img { width: 100%; height: 100px; object-fit: cover; }
-        .ppt-card:hover { transform: translateY(-4px); box-shadow: var(--card-shadow-hover); border-color: var(--primary-teal); }
-        .ppt-info { padding: 12px; }
-        .ppt-info h4 { margin: 0 0 4px 0; font-size: 12px; font-weight: 600; }
-        .ppt-info span { font-size: 11px; opacity: 0.7; }
-        
-        /* Edu Box */
-        .cvc-edu-box { background: linear-gradient(135deg, rgba(20, 184, 166, 0.08), rgba(109, 40, 217, 0.05)); border: 1px solid rgba(20, 184, 166, 0.15); border-radius: 14px; padding: 16px; margin-bottom: 16px; }
-        .cvc-edu-box h3 { font-size: 0.9rem; color: var(--primary-teal-dark); margin-bottom: 10px; font-weight: 600; }
-        .cvc-edu-box ul { margin: 0; padding-left: 18px; }
-        .cvc-edu-box li { font-size: 13px; color: var(--text-dark); margin-bottom: 6px; line-height: 1.5; }
-        
+        /* Onboarding Choice */
+        .choice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
+        .choice-btn { background: white; border: 2px solid #e2e8f0; border-radius: 16px; padding: 16px 10px; cursor: pointer; transition: all 0.3s; text-align: center; }
+        .choice-btn:hover { border-color: var(--primary-teal); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+        .choice-btn.active { border-color: var(--primary-teal); background: rgba(20, 184, 166, 0.05); }
+        .choice-icon { font-size: 28px; margin-bottom: 8px; display: block; }
+        .choice-text { font-size: 13px; font-weight: 600; color: var(--dark-blue); }
+        .choice-desc { font-size: 11px; color: var(--text-muted); margin-top: 4px; }
+
         /* Info Box */
         .info-box { background: var(--bg-soft); border: 1px solid rgba(0,0,0,0.04); border-radius: 14px; padding: 16px; margin-top: 16px; }
         .info-box p { font-size: 13px; color: var(--dark-blue); text-align: center; line-height: 1.6; }
         
-        /* Privacy & Donasi */
-        .privacy-content p, .donasi-content p { margin-bottom: 14px; line-height: 1.7; font-size: 13px; }
-        .donasi-btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 24px; border-radius: 12px; text-decoration: none; background: linear-gradient(135deg, var(--accent-coral), #e84393); color: white; font-weight: 700; font-size: 14px; box-shadow: 0 6px 20px rgba(249, 115, 22, 0.3); transition: all 0.3s; }
-        
-        /* Event Custom */
-        .event-list-container { display: flex; flex-direction: column; gap: 16px; }
-        .event-item-card { background: white; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.08); position: relative; }
-        .event-item-img-container { width: 100%; height: 160px; overflow: hidden; position: relative; cursor: pointer; background: #f1f5f9; display: flex; align-items: center; justify-content: center; }
-        .event-item-img-container img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .event-item-img-container:hover img { transform: scale(1.05); }
-        .event-item-img-container.has-link::after { content: '🔗 Klik untuk membuka link'; position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent); color: white; font-size: 11px; padding: 20px 10px 8px; text-align: center; }
-        .event-item-body { padding: 14px; }
-        .event-item-title { font-weight: 700; font-size: 15px; margin-bottom: 4px; }
-        .event-item-date { font-size: 12px; color: var(--primary-teal); margin-bottom: 8px; font-weight: 600; }
-        .event-item-desc { font-size: 13px; color: var(--text-muted); white-space: pre-wrap; line-height: 1.6; word-break: break-word; }
-        .event-item-desc a { color: var(--primary-teal); text-decoration: underline; font-weight: 500; word-break: break-all; }
-        .event-item-desc a:hover { color: var(--primary-teal-dark); }
-        .event-link-btn { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 10px 16px; background: linear-gradient(135deg, var(--primary-teal), var(--primary-teal-light)); color: white; border-radius: 10px; font-size: 12px; font-weight: 600; text-decoration: none; box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25); transition: all 0.2s; }
-        .event-link-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(20, 184, 166, 0.35); }
-
         /* Loading Spinner */
         .spinner { border: 3px solid #f3f3f3; border-top: 3px solid var(--primary-teal); border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; margin: 20px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
@@ -314,8 +287,6 @@
         .holo-container.show { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
         .holo-base { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); width: 120px; height: 25px; background: radial-gradient(ellipse at center, rgba(0, 255, 255, 0.6) 0%, rgba(0, 255, 255, 0) 70%); border-radius: 50%; z-index: 1; animation: none; }
         .holo-container.show .holo-base { animation: basePulse 3s infinite ease-in-out; }
-        .holo-beam { position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); width: 70px; height: 180px; background: linear-gradient(to bottom, rgba(0, 255, 255, 0.15), transparent); clip-path: polygon(30% 0, 70% 0, 100% 100%, 0% 100%); z-index: 0; opacity: 0; transition: opacity 0.5s; }
-        .holo-container.show .holo-beam { opacity: 1; }
         .holo-body { position: absolute; bottom: 15px; left: 50%; transform: translateX(-50%); width: 100px; height: 180px; transform-style: preserve-3d; z-index: 2; }
         .holo-container.show .holo-body { animation: holoFloat 6s infinite ease-in-out; }
         .holo-avatar { width: 100%; height: auto; filter: drop-shadow(0 0 15px rgba(0, 255, 255, 0.9)) brightness(1.1) contrast(1.1); mix-blend-mode: screen; opacity: 0.9; }
@@ -323,12 +294,7 @@
         .tour-tooltip.active { opacity: 1; visibility: visible; transform: translateY(0) scale(1); }
         .tour-tooltip h4 { color: var(--primary-teal-dark); margin-bottom: 6px; font-size: 1rem; font-weight: 700; }
         .tour-tooltip p { font-size: 13px; margin-bottom: 0; line-height: 1.5; color: var(--text-dark); }
-        .tour-overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0, 0, 0, 0.6); z-index: 9998; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
-        .tour-overlay.active { opacity: 1; visibility: visible; }
-        .tour-highlight { position: fixed; background: transparent; border: 3px solid var(--primary-teal); border-radius: 16px; box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.7); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; z-index: 9999; opacity: 0; visibility: hidden; }
-        .tour-highlight.animate { animation: pulseRing 2s infinite; opacity: 1; visibility: visible; }
 
-        @keyframes pulseRing { 0% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.4), 0 0 0 9999px rgba(0, 0, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(20, 184, 166, 0), 0 0 0 9999px rgba(0, 0, 0, 0.7); } 100% { box-shadow: 0 0 0 0 rgba(20, 184, 166, 0), 0 0 0 9999px rgba(0, 0, 0, 0.7); } }
         @keyframes holoFloat { 0% { transform: translateX(-50%) translateY(0) rotateY(0deg); } 25% { transform: translateX(-50%) translateY(-10px) rotateY(5deg); } 50% { transform: translateX(-50%) translateY(0) rotateY(0deg); } 75% { transform: translateX(-50%) translateY(-10px) rotateY(-5deg); } 100% { transform: translateX(-50%) translateY(0) rotateY(0deg); } }
         @keyframes basePulse { 0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); } 50% { opacity: 1; transform: translateX(-50%) scale(1.1); } }
 
@@ -338,14 +304,6 @@
         .credits-content { width: 100%; text-align: center; color: white; font-family: 'Outfit', sans-serif; padding: 0 24px; padding-top: 100vh; padding-bottom: 50px; animation: scrollDown 150s linear forwards; position: relative; z-index: 2; }
         @keyframes scrollDown { 0% { transform: translateY(0); } 100% { transform: translateY(-100%); } }
         .credits-title { font-size: 28px; font-weight: 800; letter-spacing: 5px; margin-bottom: 80px; text-transform: uppercase; color: var(--primary-teal-light); }
-        .credits-section { margin-bottom: 100px; }
-        .credits-section h3 { font-size: 16px; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 24px; opacity: 0.6; font-weight: 400; }
-        .credits-section p { font-size: 26px; font-weight: 700; line-height: 1.7; color: white; margin-bottom: 20px; }
-        .credits-section .role { font-size: 16px; opacity: 0.7; margin-bottom: 12px; font-weight: 400; font-style: italic; }
-        .credits-footer { margin-top: 120px; opacity: 0.5; font-size: 14px; }
-        .audio-hidden { position: absolute; top: -9999px; left: -9999px; }
-
-        /* Star Animation for Credits */
         .star-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: 1; }
         .star { position: absolute; background: white; border-radius: 50%; opacity: 0; animation: fallingStar linear infinite; }
         @keyframes fallingStar { 0% { transform: translateY(-10px) translateX(0) scale(0); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(100vh) translateX(20px) scale(1); opacity: 0; } }
@@ -377,6 +335,31 @@
 
     <div class="bg-blob blob-teal"></div>
     <div class="bg-blob blob-purple"></div>
+
+    <!-- ONBOARDING MODAL -->
+    <div class="modal-overlay active" id="onboardingModal">
+        <div class="modal-box" style="max-width: 340px;">
+            <div style="font-size:48px; margin-bottom:10px;">👋</div>
+            <h3 style="color:var(--dark-blue); font-size: 18px; font-weight: 700;">Selamat Datang di TEMAN!</h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-top: 6px;">Sebelum mulai, kenali kondisi akses dialisis Anda.</p>
+            <div style="margin-top: 20px; text-align: left;">
+                <label style="font-size: 12px; font-weight: 600; color: var(--dark-blue);">Jenis Akses yang Digunakan:</label>
+                <div class="choice-grid" style="margin-top: 8px;">
+                    <div class="choice-btn" onclick="selectAccess('cvc')">
+                        <span class="choice-icon">🩺</span>
+                        <div class="choice-text">CVC</div>
+                        <div class="choice-desc">Kateter Vena Sentral</div>
+                    </div>
+                    <div class="choice-btn" onclick="selectAccess('av')">
+                        <span class="choice-icon">💪</span>
+                        <div class="choice-text">AV Shunt</div>
+                        <div class="choice-desc">Fistula / Graft</div>
+                    </div>
+                </div>
+            </div>
+            <div id="accessInfo" style="display: none; margin-top: 16px; text-align: left;"></div>
+        </div>
+    </div>
 
     <!-- MODALS -->
     <div class="modal-overlay" id="waModal">
@@ -447,31 +430,13 @@
          </div>
     </div>
 
-    <!-- TOUR ELEMENTS -->
-    <div class="tour-overlay" id="tourOverlay"></div>
-    <div class="tour-highlight" id="tourHighlight"></div>
-    <div class="tour-tooltip" id="tourTooltip">
-        <h4 id="tooltipTitle">Judul</h4>
-        <p id="tooltipDesc">Deskripsi</p>
-    </div>
-
     <!-- CREDITS OVERLAY -->
     <div class="credits-overlay" id="creditsOverlay">
-        <audio id="bgMusic" class="audio-hidden" loop>
-            <source src="music.mp4" type="audio/mp4">
-        </audio>
         <div class="star-container" id="starContainer"></div>
         <div class="credits-content" id="creditsContent">
             <div class="credits-title">TIM INOCA RSSA PROV. JATIM</div>
-            <div class="credits-section"><p>Jl. Jaksa Agung Suprapto No. 2, Malang<br>Jawa Timur, Kode Pos 65111</p></div>
-            <div class="credits-section"><h3>INSTALASI DIALISIS RSSA PROV. JATIM</h3></div>
-            <div class="credits-section"><div class="role">Penasihat</div><p>dr. Achmad Rifai, SpPD, K-GH FINASIM</p></div>
-            <div class="credits-section"><div class="role">Penanggung Jawab</div><p>Rini Hadriani, S.Kep.Ners</p></div>
-            <div class="credits-section"><div class="role">Ketua</div><p>Riza Arum A., S.Kep.Ners</p></div>
-            <div class="credits-section"><div class="role">Admin Pendamping</div><p>Pembayun Y</p><p>Hesty</p><p>Rinda</p></div>
-            <div class="credits-section"><div class="role">Engineer</div><p>Iman Waluyo</p></div>
-            <div class="credits-section"><p style="font-size: 36px; font-weight: 800; letter-spacing: 4px;">TERIMA KASIH</p></div>
-            <div class="credits-footer"><p>&copy; 2026 asahginjal</p></div>
+            <div class="credits-section"><p>Jl. Jaksa Agung Suprapto No. 2, Malang<br>Jawa Timur</p></div>
+            <div class="credits-section"><div class="role">Developer</div><p>Tim IT RSSA</p></div>
             <div style="height: 200px;"></div>
         </div>
     </div>
@@ -481,7 +446,7 @@
         <div class="brand-container" id="tour-step-0">
             <img src="logo.png" alt="Logo" class="logo-img">
             <div class="brand-text">
-                <h1>asahginjal</h1>
+                <h1>TEMAN</h1>
                 <p id="tagline"></p>
             </div>
         </div>
@@ -493,42 +458,33 @@
   <!-- NAVIGATION -->
 <nav id="navbar">
     <div class="nav-track" id="navTrack">
-        <!-- NAVIGASI TANPA AUDIO - HANYA TEKS DENGAN HOLOGRAM -->
-        <div class="nav-card active" onclick="scrollToSlide(0, 'Selamat datang di Beranda. Geser layar atau gunakan menu untuk menjelajah.')">
+        <div class="nav-card active" onclick="scrollToSlide(0, 'Beranda TEMAN. Pusat informasi dan interaksi.')">
             <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?q=80&w=2080&auto=format&fit=crop" alt="Beranda">
             <div class="text-overlay"><span class="text">Beranda</span></div>
         </div>
-        <div class="nav-card" onclick="scrollToSlide(1, 'Halaman Acara. Lihat jadwal kegiatan dan informasi penting lainnya.')">
+        <div class="nav-card" onclick="scrollToSlide(1, 'Halaman Acara. Lihat jadwal kegiatan.')">
             <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop" alt="Acara">
             <div class="text-overlay"><span class="text">Acara</span></div>
         </div>
-        <div class="nav-card" onclick="scrollToSlide(2, 'CVC atau Double lumen kateter. Lakukan penilaian risiko infeksi kateter di sini.')">
+        <div class="nav-card" onclick="scrollToSlide(2, 'CVC. Penilaian risiko infeksi kateter.')">
             <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b?q=80&w=2070&auto=format&fit=crop" alt="CVC">
             <div class="text-overlay"><span class="text">CVC</span></div>
         </div>
-        <div class="nav-card" onclick="scrollToSlide(3, 'AV Shunt. Cek kondisi fistula atau jalan darah Anda.')">
+        <div class="nav-card" onclick="scrollToSlide(3, 'AV Shunt. Cek kondisi fistula Anda.')">
             <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?q=80&w=2072&auto=format&fit=crop" alt="AV Shunt">
             <div class="text-overlay"><span class="text">AV Shunt</span></div>
         </div>
-        <div class="nav-card" onclick="scrollToSlide(4, 'Edukasi. Akses materi presentasi kesehatan ginjal.')">
+        <div class="nav-card" onclick="scrollToSlide(4, 'Edukasi. Akses materi kesehatan.')">
             <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=2022&auto=format&fit=crop" alt="Edukasi">
             <div class="text-overlay"><span class="text">Edukasi</span></div>
         </div>
-        <div class="nav-card" onclick="scrollToSlide(5, 'Konsultasi. Hubungi admin atau tim medis kami.')">
+        <div class="nav-card" onclick="scrollToSlide(5, 'Konsultasi. Hubungi tim medis.')">
             <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?q=80&w=2032&auto=format&fit=crop" alt="Konsultasi">
             <div class="text-overlay"><span class="text">Konsultasi</span></div>
         </div>
-        <div class="nav-card" onclick="scrollToSlide(6, 'Halaman Info Aplikasi. Kenali lebih dekat tentang asahginjal.')">
+        <div class="nav-card" onclick="scrollToSlide(6, 'Info Aplikasi.')">
             <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop" alt="Info">
             <div class="text-overlay"><span class="text">Info</span></div>
-        </div>
-        <div class="nav-card" onclick="scrollToSlide(7, 'Kebijakan Privasi pengguna.')">
-            <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?q=80&w=2070&auto=format&fit=crop" alt="Privasi">
-            <div class="text-overlay"><span class="text">Privasi</span></div>
-        </div>
-        <div class="nav-card" onclick="scrollToSlide(8, 'Dukung pengembangan aplikasi ini.')">
-            <img src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?q=80&w=2070&auto=format&fit=crop" alt="Donasi">
-            <div class="text-overlay"><span class="text">Donasi</span></div>
         </div>
     </div>
 </nav>
@@ -537,34 +493,50 @@
     <main id="slider">
         <!-- SLIDE 0: BERANDA -->
         <section class="slide-section" id="slide-0">
-            <div class="hero-banner" id="tour-step-1">
+            <div class="hero-banner">
                 <div class="bg-slide active" style="background-image: url('banner-saya.png');"></div>
                 <div class="hero-overlay"></div>
                 <div class="hero-content">
-                    <div class="focus-badge">&#128293; Fokus Bulan Ini: CVC</div>
-                    <h2>Bulan Edukasi CVC</h2>
-                    <p class="hero-subtitle">Kenali, Rawat, Cegah Infeksi, dan Waspadai Tanda Bahaya pada Kateter Darah</p>
-                    <a href="https://drive.google.com/file/d/16_RQIDh7VcxzXJw_-dmkdnAANP0pZg8x/view?usp=sharing" target="_blank" class="btn btn-coral">&#9658; Lihat Video Perawatan CVC</a>
+                    <div class="focus-badge">&#128293; Fokus: Kesehatan Akses</div>
+                    <h2>Selamat Datang</h2>
+                    <p class="hero-subtitle">Platform edukasi dan monitoring akses dialisis terpadu.</p>
                 </div>
             </div>
+
+            <!-- Visitor Counter -->
+            <div class="visitor-box">
+                <span>👁️ Pengunjung:</span>
+                <span id="visitorCount" class="visitor-count">1,250</span>
+            </div>
             
-            <!-- SLIDER CONTENT (Hanya Live Streaming) -->
-            <div class="content-slider">
-                <div class="content-track" id="contentTrack">
-                    <div class="content-slide">
-                        <div class="event-card" style="background: linear-gradient(135deg, var(--dark-blue), #0f172a); padding: 20px; border-radius: 16px; color: white;">
-                            <div class="badge badge-teal" style="background: rgba(255,255,255,0.2); color: white;">Live Streaming</div>
-                            <h3 style="margin: 10px 0 5px; font-size: 1.1rem;">Bincang CVC: Aman Pakai Kateter Darah</h3>
-                            <p style="font-size: 12px; opacity: 0.8;">&#128197; Sabtu, 19.30 WIB</p>
-                            <div class="grid-2" style="margin-top: 14px;">
-                                <a href="https://zoom.us/j/123456789" target="_blank" class="btn btn-bright" style="text-decoration: none; font-size: 12px; padding: 10px 14px;">Gabung Live</a>
-                                <a href="https://wa.me/6282227707573?text=Halo%20Admin%2C%20saya%20ingin%20diingatkan." target="_blank" class="btn btn-outline" style="text-decoration: none; font-size: 12px; padding: 10px 14px; color: white; border-color: rgba(255,255,255,0.4);">Ingatkan Saya</a>
-                            </div>
+            <!-- Komentar Pengunjung -->
+            <div class="glass-card">
+                <div class="card-header" style="border-bottom: none; padding-bottom: 0; margin-bottom: 10px;">
+                    <div class="icon-box blue" style="width: 36px; height: 36px; font-size: 14px;">💬</div>
+                    <h3 style="font-size: 14px;">Komentar Pengunjung</h3>
+                </div>
+                
+                <div class="comment-section">
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <span class="comment-name">Budi S.</span>
+                            <span class="comment-time">2 jam lalu</span>
                         </div>
+                        <p class="comment-text">Sangat membantu memahami perawatan CVC. Terima kasih TIM INOCA!</p>
+                    </div>
+                    <div class="comment-card">
+                        <div class="comment-header">
+                            <span class="comment-name">Siti A.</span>
+                            <span class="comment-time">5 jam lalu</span>
+                        </div>
+                        <p class="comment-text">Materi AV Shunt nya jelas sekali. Jadi tau cara cek fistula sendiri.</p>
                     </div>
                 </div>
-                <div class="slider-dots" id="sliderDots" style="display: none;">
-                    <div class="dot active" onclick="goToContentSlide(0)"></div>
+
+                <div style="margin-top: 12px;">
+                    <a href="#" id="addCommentBtn" class="btn btn-outline" style="width: 100%; font-size: 12px;">
+                        ✍️ Tulis Komentar
+                    </a>
                 </div>
             </div>
         </section>
@@ -576,8 +548,8 @@
                     <div class="icon-box purple">&#128197;</div>
                     <h2>Agenda & Acara</h2>
                 </div>
-                <p class="card-desc">Daftar kegiatan dan acara yang akan atau sedang berlangsung.</p>
-                <button class="btn btn-bright" style="width: 100%; margin-bottom: 16px;" onclick="openModal('passwordModal')">+ Tambah Acara Baru</button>
+                <p class="card-desc">Daftar kegiatan yang akan atau sedang berlangsung.</p>
+                <button class="btn btn-bright" style="width: 100%; margin-bottom: 16px;" onclick="openModal('passwordModal')">+ Tambah Acara</button>
                 <div id="eventList" class="event-list-container">
                     <div class="spinner"></div>
                 </div>
@@ -586,32 +558,31 @@
         
         <!-- SLIDE 2: CVC -->
         <section class="slide-section" id="slide-2">
-             <div class="glass-card" id="tour-step-3">
-                <div class="cvc-edu-box">
-                    <h3>&#128140; Apa itu CVC?</h3>
-                    <ul>
-                        <li>CVC adalah selang khusus untuk cuci darah</li>
-                        <li>Dipasang di leher atau dada oleh dokter</li>
-                        <li>Harus selalu bersih dan kering</li>
-                    </ul>
+             <div class="glass-card">
+                
+                <!-- Intro Box -->
+                <div style="background: rgba(20, 184, 166, 0.05); border-left: 4px solid var(--primary-teal); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                    <h3 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 4px;">🩺 Tentang CVC</h3>
+                    <p style="font-size: 12px; color: var(--text-muted); line-height: 1.4;">CVC (Kateter Vena Sentral) adalah akses sementara untuk hemodialisis. Perawatan kebersihan adalah kunci utama mencegah infeksi.</p>
                 </div>
+
                 <div class="card-header">
                     <div class="icon-box red">&#129656;</div>
                     <h2>Cek Risiko Infeksi CVC</h2>
                 </div>
-                <p class="card-desc">Identifikasi risiko infeksi pada kateter vena sentral Anda secara mandiri.</p>
+                <p class="card-desc">Identifikasi risiko infeksi pada kateter vena sentral Anda.</p>
                 
                 <div id="cvc-form" style="margin-top: 14px;">
                     <div class="grid-2">
-                        <div class="input-group"><label>ID Pasien</label><input type="text" class="input-field" id="cvc_id" placeholder="Contoh: RM-001"></div>
-                        <div class="input-group"><label>Hari Terpasang</label><input type="number" class="input-field" id="cvc_days" placeholder="Contoh: 14"></div>
+                        <div class="input-group"><label>ID Pasien</label><input type="text" class="input-field" id="cvc_id" placeholder="RM-001"></div>
+                        <div class="input-group"><label>Hari Terpasang</label><input type="number" class="input-field" id="cvc_days" placeholder="14"></div>
                     </div>
                     <div style="margin-top: 12px;">
                         <label class="check-label"><input type="checkbox" id="q1"><span class="check-box"></span><span>Kemerahan di area kateter</span></label>
                         <label class="check-label"><input type="checkbox" id="q2"><span class="check-box"></span><span>Bengkak di area kateter</span></label>
-                        <label class="check-label"><input type="checkbox" id="q3"><span class="check-box"></span><span>Nyeri atau sakit di area kateter</span></label>
-                        <label class="check-label"><input type="checkbox" id="q4"><span class="check-box"></span><span>Keluar nanah atau cairan (Kritis)</span></label>
-                        <label class="check-label"><input type="checkbox" id="q5"><span class="check-box"></span><span>Demam atau Menggigil (Kritis)</span></label>
+                        <label class="check-label"><input type="checkbox" id="q3"><span class="check-box"></span><span>Nyeri atau sakit</span></label>
+                        <label class="check-label"><input type="checkbox" id="q4"><span class="check-box"></span><span>Keluar nanah/cairan (Kritis)</span></label>
+                        <label class="check-label"><input type="checkbox" id="q5"><span class="check-box"></span><span>Demam/Menggigil (Kritis)</span></label>
                     </div>
                     <button class="btn btn-teal" style="width: 100%; margin-top: 16px; color: white; font-size: 13px;" onclick="calculateCVC()">Hitung Risiko</button>
                 </div>
@@ -624,7 +595,7 @@
                     <span id="risk-badge" class="badge badge-teal">Aman</span>
                     <p style="margin-top: 10px; color: var(--text-dark); font-size: 13px; font-weight: 500;" id="risk-msg">Tidak ada tanda masalah.</p>
                     <div id="cvc-critical-action" style="display:none; margin-top:14px;"></div>
-                    <button class="btn btn-outline" style="margin-top: 16px; font-size: 13px;" onclick="resetCVC()">Ulangi Pengecekan</button>
+                    <button class="btn btn-outline" style="margin-top: 16px; font-size: 13px;" onclick="resetCVC()">Ulangi</button>
                 </div>
             </div>
         </section>
@@ -632,34 +603,44 @@
         <!-- SLIDE 3: AV SHUNT -->
         <section class="slide-section" id="slide-3">
             <div class="glass-card">
+                
+                <!-- AV Shunt Visual Placeholder -->
+                <div style="text-align: center; margin-bottom: 16px;">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=400&q=80" alt="Ilustrasi AV Shunt" style="width: 100%; height: 140px; object-fit: cover; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px; font-style: italic;">Ilustrasi: Pemeriksaan AV Shunt</p>
+                </div>
+
                 <div class="card-header">
                     <div class="icon-box orange">&#128140;</div>
                     <h2>Penilaian Mandiri AV Shunt</h2>
                 </div>
-                <p class="card-desc">Periksa kondisi fistula/jalan darah Anda sebelum cuci darah atau di rumah.</p>
+                <p class="card-desc">Periksa kondisi fistula/jalan darah Anda.</p>
                 <div id="av-form" style="margin-top: 14px;">
                     
                     <div class="input-group">
-                        <label>ID Pasien (Opsional)</label>
+                        <label>ID Pasien</label>
                         <input type="text" class="input-field" id="av_id" placeholder="Nama / No RM">
                     </div>
 
-                    <div class="section-title-sm">1. Pemeriksaan Visual (Lihat)</div>
-                    <label class="check-label"><input type="checkbox" id="av_vis_red"><span class="check-box"></span><span>Kemerahan, Bengkak, atau Lepuhan</span></label>
-                    <label class="check-label"><input type="checkbox" id="av_vis_pus"><span class="check-box"></span><span>Keluar Nanah atau Cairan (Kritis)</span></label>
-                    <label class="check-label"><input type="checkbox" id="av_vis_bleed"><span class="check-box"></span><span>Perdarahan Aktif / Tidak Berhenti (Kritis)</span></label>
+                    <div class="section-title-sm">1. Pemeriksaan Visual</div>
+                    <label class="check-label"><input type="checkbox" id="av_vis_red"><span class="check-box"></span><span>Kemerahan / Bengkak / Lepuhan</span></label>
+                    <label class="check-label"><input type="checkbox" id="av_vis_pus"><span class="check-box"></span><span>Keluar Nanah (Kritis)</span></label>
+                    <label class="check-label"><input type="checkbox" id="av_vis_bleed"><span class="check-box"></span><span>Perdarahan Aktif (Kritis)</span></label>
 
-                    <div class="section-title-sm">2. Pemeriksaan Raba (Feel)</div>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Rasakan getaran (thrill) di area shunt:</p>
-                    <label class="check-label"><input type="radio" name="av_thrill" value="normal" checked><span class="check-box radio-style"></span><span>Normal (Terasa getaran terus-menerus)</span></label>
-                    <label class="check-label"><input type="radio" name="av_thrill" value="weak"><span class="check-box radio-style"></span><span>Berkurang / Lemah</span></label>
-                    <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box radio-style"></span><span>Hilang / Tidak Terasa (Kritis)</span></label>
+                    <div class="section-title-sm">2. Arm Elevation Test</div>
+                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 8px;">Angkat lengan shunt setinggi bahu. Apakah pembuluh darah mengempis?</p>
+                    <label class="check-label"><input type="radio" name="av_elev" value="yes" checked><span class="check-box radio-style"></span><span>Ya, Mengempis (Normal)</span></label>
+                    <label class="check-label"><input type="radio" name="av_elev" value="no"><span class="check-box radio-style"></span><span>Tidak, Tetap Bengkak (Kemungkinan Stenosis)</span></label>
+
+                    <div class="section-title-sm">3. Pemeriksaan Raba (Thrill)</div>
+                    <label class="check-label"><input type="radio" name="av_thrill" value="normal" checked><span class="check-box radio-style"></span><span>Terasa Getaran (Normal)</span></label>
+                    <label class="check-label"><input type="radio" name="av_thrill" value="weak"><span class="check-box radio-style"></span><span>Lemah / Berkurang</span></label>
+                    <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box radio-style"></span><span>Hilang (Kritis)</span></label>
                     
                     <label class="check-label" style="margin-top:8px;"><input type="checkbox" id="av_palp_pain"><span class="check-box"></span><span>Nyeri hebat saat disentuh</span></label>
 
-                    <div class="section-title-sm">3. Tanda Peringatan Lain</div>
+                    <div class="section-title-sm">4. Tanda Peringatan Lain</div>
                     <label class="check-label"><input type="checkbox" id="av_other_cold"><span class="check-box"></span><span>Tangan pucat, dingin, atau mati rasa (Kritis)</span></label>
-                    <label class="check-label"><input type="checkbox" id="av_other_fever"><span class="check-box"></span><span>Demam, Menggigil, atau Sesak berat (Kritis)</span></label>
 
                     <button class="btn btn-teal" style="width: 100%; margin-top: 20px; color: white; font-size: 13px;" onclick="calculateAV()">Cek Kondisi</button>
                 </div>
@@ -677,26 +658,24 @@
         <!-- SLIDE 4: EDUKASI -->
         <section class="slide-section" id="slide-4">
              
-            <!-- 1. VIDEO CVC -->
+            <!-- VIDEO CVC -->
             <div class="glass-card">
                 <div class="card-header">
                     <div class="icon-box coral">&#127909;</div>
-                    <h3>Video Edukasi CVC</h3>
+                    <h3>Video Edukasi</h3>
                 </div>
                 <a href="https://drive.google.com/file/d/16_RQIDh7VcxzXJw_-dmkdnAANP0pZg8x/view?usp=sharing" target="_blank" style="text-decoration: none;">
                     <div class="video-preview"><div class="play-btn">&#9658;</div></div>
                 </a>
-                <p style="font-size: 13px; text-align: center; color: var(--text-muted); margin:0;">Pelajari cara merawat kateter dengan benar</p>
+                <p style="font-size: 13px; text-align: center; color: var(--text-muted); margin:0;">Klik untuk tonton video perawatan</p>
             </div>
 
-            <!-- 2. VIDEO KARTUN -->
+            <!-- VIDEO KARTUN -->
             <div class="glass-card">
                 <div class="card-header">
                     <div class="icon-box coral">&#127909;</div>
                     <h2>Video Kartun Edukasi</h2>
                 </div>
-                <p class="card-desc">Tonton video edukasi kesehatan ginjal dalam format kartun.</p>
-                
                 <div style="margin-top: 12px;">
                     <div class="video-edu-container">
                         <video controls playsinline>
@@ -704,47 +683,17 @@
                             Browser Anda tidak mendukung video.
                         </video>
                     </div>
-                    <p class="video-label">Video 1: Edukasi Kesehatan Ginjal</p>
-                </div>
-
-                <div>
-                    <div class="video-edu-container">
-                        <video controls playsinline>
-                            <source src="kartun2.mp4" type="video/mp4">
-                            Browser Anda tidak mendukung video.
-                        </video>
-                    </div>
-                    <p class="video-label">Video 2: Tips Perawatan</p>
                 </div>
             </div>
 
-            <!-- 3. KOMIK EDUKASI -->
+            <!-- KOMIK EDUKASI -->
             <div class="glass-card">
                 <div class="card-header">
                     <div class="icon-box orange">&#128214;</div>
                     <h2>Komik Edukasi</h2>
                 </div>
-                <p class="card-desc">Baca komik edukasi kesehatan berikut untuk menambah wawasan.</p>
                 <div style="border-radius: 14px; overflow: hidden; margin-top: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                     <img src="komik1.png" alt="Komik Edukasi" style="width: 100%; height: auto; display: block;">
-                </div>
-            </div>
-
-            <!-- 4. MATERI PPT -->
-             <div class="glass-card">
-                <div class="card-header">
-                    <div class="icon-box blue">&#127891;</div>
-                    <h2>Materi Edukasi (PPT)</h2>
-                </div>
-                <p class="card-desc">Klik materi untuk membuka presentasi lengkap.</p>
-                <div class="ppt-grid">
-                    <a class="ppt-card" href="https://docs.google.com/presentation/d/1Iai8Xay1NPGwx7Wrx8p5BoF6eA3RfwSb/present?usp=sharing" target="_blank">
-                        <img src="https://docs.google.com/presentation/d/1Iai8Xay1NPGwx7Wrx8p5BoF6eA3RfwSb/export/thumbnail?id=1Iai8Xay1NPGwx7Wrx8p5BoF6eA3RfwSb&pageid=p" alt="Ginjal">
-                        <div class="ppt-info">
-                            <h4>Ginjal dan Fungsinya</h4>
-                            <span>Fungsi Ginjal</span>
-                        </div>
-                    </a>
                 </div>
             </div>
         </section>
@@ -756,39 +705,39 @@
                     <div class="icon-box">&#128101;</div>
                     <h2>Konsultasi</h2>
                 </div>
-                <p class="card-desc">Hubungi Admin Pendamping untuk konsultasi lebih lanjut.</p>
+                <p class="card-desc">Hubungi Tim Edukator untuk konsultasi lebih lanjut.</p>
                 <div style="margin-top: 14px;">
-                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px; font-weight: 500;">Admin Pendamping:</p>
+                    <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px; font-weight: 500;">Tim Edukasi:</p>
                     <div class="staff-grid">
-                        <div class="staff-card community" onclick="confirmWA('6282227707573', 'Riza A')">
-                            <div class="staff-avatar">&#128105;</div>
+                        <div class="staff-card community" onclick="confirmWA('6282227707573', 'Kak Ginjal')">
+                            <div class="staff-avatar">🩺</div>
                             <div class="staff-info">
-                                <div class="staff-name">Riza A</div>
-                                <div class="staff-role">Admin</div>
+                                <div class="staff-name">Kak Ginjal</div>
+                                <div class="staff-role">Edukator</div>
                             </div>
                             <div class="staff-icon">&#128172;</div>
                         </div>
-                        <div class="staff-card community" onclick="confirmWA('6283831217784', 'Pembayun Y')">
-                            <div class="staff-avatar">&#128105;</div>
+                        <div class="staff-card community" onclick="confirmWA('6283831217784', 'Kak Vena')">
+                            <div class="staff-avatar">💉</div>
                             <div class="staff-info">
-                                <div class="staff-name">Pembayun Y</div>
-                                <div class="staff-role">Admin</div>
+                                <div class="staff-name">Kak Vena</div>
+                                <div class="staff-role">Edukator</div>
                             </div>
                             <div class="staff-icon">&#128172;</div>
                         </div>
-                        <div class="staff-card community" onclick="confirmWA('6282124700093', 'Hesty')">
-                            <div class="staff-avatar">&#128105;</div>
+                        <div class="staff-card community" onclick="confirmWA('6282124700093', 'Kak Filter')">
+                            <div class="staff-avatar">🧬</div>
                             <div class="staff-info">
-                                <div class="staff-name">Hesty</div>
-                                <div class="staff-role">Admin</div>
+                                <div class="staff-name">Kak Filter</div>
+                                <div class="staff-role">Edukator</div>
                             </div>
                             <div class="staff-icon">&#128172;</div>
                         </div>
-                        <div class="staff-card community" onclick="confirmWA('6285210622568', 'Rinda')">
-                            <div class="staff-avatar">&#128105;</div>
+                        <div class="staff-card community" onclick="confirmWA('6285210622568', 'Kak Darah')">
+                            <div class="staff-avatar">🩸</div>
                             <div class="staff-info">
-                                <div class="staff-name">Rinda</div>
-                                <div class="staff-role">Admin</div>
+                                <div class="staff-name">Kak Darah</div>
+                                <div class="staff-role">Edukator</div>
                             </div>
                             <div class="staff-icon">&#128172;</div>
                         </div>
@@ -799,70 +748,19 @@
         
         <!-- SLIDE 6: INFO -->
         <section class="slide-section" id="slide-6">
-            <div class="glass-card" id="tour-step-info">
-                <div class="card-header">
-                    <div class="icon-box purple">&#9432;</div>
-                    <h2>Tentang Aplikasi</h2>
-                </div>
-                <p class="card-desc">asahginjal dikembangkan untuk membantu edukasi para pemerhati ginjal dan masyarakat umum dengan informasi yang akurat dan terpercaya.</p>
-                
-                <div class="cvc-edu-box" style="margin-top: 0; margin-bottom: 20px;">
-                     <h3 style="color: var(--primary-teal-dark);">&#128161; Makna Nama</h3>
-                     <p style="font-size: 13px; font-weight: 600; margin-bottom: 8px; color: var(--text-dark);">AsahGinjal terdiri dari dua kata:</p>
-                     <ul>
-                         <li><strong>Asah</strong> → bermakna melatih, meningkatkan kemampuan, mempertajam pengetahuan.</li>
-                         <li><strong>Ginjal</strong> → organ yang menjadi fokus edukasi.</li>
-                     </ul>
-                     <div style="background: rgba(255,255,255,0.5); padding: 12px; border-radius: 8px; border-left: 3px solid var(--primary-teal); margin-top: 12px;">
-                        <p style="font-size: 13px; margin:0; color: var(--dark-blue); font-style: italic; line-height: 1.5;">
-                            "Secara makna, AsahGinjal dapat diartikan sebagai platform untuk mengasah pengetahuan dan kesadaran tentang kesehatan ginjal."
-                        </p>
-                     </div>
-                </div>
-
-                <div class="cvc-edu-box" style="background: linear-gradient(135deg, rgba(109, 40, 217, 0.05), rgba(20, 184, 166, 0.05)); border-color: rgba(109, 40, 217, 0.15);">
-                     <h3 style="color: var(--primary-purple);">⚖️ Badan Hukum</h3>
-                     <ul>
-                         <li>Permenkes No. 26 Tahun 2019 tentang Peraturan Pelaksanaan UU Keperawatan</li>
-                         <li>UU No. 38 Tahun 2014 tentang Keperawatan</li>
-                     </ul>
-                </div>
-                
-                <div class="info-box">
-                    <p><strong>Developer:</strong><br>TIM INOCA INSTALASI DIALYSIS RSSA</p>
-                    <p style="margin-top: 8px;"><strong>Kontak:</strong><br>(0341) 362101 (2075)</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- SLIDE 7: PRIVASI -->
-        <section class="slide-section" id="slide-7">
-             <div class="glass-card">
-                <div class="card-header">
-                    <div class="icon-box">&#128274;</div>
-                    <h2>Privacy Policy</h2>
-                </div>
-                <p class="card-desc">Kebijakan privasi penggunaan website edukasi kesehatan ginjal.</p>
-                <div class="privacy-content">
-                    <p>Website ini dibuat untuk tujuan edukasi kesehatan dan tidak mengumpulkan atau menyimpan data pribadi pengunjung.</p>
-                    <p>Dengan menggunakan website ini, pengunjung dianggap memahami dan menyetujui kebijakan yang berlaku.</p>
-                </div>
-            </div>
-        </section>
-        
-        <!-- SLIDE 8: DONASI -->
-        <section class="slide-section" id="slide-8">
             <div class="glass-card">
                 <div class="card-header">
-                    <div class="icon-box coral">&#128151;</div>
-                    <h2>Dukung Pengembangan</h2>
+                    <div class="icon-box purple">&#9432;</div>
+                    <h2>Tentang TEMAN</h2>
                 </div>
-                <p class="card-desc">Website ini dikembangkan secara mandiri untuk edukasi kesehatan ginjal bagi masyarakat.</p>
-                <div class="donasi-content">
-                    <p>Jika Anda merasa website ini bermanfaat, Anda dapat memberikan dukungan sukarela untuk membantu pengembangan materi dan pemeliharaan sistem.</p>
-                    <div style="margin-top: 18px; text-align: center;">
-                        <a href="#" target="_blank" class="donasi-btn">&#10084; Dukung Sekarang</a>
-                    </div>
+                
+                <div style="background: rgba(20, 184, 166, 0.05); border-left: 4px solid var(--primary-teal); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                     <p style="font-size: 13px; font-weight: 600; margin-bottom: 6px; color: var(--dark-blue);">TEMAN (Terapi dan Monitoring Akses Dialisis)</p>
+                     <p style="font-size: 12px; color: var(--text-muted); margin:0;">Platform edukasi pasien untuk memantau kesehatan akses dialisis secara mandiri.</p>
+                </div>
+
+                <div class="info-box">
+                    <p><strong>Developer:</strong><br>TIM INOCA INSTALASI DIALISIS RSSA</p>
                 </div>
             </div>
         </section>
@@ -870,8 +768,6 @@
 
     <!-- HOLOGRAM ELEMENT -->
     <div class="holo-container" id="holoContainer">
-        <div class="holo-beam"></div>
-        <div class="holo-base"></div>
         <div class="holo-body">
             <img src="dokter.gif" alt="AI Doctor" class="holo-avatar">
         </div>
@@ -881,52 +777,70 @@
     // --- URL API ANDA ---
     const API_URL = 'https://script.google.com/macros/s/AKfycbzu_WfyID_ggPD9TFbbdQFysAvcQyO5w7W22cD1udUF6ZHx5xG313ejhGwDmAXrJT4C/exec';
 
-    // --- SETUP & GLOBALS ---
+    // --- GLOBALS ---
     const holoContainer = document.getElementById('holoContainer');
     const tourTooltip = document.getElementById('tourTooltip');
     const tooltipTitle = document.getElementById('tooltipTitle');
     const tooltipDesc = document.getElementById('tooltipDesc');
-    const tourOverlay = document.getElementById('tourOverlay');
-    const tourHighlight = document.getElementById('tourHighlight');
-    const creditsOverlay = document.getElementById('creditsOverlay');
-    const creditsContent = document.getElementById('creditsContent');
-    const bgMusic = document.getElementById('bgMusic');
-    const starContainer = document.getElementById('starContainer');
 
-    let currentAudioPlayer = null;
-
-    // --- DATA KONTAK UNTUK PENILAIAN ---
-    const assessmentContacts = [
-        { name: 'Riza A', phone: '6282227707573' },
-        { name: 'Pembayun Y', phone: '6283831217784' },
-        { name: 'Hesty', phone: '6282124700093' },
-        { name: 'Rinda', phone: '6285210622568' }
-    ];
-
-    function createReportButtons(patientId, statusText, type) {
-        const text = `Laporan ${type}%0AID: ${patientId}%0AStatus: ${statusText}`;
-        let html = `<div style="margin-top: 16px; padding-top: 12px; border-top: 1px dashed var(--border-light); text-align: center;">
-                        <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 10px; font-weight: 600;">Hubungi Admin untuk melaporkan:</p>
-                        <div class="grid-2" style="gap: 8px;">`;
+    // --- ONBOARDING LOGIC ---
+    function selectAccess(type) {
+        const infoDiv = document.getElementById('accessInfo');
+        const choiceBtns = document.querySelectorAll('.choice-btn');
         
-        assessmentContacts.forEach(c => {
-            html += `<a href="https://wa.me/${c.phone}?text=${text}" target="_blank" class="btn btn-outline" style="font-size: 11px; padding: 8px; text-decoration: none; border-color: var(--primary-teal); color: var(--primary-teal-dark);">
-                        &#128172; ${c.name}
-                     </a>`;
-        });
+        choiceBtns.forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
 
-        html += `   </div>
-                   </div>`;
-        return html;
+        let content = '';
+        if (type === 'cvc') {
+            content = `
+                <div style="background: rgba(239, 68, 68, 0.05); padding: 12px; border-radius: 10px; border: 1px solid rgba(239, 68, 68, 0.1);">
+                    <h4 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 6px;">🩺 Info CVC (Kateter)</h4>
+                    <p style="font-size: 12px; color: var(--text-dark); margin-bottom: 8px;">
+                        <strong>Keuntungan:</strong> Bisa langsung dipakai.<br>
+                        <strong>Risiko:</strong> Infeksi lebih tinggi, umur pakai terbatas.
+                    </p>
+                    <p style="font-size: 12px; color: var(--text-dark); margin-bottom: 8px;">
+                        <strong>Perawatan:</strong> Jaga kebersihan, kasa kering, jangan basah.
+                    </p>
+                    <button class="btn btn-danger" style="width: 100%; font-size: 12px; margin-top: 8px;" onclick="goToAssessment('cvc')">Lanjut Cek Risiko CVC</button>
+                </div>
+            `;
+        } else if (type === 'av') {
+            content = `
+                <div style="background: rgba(249, 115, 22, 0.05); padding: 12px; border-radius: 10px; border: 1px solid rgba(249, 115, 22, 0.1);">
+                    <h4 style="font-size: 14px; color: var(--dark-blue); margin-bottom: 6px;">💪 Info AV Shunt (Fistula)</h4>
+                    <p style="font-size: 12px; color: var(--text-dark); margin-bottom: 8px;">
+                        <strong>Keuntungan:</strong> Infeksi rendah, umur panjang.<br>
+                        <strong>Risiko:</strong> Pembekuan, penyempitan (stenosis).
+                    </p>
+                    <p style="font-size: 12px; color: var(--text-dark); margin-bottom: 8px;">
+                        <strong>Perawatan:</strong> Cek getaran (thrill) setiap hari, hindari tekanan.
+                    </p>
+                    <button class="btn btn-coral" style="width: 100%; font-size: 12px; margin-top: 8px;" onclick="goToAssessment('av')">Lanjut Cek Kondisi AV Shunt</button>
+                </div>
+            `;
+        }
+        
+        infoDiv.innerHTML = content;
+        infoDiv.style.display = 'block';
+    }
+
+    function goToAssessment(type) {
+        closeModal('onboardingModal');
+        if (type === 'cvc') {
+            scrollToSlide(2, 'Silakan isi form penilaian risiko infeksi CVC berikut.');
+        } else {
+            scrollToSlide(3, 'Silakan ikuti langkah penilaian kondisi AV Shunt Anda.');
+        }
     }
 
     // --- HEADER ANIMATION ---
     const phrases = [ 
-        "Komunitas dan Edukasi Ginjal", 
-        "Lihat Video Perawatan CVC", 
-        "Ingatkan Jadwal Ganti Kasa", 
-        "Akses Sehat, HD Hebat", 
-        "Mengasah Pengetahuan Kesehatan Ginjal" 
+        "Terapi & Monitoring Akses", 
+        "Cek Kondisi Akses Vaskular", 
+        "Edukasi Interaktif", 
+        "Platform Pasien Dialisis" 
     ];
     const taglineElement = document.getElementById('tagline');
     let phraseIndex = 0, charIndex = 0, isDeleting = false, typingSpeed = 70;
@@ -938,129 +852,56 @@
     }
     setTimeout(typeWriter, 400);
 
-   // --- NAVIGATION LOGIC (TANPA AUDIO - DIPERBAIKI) ---
+   // --- NAVIGATION LOGIC ---
     const navCards = document.querySelectorAll('.nav-card');
     const mainSlider = document.getElementById('slider');
     
-    // Fungsi navigasi yang diperbaiki - tanpa audio
     function scrollToSlide(index, msg) {
         const targetSlide = document.getElementById('slide-' + index);
         if (targetSlide) {
             targetSlide.scrollIntoView({ behavior: 'smooth' });
             updateActiveNav(index);
         }
-        // Tampilkan hologram dengan pesan (tanpa audio)
-        if(msg) { 
-            showHoloMessageSimple("Pemandu", msg); 
-        }
+        if(msg) { showHoloMessageSimple("Pemandu", msg); }
     }
     
-    // Fungsi baru untuk menampilkan hologram tanpa audio
     function showHoloMessageSimple(title, text) {
         tooltipTitle.innerText = title;
         tooltipDesc.innerText = text;
         holoContainer.classList.add('show');
         tourTooltip.classList.add('active');
-        
-        // Auto hide setelah 4 detik
         setTimeout(() => {
             holoContainer.classList.remove('show');
             tourTooltip.classList.remove('active');
         }, 4000);
     }
     
-    function updateActiveNav(index) { 
-        navCards.forEach((card, i) => { 
-            card.classList.toggle('active', i === index); 
-        }); 
-    }
-    
-    mainSlider.addEventListener('scroll', () => { 
-        const scrollLeft = mainSlider.scrollLeft; 
-        const slideWidth = mainSlider.clientWidth; 
-        const activeIndex = Math.round(scrollLeft / slideWidth); 
-        updateActiveNav(activeIndex); 
-    });
+    function updateActiveNav(index) { navCards.forEach((card, i) => { card.classList.toggle('active', i === index); }); }
+    mainSlider.addEventListener('scroll', () => { const scrollLeft = mainSlider.scrollLeft; const slideWidth = mainSlider.clientWidth; const activeIndex = Math.round(scrollLeft / slideWidth); updateActiveNav(activeIndex); });
 
-    // --- CONTENT SLIDER ---
-    let currentContentSlide = 0;
-    const contentTrack = document.getElementById('contentTrack');
-    const dots = document.querySelectorAll('.dot');
-    const totalContentSlides = 1; 
-    
-    function goToContentSlide(index) { 
-        currentContentSlide = index; 
-        contentTrack.style.transform = `translateX(-${index * 100}%)`; 
-        dots.forEach((dot, i) => { 
-            dot.classList.toggle('active', i === index); 
-        }); 
-    }
-
-    // --- HOLOGRAM & AUDIO FUNCTIONS ---
+    // --- HOLOGRAM FUNCTIONS ---
     function showHoloMessage(title, text, audioFile, callback) {
         tooltipTitle.innerText = title;
         tooltipDesc.innerText = text;
         holoContainer.classList.add('show');
         tourTooltip.classList.add('active');
-        playAudioFile(audioFile, () => {
-            setTimeout(() => {
-                holoContainer.classList.remove('show');
-                tourTooltip.classList.remove('active');
-                if(callback) callback();
-            }, 500);
-        });
-    }
-    
-    function playAudioFile(filename, onEndCallback) {
-        if (currentAudioPlayer) { 
-            currentAudioPlayer.pause(); 
-            currentAudioPlayer.currentTime = 0; 
-        }
-        if (!filename) { 
-            if(onEndCallback) onEndCallback(); 
-            return; 
-        }
-        currentAudioPlayer = new Audio('audio/' + filename);
-        currentAudioPlayer.onended = () => { 
-            if(onEndCallback) onEndCallback(); 
-        };
-        currentAudioPlayer.onerror = (e) => { 
-            setTimeout(() => { 
-                if(onEndCallback) onEndCallback(); 
-            }, 3000); 
-        };
-        currentAudioPlayer.play().catch(e => { 
-            setTimeout(() => { 
-                if(onEndCallback) onEndCallback(); 
-            }, 3000); 
-        });
+        setTimeout(() => {
+            holoContainer.classList.remove('show');
+            tourTooltip.classList.remove('active');
+            if(callback) callback();
+        }, 3000);
     }
 
     // --- TOUR LOGIC ---
     const tourSteps = [
-        { element: '#tour-step-0', title: 'Selamat Datang!', desc: 'Halo! Selamat datang di pusat edukasi kesehatan ginjal terlengkap.', slide: 0, audio: 'step_welcome.mp3' },
-        { 
-            element: '#tour-step-info', 
-            title: 'Perkenalan Aplikasi', 
-            desc: 'Aplikasi ini dikembangkan oleh TIM INOCA RSSA. AsahGinjal adalah platform untuk mengasah pengetahuan kesehatan ginjal.', 
-            slide: 6, 
-            audio: 'step_intro.mp3' 
-        },
-        { element: '#navbar', title: 'Navigasi Utama', desc: 'Geser menu di bawah ini untuk menjelajahi berbagai fitur keren.', slide: 0, audio: 'step_nav.mp3' },
-        { element: '#tour-step-1', title: 'Info Fokus Bulanan', desc: 'Jangan lewatkan informasi kampanye kesehatan terkini di banner ini!', slide: 0, audio: 'step_banner.mp3' },
-        { element: '#tour-step-3', title: 'Assessment CVC', desc: 'Khawatir dengan kondisi kateter? Cek risiko infeksi secara mandiri di sini.', slide: 2, audio: 'step_cvc.mp3' }
+        { element: '#tour-step-0', title: 'Selamat Datang!', desc: 'Ini adalah beranda TEMAN.', slide: 0 },
+        { element: '#navbar', title: 'Navigasi', desc: 'Geser menu di bawah untuk pindah halaman.', slide: 0 }
     ];
     let currentTourStep = -1;
     
     function startTour() { 
         currentTourStep = -1; 
-        tourOverlay.classList.add('active'); 
-        tourHighlight.classList.remove('animate'); 
-        
-        showHoloMessage("Memulai Tur", "Terima kasih kakak. Saya akan memandu kakak melihat fitur-fitur menarik disini.", "intro.mp3", () => { 
-            tourHighlight.classList.add('animate'); 
-            nextTourStep(); 
-        }); 
+        nextTourStep(); 
     }
 
     function nextTourStep() {
@@ -1078,75 +919,13 @@
 
         setTimeout(() => {
             if (targetEl) {
-                const rect = targetEl.getBoundingClientRect();
-                
-                if (rect.top > 0 && rect.left > 0) {
-                    tourHighlight.style.top = rect.top + 'px'; 
-                    tourHighlight.style.left = rect.left + 'px'; 
-                    tourHighlight.style.width = rect.width + 'px'; 
-                    tourHighlight.style.height = rect.height + 'px';
-                    
-                    showHoloMessage(step.title, step.desc, step.audio, () => { 
-                        setTimeout(nextTourStep, 500); 
-                    });
-                } else {
-                    setTimeout(() => {
-                         const rect2 = targetEl.getBoundingClientRect();
-                         tourHighlight.style.top = rect2.top + 'px'; 
-                         tourHighlight.style.left = rect2.left + 'px'; 
-                         tourHighlight.style.width = rect2.width + 'px'; 
-                         tourHighlight.style.height = rect2.height + 'px';
-                         showHoloMessage(step.title, step.desc, step.audio, () => { setTimeout(nextTourStep, 500); });
-                    }, 500);
-                }
+                showHoloMessage(step.title, step.desc, null, () => { setTimeout(nextTourStep, 500); });
             }
-        }, 1200);
+        }, 800);
     }
     
     function endTour() { 
-        tourOverlay.classList.remove('active'); 
-        tourHighlight.classList.remove('animate'); 
-        
-        showHoloMessage("Sampai Jumpa", "Sekian tur kita hari ini, saya ucapkan terima kasih.", "outro.mp3", () => { 
-            tourTooltip.classList.remove('active'); 
-            startCredits(); 
-        }); 
-    }
-
-    // --- CREDITS LOGIC ---
-    function createStars() { 
-        starContainer.innerHTML = ''; 
-        for(let i=0; i<50; i++) { 
-            const star = document.createElement('div'); 
-            star.classList.add('star'); 
-            star.style.left = Math.random() * 100 + '%'; 
-            star.style.width = Math.random() * 3 + 1 + 'px'; 
-            star.style.height = star.style.width; 
-            star.style.animationDuration = Math.random() * 3 + 2 + 's'; 
-            star.style.animationDelay = Math.random() * 5 + 's'; 
-            starContainer.appendChild(star); 
-        } 
-    }
-    
-    function startCredits() { 
-        createStars(); 
-        creditsOverlay.classList.add('active'); 
-        creditsContent.style.animation = 'none'; 
-        creditsContent.offsetHeight; 
-        creditsContent.style.animation = 'scrollDown 150s linear forwards'; 
-        if (bgMusic) { 
-            bgMusic.currentTime = 0; 
-            bgMusic.volume = 0.6; 
-            bgMusic.play().catch(e => {}); 
-        } 
-        creditsContent.addEventListener('animationend', handleCreditsEnd); 
-    }
-    
-    function handleCreditsEnd() { 
-        creditsOverlay.classList.remove('active'); 
-        if(bgMusic) bgMusic.pause(); 
-        creditsContent.removeEventListener('animationend', handleCreditsEnd); 
-        setTimeout(() => { scrollToSlide(0, null); }, 500); 
+        showHoloMessage("Selesai", "Tur selesai. Selamat menggunakan aplikasi!", null, null);
     }
 
     // --- BACKGROUND SLIDER ---
@@ -1157,7 +936,7 @@
         currentSlide = (currentSlide + 1) % slides.length; 
         slides[currentSlide].classList.add('active'); 
     }
-    setInterval(nextSlide, 5000);
+    if(slides.length > 1) setInterval(nextSlide, 5000);
 
     // --- MODALS & HELPERS ---
     function openModal(id) { document.getElementById(id).classList.add('active'); }
@@ -1177,9 +956,7 @@
             closeModal('passwordModal'); 
             openModal('eventModal'); 
             document.getElementById('passwordInput').value = ""; 
-        } else { 
-            alert("Kode salah!"); 
-        } 
+        } else { alert("Kode salah!"); } 
     }
 
     function makeLinksClickable(text) {
@@ -1193,21 +970,15 @@
 
     function convertToDirectLink(url) {
         if (!url) return '';
-        
         let match = url.match(/drive\.google\.com\/file\/d\/([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
             return `https://drive.google.com/uc?export=view&id=${match[1]}`;
         }
-
         match = url.match(/drive\.google\.com\/open\?id=([a-zA-Z0-9_-]+)/);
         if (match && match[1]) {
             return `https://drive.google.com/uc?export=view&id=${match[1]}`;
         }
-
-        if (url.includes('drive.google.com/uc?')) {
-            return url;
-        }
-
+        if (url.includes('drive.google.com/uc?')) return url;
         return url;
     }
     
@@ -1216,47 +987,23 @@
         fetch(API_URL)
             .then(response => response.json())
             .then(data => {
-                if (!data.length) { 
-                    container.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Belum ada acara. Klik tombol di atas untuk menambah acara baru.</p>'; 
-                    return; 
-                }
+                if (!data.length) { container.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:20px;">Belum ada acara.</p>'; return; }
                 
                 container.innerHTML = data.map(ev => {
                     const clickableDesc = makeLinksClickable(ev.desc);
                     const directImgUrl = convertToDirectLink(ev.img);
-                    
                     let posterHtml = '';
                     if (directImgUrl) {
                         const linkTag = ev.link ? `href="${ev.link}" target="_blank"` : `href="${directImgUrl}" target="_blank"`;
                         const linkClass = ev.link ? 'has-link' : '';
-                        
                         posterHtml = `<a ${linkTag} class="event-item-img-container ${linkClass}">
-                            <img src="${directImgUrl}" alt="Poster" 
-                                onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23f1f5f9%22 width=%22100%25%22 height=%22100%25%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2212%22 fill=%22%2364748b%22>Gagal Muat Gambar%0ACek Akses File</text></svg>';">
+                            <img src="${directImgUrl}" alt="Poster" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%22100%22 height=%22100%22><rect fill=%22%23f1f5f9%22 width=%22100%25%22 height=%22100%25%22/><text x=%2250%25%22 y=%2250%25%22 dominant-baseline=%22middle%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-size=%2212%22 fill=%22%2364748b%22>Error</text></svg>';">
                         </a>`;
                     }
-                    
-                    let linkBtnHtml = '';
-                    if (ev.link && !directImgUrl) {
-                        linkBtnHtml = `<a href="${ev.link}" target="_blank" rel="noopener noreferrer" class="event-link-btn">🔗 Buka Link Acara</a>`;
-                    }
-                    return `
-                        <div class="event-item-card">
-                            ${posterHtml}
-                            <div class="event-item-body">
-                                <div class="event-item-title">${ev.title}</div>
-                                <div class="event-item-date">🗓 ${ev.date}</div>
-                                <div class="event-item-desc">${clickableDesc}</div>
-                                ${linkBtnHtml}
-                            </div>
-                        </div>
-                    `;
+                    return `<div class="event-item-card">${posterHtml}<div class="event-item-body"><div class="event-item-title">${ev.title}</div><div class="event-item-date">🗓 ${ev.date}</div><div class="event-item-desc">${clickableDesc}</div></div></div>`;
                 }).join('');
             })
-            .catch(err => {
-                console.error(err);
-                container.innerHTML = '<p style="text-align:center; color:var(--color-danger); margin-top:20px;">Gagal memuat data. Periksa koneksi atau URL Script.</p>';
-            });
+            .catch(err => { container.innerHTML = '<p style="text-align:center; color:var(--color-danger); margin-top:20px;">Gagal memuat data.</p>'; });
     }
 
     function saveEvent() {
@@ -1267,39 +1014,21 @@
         const desc = document.getElementById('evDesc').value;
         
         if (!title || !date) { alert("Judul & Tanggal wajib diisi!"); return; }
-        
         openModal('loadingModal');
-
-        const data = {
-            password: PASSWORD,
-            title: title,
-            date: date,
-            img: img,
-            link: link,
-            desc: desc
-        };
-
-        fetch(API_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        })
-        .then(() => {
-            closeModal('loadingModal');
-            closeModal('eventModal');
-            alert("Acara berhasil ditambahkan!");
-            ['evTitle', 'evDate', 'evImg', 'evLink', 'evDesc'].forEach(id => document.getElementById(id).value = '');
-            loadEvents();
-        })
-        .catch(err => {
-            closeModal('loadingModal');
-            console.error(err);
-            alert("Gagal menyimpan acara.");
-        });
+        const data = { password: PASSWORD, title, date, img, link, desc };
+        fetch(API_URL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) })
+        .then(() => { closeModal('loadingModal'); closeModal('eventModal'); alert("Acara berhasil ditambahkan!"); ['evTitle', 'evDate', 'evImg', 'evLink', 'evDesc'].forEach(id => document.getElementById(id).value = ''); loadEvents(); })
+        .catch(err => { closeModal('loadingModal'); alert("Gagal menyimpan acara."); });
     }
     
-    window.addEventListener('load', loadEvents);
+    window.addEventListener('load', () => {
+        loadEvents();
+        // Simulasi visitor count
+        document.getElementById('visitorCount').innerText = Math.floor(Math.random() * 500) + 1200;
+        
+        // Setup comment link
+        document.getElementById('addCommentBtn').href = `https://wa.me/6282227707573?text=${encodeURIComponent("Halo, saya ingin memberikan komentar untuk aplikasi TEMAN...")}`;
+    });
 
     // --- CALCULATORS ---
     const WA_DOKTER = '6281252651083'; 
@@ -1335,9 +1064,9 @@
         if (level === "Tinggi") {
             const waTextDokter = `🚨 LAPORAN DARURAT CVC%0AID: ${patientId}%0AStatus: ${level}`;
             actionHTML += `<a href="https://wa.me/${WA_DOKTER}?text=${waTextDokter}" target="_blank" class="btn btn-danger" style="width:100%; text-decoration:none; margin-bottom: 10px;">&#128680; Lapor Dokter (Darurat)</a>`;
-            actionHTML += createReportButtons(patientId, `${level} (Darurat)`, 'CVC');
+            actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('CVC', '${patientId}', '${level}')">Lapor Admin</button>`;
         } else if (level === "Sedang" || level === "Rendah") {
-            actionHTML = createReportButtons(patientId, level, 'CVC');
+             actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('CVC', '${patientId}', '${level}')">Lapor Admin</button>`;
         }
         
         criticalDiv.innerHTML = actionHTML;
@@ -1353,25 +1082,26 @@
         const c_vis_bleed = document.getElementById('av_vis_bleed').checked;
         const c_palp_pain = document.getElementById('av_palp_pain').checked;
         const c_other_cold = document.getElementById('av_other_cold').checked;
-        const c_other_fever = document.getElementById('av_other_fever').checked;
 
         const thrillVal = document.querySelector('input[name="av_thrill"]:checked')?.value;
+        const elevVal = document.querySelector('input[name="av_elev"]:checked')?.value;
         
         let status = "BAIK";
         let msg = "Kondisi fistula baik.";
-        let recom = "Lanjutkan perawatan rutin dan jaga kebersihan. Hindari tekanan pada lengan shunt.";
+        let recom = "Lanjutkan perawatan rutin. Cek getaran (thrill) setiap hari.";
         let isCritical = false;
         let isWarning = false;
 
-        if (c_vis_pus || c_vis_bleed || c_other_cold || c_other_fever || thrillVal === 'gone') {
+        // Critical Logic
+        if (c_vis_pus || c_vis_bleed || c_other_cold || thrillVal === 'gone') {
             status = "DARURAT";
             msg = "🚨 Kondisi Kritis!";
             recom = "Segera pergi ke IGD atau hubungi dokter. Jangan tunda!";
             isCritical = true;
-        } else if (c_vis_red || c_palp_pain || thrillVal === 'weak') {
+        } else if (c_vis_red || c_palp_pain || thrillVal === 'weak' || elevVal === 'no') {
             status = "PERHATIAN";
             msg = "⚠️ Ada tanda yang perlu diwaspadai.";
-            recom = "Hindari tekanan pada area shunt. Segera laporkan kepada perawat atau admin untuk pemeriksaan lebih lanjut.";
+            recom = "Hindari tekanan pada area shunt. Segera konsultasi dengan perawat/admin.";
             isWarning = true;
         }
 
@@ -1390,9 +1120,9 @@
 
         if (isCritical) {
             actionHTML += `<a href="tel:119" class="btn btn-danger" style="width:100%; margin-bottom:10px; text-decoration:none;">🚨 Hubungi Layanan Darurat</a>`;
-            actionHTML += createReportButtons(patientId, "DARURAT", "AV Shunt");
+            actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('AV Shunt', '${patientId}', 'DARURAT')">Lapor Admin</button>`;
         } else if (isWarning) {
-            actionHTML = createReportButtons(patientId, "PERHATIAN", "AV Shunt");
+            actionHTML += `<button class="btn btn-outline" style="width:100%;" onclick="reportToAdmin('AV Shunt', '${patientId}', 'PERHATIAN')">Lapor Admin</button>`;
         }
 
         criticalDiv.innerHTML = actionHTML;
@@ -1405,6 +1135,15 @@
         document.querySelectorAll('#av-form input[type="checkbox"]').forEach(c => c.checked = false);
         const normalRadio = document.querySelector('input[name="av_thrill"][value="normal"]');
         if(normalRadio) normalRadio.checked = true;
+        const normalElev = document.querySelector('input[name="av_elev"][value="yes"]');
+        if(normalElev) normalElev.checked = true;
+    }
+
+    function reportToAdmin(type, patientId, status) {
+        // Using first admin as default contact
+        const phone = '6282227707573';
+        const text = `Laporan ${type}%0AID: ${patientId}%0AStatus: ${status}`;
+        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
 
 </script>

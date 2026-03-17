@@ -25,8 +25,6 @@ const avatarSVGs = {
 function openModal(id) { 
     document.getElementById(id).classList.add('active'); 
     if (id === 'chatModal') {
-        document.getElementById('chatInput').focus();
-        // Scroll to bottom
         const container = document.querySelector('.chat-messages');
         container.scrollTop = container.scrollHeight;
     }
@@ -181,6 +179,13 @@ function handleLogout() {
     }
 }
 
+function enterAsGuest() {
+    closeModal('authModal');
+    currentUser = null;
+    uploadedAvatarData = null;
+    setUIToGuestMode();
+}
+
 function saveUserToStorage() {
     if (currentUser) {
         localStorage.setItem('teman_current_user', JSON.stringify(currentUser));
@@ -199,7 +204,6 @@ function loadUserFromStorage() {
     return false;
 }
 
-// NEW: Set UI to Guest Mode
 function setUIToGuestMode() {
     document.getElementById('userArea').innerHTML = `
         <button class="user-profile-btn" onclick="openModal('authModal')">
@@ -345,7 +349,6 @@ function saveEvent() {
 }
 
 // ========== CALCULATIONS ==========
-// (Calculate functions remain the same as previous)
 function calculateCVC() {
     let symptomCount = 0; let hasCriticalSign = false;
     if (document.getElementById('q1')?.checked) symptomCount++;
@@ -439,9 +442,7 @@ function resetAV() {
 
 // ========== CHAT SYSTEM ==========
 function initChat() {
-    loadMessages(); // Initial load
-    
-    // Polling setiap 5 detik untuk mengecek pesan baru
+    loadMessages();
     if (chatPollingInterval) clearInterval(chatPollingInterval);
     chatPollingInterval = setInterval(loadMessages, 5000);
 }
@@ -450,16 +451,22 @@ function loadMessages() {
     // CATATAN: Untuk produksi, ganti dengan fetch ke API_URL Anda yang mengembalikan array pesan.
     // Contoh: fetch(API_URL + '?action=getChat').then(...)
     
-    // Simulasi menggunakan LocalStorage (hanya terlihat di device yang sama)
+    // Simulasi menggunakan LocalStorage
     const messages = JSON.parse(localStorage.getItem('teman_chat_messages') || '[]');
     renderMessages(messages);
 }
 
 function renderMessages(messages) {
-    const container = document.querySelector('.chat-messages');
+    const container = document.getElementById('chatBox');
     if (!container) return;
     
-    let html = '';
+    let html = `
+        <div class="chat-bubble others">
+            <span class="sender-name">Sistem</span>
+            Selamat datang di ruang chat. Mohon sopan santun dalam berkomunikasi.
+        </div>
+    `;
+    
     const myId = currentUser ? currentUser.id : 'guest_' + Math.random();
 
     messages.forEach(msg => {
@@ -476,7 +483,7 @@ function renderMessages(messages) {
     });
 
     container.innerHTML = html;
-    container.scrollTop = container.scrollHeight; // Auto scroll ke bawah
+    container.scrollTop = container.scrollHeight;
 }
 
 function sendChatMessage() {
@@ -484,7 +491,6 @@ function sendChatMessage() {
     const text = input.value.trim();
     if (!text) return;
 
-    // Jika belum login, pakai nama tamu
     const name = currentUser ? currentUser.name : 'Tamu';
     const userId = currentUser ? currentUser.id : 'guest_' + Math.random();
 
@@ -496,29 +502,27 @@ function sendChatMessage() {
     };
 
     // SIMPAN KE LOCAL STORAGE (Ganti dengan API POST untuk produksi)
-    // Untuk produksi:
-    // fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'sendChat', ...newMessage }) });
-    
     let messages = JSON.parse(localStorage.getItem('teman_chat_messages') || '[]');
     messages.push(newMessage);
-    // Simpan hanya 50 pesan terakhir untuk menghemat space
     if (messages.length > 50) messages = messages.slice(-50);
     
     localStorage.setItem('teman_chat_messages', JSON.stringify(messages));
     
     input.value = '';
-    renderMessages(messages); // Langsung render
+    renderMessages(messages);
 }
 
 // ========== INIT ==========
 window.addEventListener('load', () => {
     loadEvents();
     
-    // Coba load user, jika tidak ada, set ke mode Tamu
-    if (!loadUserFromStorage()) {
+    if (loadUserFromStorage()) {
+        updateUIForLoggedInUser();
+    } else {
         setUIToGuestMode();
+        // Auto-popup login aktif kembali
+        setTimeout(() => openModal('authModal'), 1000);
     }
     
-    // Inisialisasi Chat
     initChat();
 });

@@ -1,14 +1,15 @@
-// js/app.js
+/* js/app.js */
 
 // ========== CONFIGURATION ==========
 const API_URL = 'https://script.google.com/macros/s/AKfycbzu_WfyID_ggPD9TFbbdQFysAvcQyO5w7W22cD1udUF6ZHx5xG313ejhGwDmAXrJT4C/exec';
 const PASSWORD = "1111";
 
 // ========== STATE ==========
-let currentUser = null;
+let currentUser = null; // Null berarti Guest
 let selectedAccessType = "CVC";
 let selectedAvatarData = null;
 let uploadedAvatarData = null;
+let chatPollingInterval = null;
 
 // ========== AVATAR SVG TEMPLATES ==========
 const avatarSVGs = {
@@ -21,10 +22,17 @@ const avatarSVGs = {
 };
 
 // ========== UI FUNCTIONS ==========
-function openModal(id) { document.getElementById(id).classList.add('active'); }
+function openModal(id) { 
+    document.getElementById(id).classList.add('active'); 
+    if (id === 'chatModal') {
+        document.getElementById('chatInput').focus();
+        // Scroll to bottom
+        const container = document.querySelector('.chat-messages');
+        container.scrollTop = container.scrollHeight;
+    }
+}
 function closeModal(id) { document.getElementById(id).classList.remove('active'); }
 
-// Fungsi untuk menutup modal saat klik di luar area
 function closeModalOnOverlay(event, id) {
     if (event.target.id === id) {
         closeModal(id);
@@ -168,21 +176,7 @@ function handleLogout() {
     if (confirm('Apakah Anda yakin ingin keluar?')) {
         localStorage.removeItem('teman_current_user');
         currentUser = null; uploadedAvatarData = null;
-        
-        document.getElementById('userArea').innerHTML = `
-            <button class="user-profile-btn" onclick="openModal('authModal')">
-                <div class="user-avatar-small"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
-                <span style="font-weight:600; color:var(--dark-blue);">Masuk</span>
-            </button>`;
-        
-        document.getElementById('userName').innerText = 'Tamu';
-        document.getElementById('userStatus').innerText = 'Belum Login';
-        document.getElementById('mainAvatar').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
-        document.getElementById('tipeAkses').innerText = '-';
-        document.getElementById('lastCheck').innerText = '-';
-        document.getElementById('totalCheck').innerText = '0';
-        document.getElementById('healthScore').innerText = '-';
-        
+        setUIToGuestMode();
         closeModal('profileModal');
     }
 }
@@ -203,6 +197,23 @@ function loadUserFromStorage() {
         return true;
     }
     return false;
+}
+
+// NEW: Set UI to Guest Mode
+function setUIToGuestMode() {
+    document.getElementById('userArea').innerHTML = `
+        <button class="user-profile-btn" onclick="openModal('authModal')">
+            <div class="user-avatar-small"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
+            <span style="font-weight:600; color:var(--dark-blue);">Masuk</span>
+        </button>`;
+        
+    document.getElementById('userName').innerText = 'Tamu';
+    document.getElementById('userStatus').innerText = 'Mode Tamu';
+    document.getElementById('mainAvatar').innerHTML = `<svg viewBox="0 0 24 24" fill="currentColor" width="40" height="40"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>`;
+    document.getElementById('tipeAkses').innerText = '-';
+    document.getElementById('lastCheck').innerText = '-';
+    document.getElementById('totalCheck').innerText = '0';
+    document.getElementById('healthScore').innerText = '-';
 }
 
 function updateUIForLoggedInUser() {
@@ -334,6 +345,7 @@ function saveEvent() {
 }
 
 // ========== CALCULATIONS ==========
+// (Calculate functions remain the same as previous)
 function calculateCVC() {
     let symptomCount = 0; let hasCriticalSign = false;
     if (document.getElementById('q1')?.checked) symptomCount++;
@@ -425,8 +437,88 @@ function resetAV() {
     document.querySelectorAll('#av-form input[type="checkbox"]').forEach(c => c.checked = false);
 }
 
+// ========== CHAT SYSTEM ==========
+function initChat() {
+    loadMessages(); // Initial load
+    
+    // Polling setiap 5 detik untuk mengecek pesan baru
+    if (chatPollingInterval) clearInterval(chatPollingInterval);
+    chatPollingInterval = setInterval(loadMessages, 5000);
+}
+
+function loadMessages() {
+    // CATATAN: Untuk produksi, ganti dengan fetch ke API_URL Anda yang mengembalikan array pesan.
+    // Contoh: fetch(API_URL + '?action=getChat').then(...)
+    
+    // Simulasi menggunakan LocalStorage (hanya terlihat di device yang sama)
+    const messages = JSON.parse(localStorage.getItem('teman_chat_messages') || '[]');
+    renderMessages(messages);
+}
+
+function renderMessages(messages) {
+    const container = document.querySelector('.chat-messages');
+    if (!container) return;
+    
+    let html = '';
+    const myId = currentUser ? currentUser.id : 'guest_' + Math.random();
+
+    messages.forEach(msg => {
+        const isMe = msg.userId === myId;
+        const time = new Date(msg.timestamp).toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+        
+        html += `
+            <div class="chat-bubble ${isMe ? 'me' : 'others'}">
+                ${!isMe ? `<span class="sender-name">${msg.name}</span>` : ''}
+                ${msg.text}
+                <span class="timestamp">${time}</span>
+            </div>
+        `;
+    });
+
+    container.innerHTML = html;
+    container.scrollTop = container.scrollHeight; // Auto scroll ke bawah
+}
+
+function sendChatMessage() {
+    const input = document.getElementById('chatInput');
+    const text = input.value.trim();
+    if (!text) return;
+
+    // Jika belum login, pakai nama tamu
+    const name = currentUser ? currentUser.name : 'Tamu';
+    const userId = currentUser ? currentUser.id : 'guest_' + Math.random();
+
+    const newMessage = {
+        userId: userId,
+        name: name,
+        text: text,
+        timestamp: new Date().toISOString()
+    };
+
+    // SIMPAN KE LOCAL STORAGE (Ganti dengan API POST untuk produksi)
+    // Untuk produksi:
+    // fetch(API_URL, { method: 'POST', body: JSON.stringify({ action: 'sendChat', ...newMessage }) });
+    
+    let messages = JSON.parse(localStorage.getItem('teman_chat_messages') || '[]');
+    messages.push(newMessage);
+    // Simpan hanya 50 pesan terakhir untuk menghemat space
+    if (messages.length > 50) messages = messages.slice(-50);
+    
+    localStorage.setItem('teman_chat_messages', JSON.stringify(messages));
+    
+    input.value = '';
+    renderMessages(messages); // Langsung render
+}
+
 // ========== INIT ==========
 window.addEventListener('load', () => {
     loadEvents();
-    if (!loadUserFromStorage()) { setTimeout(() => openModal('authModal'), 1000); }
+    
+    // Coba load user, jika tidak ada, set ke mode Tamu
+    if (!loadUserFromStorage()) {
+        setUIToGuestMode();
+    }
+    
+    // Inisialisasi Chat
+    initChat();
 });

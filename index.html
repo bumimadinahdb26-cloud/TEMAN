@@ -6,6 +6,34 @@
     <title>TEMAN - Dashboard Akses Dialisis</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
+    
+    <!-- Tambahan CSS untuk Fitur Chat (Jika belum ada di styles.css) -->
+    <style>
+        /* FAB Chat Button */
+        .fab-chat {
+            position: fixed; bottom: 80px; right: 24px;
+            width: 60px; height: 60px;
+            background: linear-gradient(135deg, var(--primary-purple), var(--primary-teal));
+            border: none; border-radius: 50%; color: white;
+            font-size: 28px; cursor: pointer;
+            box-shadow: 0 6px 20px rgba(109, 40, 217, 0.4);
+            z-index: 99; display: flex; align-items: center; justify-content: center;
+            transition: transform 0.3s;
+        }
+        .fab-chat:hover { transform: scale(1.1); }
+        
+        /* Chat Layout */
+        .chat-container { display: flex; flex-direction: column; height: 60vh; background: var(--bg-soft); border-radius: 12px; overflow: hidden; margin-top: 10px; }
+        .chat-messages { flex: 1; padding: 16px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .chat-bubble { max-width: 80%; padding: 10px 14px; border-radius: 16px; font-size: 14px; line-height: 1.4; }
+        .chat-bubble.me { align-self: flex-end; background: var(--primary-teal); color: white; border-bottom-right-radius: 4px; }
+        .chat-bubble.others { align-self: flex-start; background: white; color: var(--text-dark); border-bottom-left-radius: 4px; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        .chat-bubble .sender-name { font-size: 10px; font-weight: 700; margin-bottom: 4px; opacity: 0.8; display: block; }
+        .chat-bubble .timestamp { font-size: 9px; opacity: 0.6; margin-top: 4px; text-align: right; display: block; }
+        .chat-input-area { padding: 12px; background: white; border-top: 1px solid var(--border-light); display: flex; gap: 10px; }
+        .chat-input-area input { flex: 1; padding: 12px; border: 1px solid var(--border-light); border-radius: 24px; outline: none; font-family: inherit; }
+        .chat-input-area button { width: 48px; height: 48px; border-radius: 50%; border: none; background: var(--primary-teal); color: white; font-size: 20px; cursor: pointer; }
+    </style>
 </head>
 <body>
 
@@ -29,13 +57,8 @@
                 <li class="nav-item" onclick="openModal('eventModal')">AGENDA</li>
             </ul>
         </nav>
-        <div id="userArea">
-    <!-- Default state untuk tamu -->
-    <button class="user-profile-btn" onclick="openModal('authModal')">
-        <div class="user-avatar-small"><svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg></div>
-        <span style="font-weight:600; color:var(--dark-blue);">Masuk</span>
-    </button>
-</div>
+        <!-- Area User akan diisi oleh JS -->
+        <div id="userArea"></div>
     </header>
 
     <!-- MAIN CONTENT -->
@@ -45,10 +68,11 @@
         <aside class="team-sidebar">
             <div class="team-badge">
                 <div class="badge-circle" id="mainAvatar" onclick="openModal('profileModal')">
+                    <!-- Avatar default untuk tamu -->
                     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
                 </div>
                 <h2 class="team-name" id="userName">Tamu</h2>
-                <p class="team-rating">Status: <span class="rating-value" id="userStatus">Belum Login</span></p>
+                <p class="team-rating">Status: <span class="rating-value" id="userStatus">Mode Tamu</span></p>
             </div>
 
             <div class="team-stats">
@@ -159,6 +183,9 @@
         </div>
     </footer>
 
+    <!-- FLOATING CHAT BUTTON -->
+    <button class="fab-chat" onclick="openModal('chatModal')">💬</button>
+
     <!-- ========== MODALS ========== -->
 
     <!-- AUTH MODAL -->
@@ -166,7 +193,7 @@
         <div class="modal-box" style="width: 450px;" onclick="event.stopPropagation()">
             <div style="font-size:48px; margin-bottom:8px;">👋</div>
             <h3 style="font-size: 20px; margin-bottom: 6px;">Selamat Datang di TEMAN</h3>
-            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Masuk atau daftar untuk menyimpan data Anda</p>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Masuk untuk menyimpan data atau lanjutkan sebagai tamu.</p>
             
             <div class="auth-tabs">
                 <div class="auth-tab active" onclick="switchAuthTab('login')">Masuk</div>
@@ -182,7 +209,7 @@
                     <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.76A7.05 7.05 0 0 1 12 5c1.61 0 3.08.55 4.21 1.64l3.15-3.15A11.97 11.97 0 0 0 12 0C7.39 0 3.4 2.7 1.39 6.65l3.87 3.11z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.76-3.01c-1.1.74-2.52 1.17-4.17 1.17a7.05 7.05 0 0 1-6.74-5.09l-3.87 3.11A11.97 11.97 0 0 0 12 24z"/><path fill="#4A90E2" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58l3.76 3.01c2.2-2.03 3.66-5.02 3.66-8.83z"/><path fill="#FBBC05" d="M5.26 14.24A7.05 7.05 0 0 1 4.95 12c0-.79.14-1.55.37-2.24L1.39 6.65A11.97 11.97 0 0 0 0 12c0 1.92.45 3.74 1.39 5.35l3.87-3.11z"/></svg>
                     Masuk dengan Google
                 </button>
-                <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">Belum punya akun? <a href="#" onclick="switchAuthTab('register')" style="color: var(--primary-teal); font-weight: 600;">Daftar sekarang</a></p>
+                <a href="#" onclick="enterAsGuest()" style="display:block; text-align:center; margin-top:15px; color:var(--text-muted); font-size:13px; font-weight:600;">Lewati / Masuk sebagai Tamu</a>
             </div>
 
             <div class="auth-form" id="registerForm">
@@ -198,8 +225,8 @@
                         <div class="avatar-option" data-avatar="man-teen" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#14b8a6"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#0f766e"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><ellipse cx="50" cy="22" rx="18" ry="10" fill="#2d2013"/></svg></div>
                         <div class="avatar-option" data-avatar="boy" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#f97316"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#ea580c"/><circle cx="50" cy="35" r="18" fill="#fcd5b8"/><ellipse cx="50" cy="28" rx="16" ry="8" fill="#2d2013"/></svg></div>
                         <div class="avatar-option" data-avatar="woman-adult" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#ec4899"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><path d="M32 30 Q35 15 50 15 Q65 15 68 30 L68 40 Q65 50 50 50 Q35 50 32 40 Z" fill="#2d2013"/></svg></div>
-                        <div class="avatar-option" data-avatar="woman-teen" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#a78bfa"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><path d="M35 25 Q40 12 50 12 Q60 12 65 25 L65 38 Q60 48 50 48 Q40 48 35 38 Z" fill="#2d2013"/><path d="M30 40 Q35 50 50 50 Q65 50 70 40" fill="none" stroke="#2d2013" stroke-width="8"/></svg></div>
-                        <div class="avatar-option" data-avatar="girl" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#fb7185"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#f472b6"/><circle cx="50" cy="35" r="18" fill="#fcd5b8"/><path d="M35 30 Q38 18 50 18 Q62 18 65 30 L65 40 Q62 50 50 50 Q38 50 35 40 Z" fill="#2d2013"/><circle cx="38" cy="28" r="4" fill="#fb7185"/></svg></div>
+                        <div class="avatar-option" data-avatar="woman-teen" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#a78bfa"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><path d="M35 25 Q40 12 50 12 Q60 12 65 25 L65 38 Q60 48 50 48 Q40 48 35 38 Z" fill="#2d2013"/></svg></div>
+                        <div class="avatar-option" data-avatar="girl" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#fb7185"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#f472b6"/><circle cx="50" cy="35" r="18" fill="#fcd5b8"/><path d="M35 30 Q38 18 50 18 Q62 18 65 30 L65 40 Q62 50 50 50 Q38 50 35 40 Z" fill="#2d2013"/></svg></div>
                         <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
                             <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)">
                             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
@@ -209,7 +236,7 @@
                 </div>
                 
                 <div class="modal-btns"><button class="modal-btn yes" onclick="handleRegister()">Daftar</button></div>
-                <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">Sudah punya akun? <a href="#" onclick="switchAuthTab('login')" style="color: var(--primary-teal); font-weight: 600;">Masuk</a></p>
+                <a href="#" onclick="enterAsGuest()" style="display:block; text-align:center; margin-top:15px; color:var(--text-muted); font-size:13px; font-weight:600;">Lewati / Masuk sebagai Tamu</a>
             </div>
         </div>
     </div>
@@ -217,7 +244,7 @@
     <!-- PROFILE MODAL -->
     <div class="modal-overlay" id="profileModal" onclick="closeModalOnOverlay(event, 'profileModal')">
         <div class="modal-box" style="width: 450px;" onclick="event.stopPropagation()">
-            <div class="sync-status"><div class="sync-dot" id="syncDot"></div><span class="sync-text" id="syncText">Tersinkronisasi dengan cloud</span></div>
+            <div class="sync-status"><div class="sync-dot" id="syncDot"></div><span class="sync-text" id="syncText">Tersinkronisasi dengan lokal</span></div>
             <div style="margin-bottom: 20px;">
                 <div class="badge-circle" id="profileAvatarBig" style="width: 100px; height: 100px; margin: 0 auto; cursor: pointer;" onclick="document.getElementById('profileAvatarInput').click()">
                     <input type="file" id="profileAvatarInput" accept="image/*" style="display:none" onchange="handleProfileAvatarUpload(event)">
@@ -285,7 +312,6 @@
                     <h4>Referensi Penilaian</h4>
                     <ul>
                         <li><strong>CDC (2017):</strong> Guidelines for the Prevention of Intravascular Catheter-Related Infection.</li>
-                        <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
                     </ul>
                 </div>
             </div>
@@ -294,18 +320,8 @@
                 <div class="score-circle" id="cvc-score-circle"><span id="score-val" style="font-size:32px; font-weight:700;">0</span></div>
                 <span id="risk-badge" class="badge badge-teal">Aman</span>
                 <p style="margin-top:10px; font-size:14px; font-weight:600;" id="risk-msg">Tidak ada tanda.</p>
-                
                 <div id="cvc-critical-action" class="report-contacts"></div>
-
                 <button class="modal-btn no" style="width:100%; margin-top:20px;" onclick="resetCVC()">Ulangi Pengecekan</button>
-                
-                <div class="reference-box" style="margin-top:20px;">
-                    <h4>Referensi Penilaian</h4>
-                    <ul>
-                        <li><strong>CDC (2017):</strong> Guidelines for the Prevention of Intravascular Catheter-Related Infection.</li>
-                        <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -326,41 +342,20 @@
 
             <div id="av-form">
                 <input type="text" class="input-field" id="av_id" placeholder="ID/Nama Pasien">
-                
                 <p style="font-size:12px; font-weight:600; color:var(--text-dark); text-align:left; margin:10px 0 5px;">1. Pemeriksaan Visual:</p>
                 <label class="check-label"><input type="checkbox" id="av_vis_red"><span class="check-box"></span><span>Kemerahan/Bengkak</span></label>
                 <label class="check-label"><input type="checkbox" id="av_vis_pus"><span class="check-box"></span><span>Nanah (Kritis)</span></label>
-                
                 <p style="font-size:12px; font-weight:600; color:var(--text-dark); text-align:left; margin:10px 0 5px;">2. Pemeriksaan Raba (Thrill):</p>
                 <label class="check-label"><input type="radio" name="av_thrill" value="normal" checked><span class="check-box" style="border-radius:50%;"></span><span>Terasa Getar (Normal)</span></label>
                 <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box" style="border-radius:50%;"></span><span>Hilang (Kritis)</span></label>
-
                 <button class="modal-btn yes" style="width:100%; margin-top:10px;" onclick="calculateAV()">Cek Kondisi</button>
-
-                <div class="reference-box">
-                    <h4>Referensi Penilaian</h4>
-                    <ul>
-                        <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
-                        <li><strong>Vascular Access Society:</strong> Guidelines for Fistula Management.</li>
-                    </ul>
-                </div>
             </div>
 
             <div id="av-result" style="display:none; text-align:center;">
                 <span id="av-badge" class="badge badge-teal" style="font-size:16px; padding:10px;">BAIK</span>
                 <p style="margin-top:10px; font-weight:600;" id="av-msg">Kondisi fistula baik.</p>
-                
                 <div id="av-critical-action" class="report-contacts"></div>
-
                 <button class="modal-btn no" style="width:100%; margin-top:20px;" onclick="resetAV()">Ulangi Pengecekan</button>
-                
-                <div class="reference-box" style="margin-top:20px;">
-                    <h4>Referensi Penilaian</h4>
-                    <ul>
-                        <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
-                        <li><strong>Vascular Access Society:</strong> Guidelines for Fistula Management.</li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
@@ -410,20 +405,13 @@
             <h3 style="margin-bottom:15px;">📞 Hubungi Admin</h3>
             <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">Pilih admin yang ingin dihubungi via WhatsApp.</p>
             <div style="display:flex; flex-direction:column; gap:10px;">
-                <a href="https://wa.me/6282227707573?text=Halo%20Kak%20Ginjal" target="_blank" class="report-btn-specific whatsapp">📞 Kak Ginjal</a>
-                <a href="https://wa.me/6283831217784?text=Halo%20Kak%20Vena" target="_blank" class="report-btn-specific whatsapp">📞 Kak Vena</a>
+                <a href="https://wa.me/6282227707573" target="_blank" class="report-btn-specific whatsapp">📞 Kak Ginjal</a>
+                <a href="https://wa.me/6283831217784" target="_blank" class="report-btn-specific whatsapp">📞 Kak Vena</a>
             </div>
         </div>
     </div>
-    <!-- ... existing footer code ... -->
 
-    <!-- FLOATING CHAT BUTTON -->
-    <button class="fab-chat" onclick="openModal('chatModal')">
-        💬
-        <span class="notification-dot"></span>
-    </button>
-
-    <!-- LIVE CHAT MODAL -->
+    <!-- CHAT MODAL -->
     <div class="modal-overlay" id="chatModal" onclick="closeModalOnOverlay(event, 'chatModal')">
         <div class="modal-box" style="width: 400px; max-width: 95vw;" onclick="event.stopPropagation()">
             <div class="modal-header" style="border-bottom: 1px solid var(--border-light); padding-bottom: 15px; margin-bottom: 0;">
@@ -435,12 +423,8 @@
             </div>
             
             <div class="chat-container">
-                <div class="chat-messages">
-                    <!-- Messages will be injected here -->
-                    <div class="chat-bubble others">
-                        <span class="sender-name">Sistem</span>
-                        Selamat datang di ruang chat. Mohon sopan santun dalam berkomunikasi.
-                    </div>
+                <div class="chat-messages" id="chatBox">
+                    <!-- Messages loaded here -->
                 </div>
                 <div class="chat-input-area">
                     <input type="text" id="chatInput" placeholder="Ketik pesan..." onkeypress="if(event.key==='Enter') sendChatMessage()">
@@ -451,8 +435,5 @@
     </div>
 
     <script src="js/app.js"></script>
-</body>
-</html>
-    
 </body>
 </html>

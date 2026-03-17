@@ -1,114 +1,415 @@
-<!-- CVC MODAL -->
-<div class="modal-overlay" id="cvcModal" onclick="closeModalOnOverlay(event, 'cvcModal')">
-    <div class="modal-box" style="width: 400px;" onclick="event.stopPropagation()">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEMAN - Dashboard Akses Dialisis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <div class="bg-blob blob-teal"></div>
+    <div class="bg-blob blob-purple"></div>
+
+    <!-- HEADER -->
+    <header class="main-header">
+        <div class="logo-container">
+            <img src="assets/logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'">
+            <div class="brand-text">
+                <h1>TEMAN</h1>
+                <p>Dashboard Akses Dialisis</p>
+            </div>
+        </div>
+        <nav class="top-nav">
+            <ul>
+                <li class="nav-item active">BERANDA</li>
+                <li class="nav-item" onclick="openModal('cvcModal')">CVC</li>
+                <li class="nav-item" onclick="openModal('avModal')">AV SHUNT</li>
+                <li class="nav-item" onclick="openModal('eventModal')">AGENDA</li>
+            </ul>
+        </nav>
+        <div id="userArea"></div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
         
-        <div class="modal-header">
-            <button class="modal-back-btn" onclick="closeModal('cvcModal')">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Kembali
+        <!-- LEFT SIDEBAR -->
+        <aside class="team-sidebar">
+            <div class="team-badge">
+                <div class="badge-circle" id="mainAvatar" onclick="openModal('profileModal')">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                </div>
+                <h2 class="team-name" id="userName">Tamu</h2>
+                <p class="team-rating">Status: <span class="rating-value" id="userStatus">Belum Login</span></p>
+            </div>
+
+            <div class="team-stats">
+                <div class="stat-item"><span class="stat-label">Tipe Akses</span><span class="stat-value" id="tipeAkses">-</span></div>
+                <div class="stat-item"><span class="stat-label">Terakhir Cek</span><span class="stat-value" id="lastCheck">-</span></div>
+                <div class="stat-item"><span class="stat-label">Total Cek</span><span class="stat-value" id="totalCheck">0</span></div>
+                <div class="stat-item"><span class="stat-label">Skor</span><span class="stat-value" id="healthScore" style="color: var(--color-success);">-</span></div>
+            </div>
+
+            <div class="formation-preview">
+                <h3>VISUALISASI AKSES</h3>
+                <div class="formation-grid">
+                    <div class="player-dot" style="left:50%; bottom:10%; transform:translateX(-50%);">👤</div>
+                    <div class="player-dot" style="left:30%; bottom:40%;">🩺</div>
+                    <div class="player-dot" style="left:70%; bottom:20%;">💪</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 20px;">
+                <button class="footer-btn" style="width:100%; justify-content:center; background: var(--primary-teal); color:white;" onclick="openModal('onboardingModal')">Atur Tipe Akses</button>
+            </div>
+        </aside>
+
+        <!-- CENTER CONTENT -->
+        <section class="center-content">
+            <div class="featured-player">
+                <div class="player-card">
+                    <div class="card-header"><span class="player-rating">94</span><span class="player-position">EDU</span></div>
+                    <div class="player-image">🎓</div>
+                    <div class="player-name">MATERI UNGGULAN</div>
+                    <div class="player-stats-mini">
+                        <div class="mini-stat"><span class="mini-label">Views</span><span class="mini-value">1.2k</span></div>
+                        <div class="mini-stat"><span class="mini-label">Likes</span><span class="mini-value">840</span></div>
+                        <div class="mini-stat"><span class="mini-label">Saved</span><span class="mini-value">210</span></div>
+                    </div>
+                    <div style="margin-top:12px;"><a href="#" class="footer-btn" style="background:rgba(255,255,255,0.2); width:100%;">▶ Tonton Video</a></div>
+                </div>
+            </div>
+
+            <h2 style="font-size: 18px; color: var(--dark-blue); margin-bottom: 8px; padding-left: 8px;">Menu Utama</h2>
+            <div class="game-modes">
+                <div class="mode-card" onclick="openModal('cvcModal')">
+                    <div class="mode-icon"><svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="currentColor" stroke-width="2"/><path d="M25 10 L25 25 L35 35" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    <h3>CEK RISIKO CVC</h3>
+                    <p>Penilaian Infeksi Kateter</p>
+                </div>
+                <div class="mode-card" onclick="openModal('avModal')">
+                    <div class="mode-icon"><svg viewBox="0 0 50 50"><path d="M25 5 L40 40 L10 40 Z" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    <h3>CEK AV SHUNT</h3>
+                    <p>Monitoring Fistula</p>
+                </div>
+                <div class="mode-card" onclick="openModal('eventModal')">
+                    <div class="mode-icon"><svg viewBox="0 0 50 50"><rect x="10" y="10" width="30" height="30" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    <h3>AGENDA</h3>
+                    <p>Jadwal Edukasi</p>
+                </div>
+                <div class="mode-card" onclick="openModal('konsultasiModal')">
+                    <div class="mode-icon"><svg viewBox="0 0 50 50"><circle cx="25" cy="15" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M15 40 Q25 30 35 40" fill="none" stroke="currentColor" stroke-width="2"/></svg></div>
+                    <h3>KONSULTASI</h3>
+                    <p>Hubungi Tim Medis</p>
+                </div>
+            </div>
+
+            <div class="mode-card" style="margin-top: 0;">
+                 <h3 style="text-align:left; margin-bottom:12px;">📊 Statistik Kunjungan</h3>
+                 <div style="display:flex; justify-content:space-around; text-align:center;">
+                    <div><div style="font-size:24px; font-weight:700; color:var(--primary-teal);">52</div><div style="font-size:12px; color:var(--text-muted);">Hari Ini</div></div>
+                    <div><div style="font-size:24px; font-weight:700; color:var(--primary-purple);">1,240</div><div style="font-size:12px; color:var(--text-muted);">Total</div></div>
+                    <div><div style="font-size:24px; font-weight:700; color:var(--accent-coral);">98%</div><div style="font-size:12px; color:var(--text-muted);">Puas</div></div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- RIGHT SIDEBAR -->
+        <aside class="events-sidebar">
+            <div class="events-section">
+                <h3 class="section-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z"/></svg>
+                    AGENDA TERDEKAT
+                </h3>
+                <div id="eventListDashboard"><div class="event-card"><div class="event-banner"></div><div class="event-info"><h4>Loading...</h4></div></div></div>
+            </div>
+            <div class="news-section">
+                <h3 class="section-title">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M19 3H5C3.89 3 3 3.89 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.89 20.1 3 19 3Z"/></svg>
+                    INFO & TIPS
+                </h3>
+                <ul class="news-list">
+                    <li class="news-item"><span class="news-tag new">NEW</span><p>Video Perawatan CVC Terbaru</p></li>
+                    <li class="news-item"><span class="news-tag">TIPS</span><p>Cara Mengenali Tanda Infeksi</p></li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-left">
+            <button class="footer-btn" onclick="openModal('konsultasiModal')">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+                <span>HUBUNGI ADMIN</span>
             </button>
-            <div class="modal-title-center">
-                <h3>Cek Risiko Infeksi CVC</h3>
-                <p>Penilaian mandiri pasien</p>
-            </div>
         </div>
-
-        <div id="cvc-form">
-            <input type="text" class="input-field" id="cvc_id" placeholder="ID/Nama Pasien">
-            <div style="text-align:left;">
-                <label class="check-label"><input type="checkbox" id="q1"><span class="check-box"></span><span>Kemerahan di area kateter</span></label>
-                <label class="check-label"><input type="checkbox" id="q2"><span class="check-box"></span><span>Bengkak di area kateter</span></label>
-                <label class="check-label"><input type="checkbox" id="q3"><span class="check-box"></span><span>Nyeri atau sakit</span></label>
-                <label class="check-label"><input type="checkbox" id="q4"><span class="check-box"></span><span>Keluar nanah/cairan (Kritis)</span></label>
-                <label class="check-label"><input type="checkbox" id="q5"><span class="check-box"></span><span>Demam/Menggigil (Kritis)</span></label>
-            </div>
-            <button class="modal-btn yes" style="width:100%; margin-top:10px;" onclick="calculateCVC()">Hitung Risiko</button>
-            
-            <!-- Literatur di bawah form -->
-            <div class="reference-box">
-                <h4>Referensi Penilaian</h4>
-                <ul>
-                    <li><strong>CDC (2017):</strong> Guidelines for the Prevention of Intravascular Catheter-Related Infection.</li>
-                    <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
-                </ul>
-            </div>
+        <div class="footer-center"><span style="font-size: 12px; opacity: 0.7;">RSUD Dr. Saiful Anwar Malang &copy; 2026</span></div>
+        <div class="footer-right">
+            <span class="version-info">Ver. 2.1.0</span>
+            <span class="connection-status online"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><circle cx="12" cy="12" r="8"/></svg>ONLINE</span>
         </div>
-        
-        <div id="cvc-result" style="display:none; text-align:center;">
-            <div class="score-circle" id="cvc-score-circle"><span id="score-val" style="font-size:32px; font-weight:700;">0</span></div>
-            <span id="risk-badge" class="badge badge-teal">Aman</span>
-            <p style="margin-top:10px; font-size:14px; font-weight:600;" id="risk-msg">Tidak ada tanda.</p>
-            
-            <div id="cvc-critical-action" class="report-contacts"></div>
+    </footer>
 
-            <button class="modal-btn no" style="width:100%; margin-top:20px;" onclick="resetCVC()">Ulangi Pengecekan</button>
+    <!-- ========== MODALS ========== -->
+
+    <!-- AUTH MODAL -->
+    <div class="modal-overlay" id="authModal" onclick="closeModalOnOverlay(event, 'authModal')">
+        <div class="modal-box" style="width: 450px;" onclick="event.stopPropagation()">
+            <div style="font-size:48px; margin-bottom:8px;">👋</div>
+            <h3 style="font-size: 20px; margin-bottom: 6px;">Selamat Datang di TEMAN</h3>
+            <p style="font-size: 14px; color: var(--text-muted); margin-bottom: 20px;">Masuk atau daftar untuk menyimpan data Anda</p>
             
-            <!-- Literatur di hasil juga -->
-            <div class="reference-box" style="margin-top:20px;">
-                <h4>Referensi Penilaian</h4>
-                <ul>
-                    <li><strong>CDC (2017):</strong> Guidelines for the Prevention of Intravascular Catheter-Related Infection.</li>
-                    <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
-                </ul>
+            <div class="auth-tabs">
+                <div class="auth-tab active" onclick="switchAuthTab('login')">Masuk</div>
+                <div class="auth-tab" onclick="switchAuthTab('register')">Daftar</div>
+            </div>
+
+            <div class="auth-form active" id="loginForm">
+                <input type="email" class="input-field" id="loginEmail" placeholder="Email">
+                <input type="password" class="input-field" id="loginPassword" placeholder="Password">
+                <div class="modal-btns" style="margin-top: 16px;"><button class="modal-btn yes" onclick="handleLogin()">Masuk</button></div>
+                <div class="divider"><span>atau</span></div>
+                <button class="social-btn google" onclick="handleGoogleLogin()">
+                    <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#EA4335" d="M5.26 9.76A7.05 7.05 0 0 1 12 5c1.61 0 3.08.55 4.21 1.64l3.15-3.15A11.97 11.97 0 0 0 12 0C7.39 0 3.4 2.7 1.39 6.65l3.87 3.11z"/><path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.76-3.01c-1.1.74-2.52 1.17-4.17 1.17a7.05 7.05 0 0 1-6.74-5.09l-3.87 3.11A11.97 11.97 0 0 0 12 24z"/><path fill="#4A90E2" d="M23.49 12.27c0-.79-.07-1.54-.19-2.27H12v4.51h6.47c-.29 1.48-1.14 2.73-2.4 3.58l3.76 3.01c2.2-2.03 3.66-5.02 3.66-8.83z"/><path fill="#FBBC05" d="M5.26 14.24A7.05 7.05 0 0 1 4.95 12c0-.79.14-1.55.37-2.24L1.39 6.65A11.97 11.97 0 0 0 0 12c0 1.92.45 3.74 1.39 5.35l3.87-3.11z"/></svg>
+                    Masuk dengan Google
+                </button>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">Belum punya akun? <a href="#" onclick="switchAuthTab('register')" style="color: var(--primary-teal); font-weight: 600;">Daftar sekarang</a></p>
+            </div>
+
+            <div class="auth-form" id="registerForm">
+                <input type="text" class="input-field" id="regName" placeholder="Nama Lengkap">
+                <input type="email" class="input-field" id="regEmail" placeholder="Email">
+                <input type="password" class="input-field" id="regPassword" placeholder="Password (min. 6 karakter)">
+                <input type="password" class="input-field" id="regPasswordConfirm" placeholder="Konfirmasi Password">
+                
+                <div class="avatar-section">
+                    <h4>Pilih Avatar:</h4>
+                    <div class="avatar-grid">
+                        <div class="avatar-option" data-avatar="man-adult" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#6d28d9"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#1e3a5f"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><ellipse cx="50" cy="25" rx="20" ry="12" fill="#2d2013"/></svg></div>
+                        <div class="avatar-option" data-avatar="man-teen" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#14b8a6"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#0f766e"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><ellipse cx="50" cy="22" rx="18" ry="10" fill="#2d2013"/></svg></div>
+                        <div class="avatar-option" data-avatar="boy" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#f97316"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#ea580c"/><circle cx="50" cy="35" r="18" fill="#fcd5b8"/><ellipse cx="50" cy="28" rx="16" ry="8" fill="#2d2013"/></svg></div>
+                        <div class="avatar-option" data-avatar="woman-adult" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#ec4899"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><path d="M32 30 Q35 15 50 15 Q65 15 68 30 L68 40 Q65 50 50 50 Q35 50 32 40 Z" fill="#2d2013"/></svg></div>
+                        <div class="avatar-option" data-avatar="woman-teen" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#a78bfa"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#6d28d9"/><circle cx="50" cy="32" r="18" fill="#fcd5b8"/><path d="M35 25 Q40 12 50 12 Q60 12 65 25 L65 38 Q60 48 50 48 Q40 48 35 38 Z" fill="#2d2013"/><path d="M30 40 Q35 50 50 50 Q65 50 70 40" fill="none" stroke="#2d2013" stroke-width="8"/></svg></div>
+                        <div class="avatar-option" data-avatar="girl" onclick="selectAvatar(this)"><svg viewBox="0 0 100 100"><circle cx="50" cy="35" r="25" fill="#fb7185"/><path d="M50 65 C25 65 15 85 15 100 L85 100 C85 85 75 65 50 65" fill="#f472b6"/><circle cx="50" cy="35" r="18" fill="#fcd5b8"/><path d="M35 30 Q38 18 50 18 Q62 18 65 30 L65 40 Q62 50 50 50 Q38 50 35 40 Z" fill="#2d2013"/><circle cx="38" cy="28" r="4" fill="#fb7185"/></svg></div>
+                        <div class="avatar-upload" onclick="document.getElementById('avatarInput').click()">
+                            <input type="file" id="avatarInput" accept="image/*" style="display:none" onchange="handleAvatarUpload(event)">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+                            <span>Upload</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="modal-btns"><button class="modal-btn yes" onclick="handleRegister()">Daftar</button></div>
+                <p style="font-size: 12px; color: var(--text-muted); margin-top: 12px;">Sudah punya akun? <a href="#" onclick="switchAuthTab('login')" style="color: var(--primary-teal); font-weight: 600;">Masuk</a></p>
             </div>
         </div>
     </div>
-</div>
 
-<!-- AV MODAL -->
-<div class="modal-overlay" id="avModal" onclick="closeModalOnOverlay(event, 'avModal')">
-    <div class="modal-box" style="width: 400px;" onclick="event.stopPropagation()">
-        
-        <div class="modal-header">
-            <button class="modal-back-btn" onclick="closeModal('avModal')">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                Kembali
-            </button>
-            <div class="modal-title-center">
-                <h3>Cek Kondisi AV Shunt</h3>
-                <p>Look, Listen, Feel</p>
+    <!-- PROFILE MODAL -->
+    <div class="modal-overlay" id="profileModal" onclick="closeModalOnOverlay(event, 'profileModal')">
+        <div class="modal-box" style="width: 450px;" onclick="event.stopPropagation()">
+            <div class="sync-status"><div class="sync-dot" id="syncDot"></div><span class="sync-text" id="syncText">Tersinkronisasi dengan cloud</span></div>
+            <div style="margin-bottom: 20px;">
+                <div class="badge-circle" id="profileAvatarBig" style="width: 100px; height: 100px; margin: 0 auto; cursor: pointer;" onclick="document.getElementById('profileAvatarInput').click()">
+                    <input type="file" id="profileAvatarInput" accept="image/*" style="display:none" onchange="handleProfileAvatarUpload(event)">
+                </div>
+                <p style="font-size: 11px; color: var(--text-muted); margin-top: 8px;">Klik untuk ganti avatar</p>
             </div>
-        </div>
-
-        <div id="av-form">
-            <input type="text" class="input-field" id="av_id" placeholder="ID/Nama Pasien">
-            
-            <p style="font-size:12px; font-weight:600; color:var(--text-dark); text-align:left; margin:10px 0 5px;">1. Pemeriksaan Visual:</p>
-            <label class="check-label"><input type="checkbox" id="av_vis_red"><span class="check-box"></span><span>Kemerahan/Bengkak</span></label>
-            <label class="check-label"><input type="checkbox" id="av_vis_pus"><span class="check-box"></span><span>Nanah (Kritis)</span></label>
-            
-            <p style="font-size:12px; font-weight:600; color:var(--text-dark); text-align:left; margin:10px 0 5px;">2. Pemeriksaan Raba (Thrill):</p>
-            <label class="check-label"><input type="radio" name="av_thrill" value="normal" checked><span class="check-box" style="border-radius:50%;"></span><span>Terasa Getar (Normal)</span></label>
-            <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box" style="border-radius:50%;"></span><span>Hilang (Kritis)</span></label>
-
-            <button class="modal-btn yes" style="width:100%; margin-top:10px;" onclick="calculateAV()">Cek Kondisi</button>
-
-            <!-- Literatur -->
-            <div class="reference-box">
-                <h4>Referensi Penilaian</h4>
-                <ul>
-                    <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
-                    <li><strong>Vascular Access Society:</strong> Guidelines for Fistula Management.</li>
-                </ul>
+            <input type="text" class="input-field" id="profileName" placeholder="Nama Lengkap">
+            <input type="email" class="input-field" id="profileEmail" placeholder="Email" disabled>
+            <div class="input-group" style="margin-top: 12px;">
+                <label>Jenis Akses Dialisis</label>
+                <div style="display: flex; gap: 8px;">
+                    <label class="check-label" style="flex: 1; justify-content: center;" onclick="setProfileAccessType('CVC')"><input type="radio" name="profileAccessType" value="CVC"><span class="check-box" style="border-radius:50%;"></span><span>CVC</span></label>
+                    <label class="check-label" style="flex: 1; justify-content: center;" onclick="setProfileAccessType('AV Shunt')"><input type="radio" name="profileAccessType" value="AV Shunt"><span class="check-box" style="border-radius:50%;"></span><span>AV Shunt</span></label>
+                </div>
             </div>
-        </div>
-
-        <div id="av-result" style="display:none; text-align:center;">
-            <span id="av-badge" class="badge badge-teal" style="font-size:16px; padding:10px;">BAIK</span>
-            <p style="margin-top:10px; font-weight:600;" id="av-msg">Kondisi fistula baik.</p>
-            
-            <div id="av-critical-action" class="report-contacts"></div>
-
-            <button class="modal-btn no" style="width:100%; margin-top:20px;" onclick="resetAV()">Ulangi Pengecekan</button>
-            
-            <!-- Literatur -->
-            <div class="reference-box" style="margin-top:20px;">
-                <h4>Referensi Penilaian</h4>
-                <ul>
-                    <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
-                    <li><strong>Vascular Access Society:</strong> Guidelines for Fistula Management.</li>
-                </ul>
+            <div class="modal-btns">
+                <button class="modal-btn no" onclick="handleLogout()">Keluar</button>
+                <button class="modal-btn yes" onclick="saveProfile()">Simpan</button>
             </div>
         </div>
     </div>
-</div>
+
+    <!-- ONBOARDING MODAL -->
+    <div class="modal-overlay" id="onboardingModal" onclick="closeModalOnOverlay(event, 'onboardingModal')">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <div style="font-size:48px; margin-bottom:10px;">🏥</div>
+            <h3 style="font-size: 18px;">Pilih Tipe Akses Anda</h3>
+            <div style="margin-top: 20px; text-align: left;">
+                <label class="check-label" onclick="setAccessType('CVC')"><input type="radio" name="accessType" value="CVC"><span class="check-box" style="border-radius:50%;"></span><span>🩺 CVC (Kateter Vena Sentral)</span></label>
+                <label class="check-label" onclick="setAccessType('AV Shunt')"><input type="radio" name="accessType" value="AV Shunt"><span class="check-box" style="border-radius:50%;"></span><span>💪 AV Shunt (Fistula / Graft)</span></label>
+            </div>
+            <div class="modal-btns">
+                <button class="modal-btn no" onclick="closeModal('onboardingModal')">Nanti Saja</button>
+                <button class="modal-btn yes" onclick="saveAccessType()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CVC MODAL -->
+    <div class="modal-overlay" id="cvcModal" onclick="closeModalOnOverlay(event, 'cvcModal')">
+        <div class="modal-box" style="width: 400px;" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="modal-back-btn" onclick="closeModal('cvcModal')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Kembali
+                </button>
+                <div class="modal-title-center">
+                    <h3>Cek Risiko Infeksi CVC</h3>
+                    <p>Penilaian mandiri pasien</p>
+                </div>
+            </div>
+
+            <div id="cvc-form">
+                <input type="text" class="input-field" id="cvc_id" placeholder="ID/Nama Pasien">
+                <div style="text-align:left;">
+                    <label class="check-label"><input type="checkbox" id="q1"><span class="check-box"></span><span>Kemerahan di area kateter</span></label>
+                    <label class="check-label"><input type="checkbox" id="q2"><span class="check-box"></span><span>Bengkak di area kateter</span></label>
+                    <label class="check-label"><input type="checkbox" id="q3"><span class="check-box"></span><span>Nyeri atau sakit</span></label>
+                    <label class="check-label"><input type="checkbox" id="q4"><span class="check-box"></span><span>Keluar nanah/cairan (Kritis)</span></label>
+                    <label class="check-label"><input type="checkbox" id="q5"><span class="check-box"></span><span>Demam/Menggigil (Kritis)</span></label>
+                </div>
+                <button class="modal-btn yes" style="width:100%; margin-top:10px;" onclick="calculateCVC()">Hitung Risiko</button>
+                
+                <div class="reference-box">
+                    <h4>Referensi Penilaian</h4>
+                    <ul>
+                        <li><strong>CDC (2017):</strong> Guidelines for the Prevention of Intravascular Catheter-Related Infection.</li>
+                        <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="cvc-result" style="display:none; text-align:center;">
+                <div class="score-circle" id="cvc-score-circle"><span id="score-val" style="font-size:32px; font-weight:700;">0</span></div>
+                <span id="risk-badge" class="badge badge-teal">Aman</span>
+                <p style="margin-top:10px; font-size:14px; font-weight:600;" id="risk-msg">Tidak ada tanda.</p>
+                
+                <div id="cvc-critical-action" class="report-contacts"></div>
+
+                <button class="modal-btn no" style="width:100%; margin-top:20px;" onclick="resetCVC()">Ulangi Pengecekan</button>
+                
+                <div class="reference-box" style="margin-top:20px;">
+                    <h4>Referensi Penilaian</h4>
+                    <ul>
+                        <li><strong>CDC (2017):</strong> Guidelines for the Prevention of Intravascular Catheter-Related Infection.</li>
+                        <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AV MODAL -->
+    <div class="modal-overlay" id="avModal" onclick="closeModalOnOverlay(event, 'avModal')">
+        <div class="modal-box" style="width: 400px;" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <button class="modal-back-btn" onclick="closeModal('avModal')">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Kembali
+                </button>
+                <div class="modal-title-center">
+                    <h3>Cek Kondisi AV Shunt</h3>
+                    <p>Look, Listen, Feel</p>
+                </div>
+            </div>
+
+            <div id="av-form">
+                <input type="text" class="input-field" id="av_id" placeholder="ID/Nama Pasien">
+                
+                <p style="font-size:12px; font-weight:600; color:var(--text-dark); text-align:left; margin:10px 0 5px;">1. Pemeriksaan Visual:</p>
+                <label class="check-label"><input type="checkbox" id="av_vis_red"><span class="check-box"></span><span>Kemerahan/Bengkak</span></label>
+                <label class="check-label"><input type="checkbox" id="av_vis_pus"><span class="check-box"></span><span>Nanah (Kritis)</span></label>
+                
+                <p style="font-size:12px; font-weight:600; color:var(--text-dark); text-align:left; margin:10px 0 5px;">2. Pemeriksaan Raba (Thrill):</p>
+                <label class="check-label"><input type="radio" name="av_thrill" value="normal" checked><span class="check-box" style="border-radius:50%;"></span><span>Terasa Getar (Normal)</span></label>
+                <label class="check-label"><input type="radio" name="av_thrill" value="gone"><span class="check-box" style="border-radius:50%;"></span><span>Hilang (Kritis)</span></label>
+
+                <button class="modal-btn yes" style="width:100%; margin-top:10px;" onclick="calculateAV()">Cek Kondisi</button>
+
+                <div class="reference-box">
+                    <h4>Referensi Penilaian</h4>
+                    <ul>
+                        <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
+                        <li><strong>Vascular Access Society:</strong> Guidelines for Fistula Management.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="av-result" style="display:none; text-align:center;">
+                <span id="av-badge" class="badge badge-teal" style="font-size:16px; padding:10px;">BAIK</span>
+                <p style="margin-top:10px; font-weight:600;" id="av-msg">Kondisi fistula baik.</p>
+                
+                <div id="av-critical-action" class="report-contacts"></div>
+
+                <button class="modal-btn no" style="width:100%; margin-top:20px;" onclick="resetAV()">Ulangi Pengecekan</button>
+                
+                <div class="reference-box" style="margin-top:20px;">
+                    <h4>Referensi Penilaian</h4>
+                    <ul>
+                        <li><strong>KDOQI (2019):</strong> Clinical Practice Guideline for Vascular Access.</li>
+                        <li><strong>Vascular Access Society:</strong> Guidelines for Fistula Management.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EVENT MODAL -->
+    <div class="modal-overlay" id="eventModal" onclick="closeModalOnOverlay(event, 'eventModal')">
+        <div class="modal-box" style="width: 400px;" onclick="event.stopPropagation()">
+            <h3 style="margin-bottom:15px;">📅 Agenda & Acara</h3>
+            <div id="eventListFull" style="text-align:left; max-height: 400px; overflow-y:auto;"></div>
+            <div style="margin-top:15px; border-top:1px solid #eee; padding-top:15px;">
+                <button class="modal-btn yes" style="width:100%;" onclick="closeModal('eventModal'); openModal('passwordModal')">+ Tambah Acara (Admin)</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ADD EVENT MODAL -->
+    <div class="modal-overlay" id="addEventModal" onclick="closeModalOnOverlay(event, 'addEventModal')">
+        <div class="modal-box" style="width: 380px;" onclick="event.stopPropagation()">
+            <h3 style="margin-bottom:15px;">➕ Tambah Acara Baru</h3>
+            <input type="text" id="evTitle" class="input-field" placeholder="Judul Acara">
+            <input type="text" id="evDate" class="input-field" placeholder="Tanggal (mis: 12 Maret 2026)">
+            <input type="text" id="evImg" class="input-field" placeholder="Link Gambar Poster">
+            <input type="text" id="evLink" class="input-field" placeholder="Link Pendaftaran (Opsional)">
+            <textarea id="evDesc" class="input-field" rows="3" placeholder="Deskripsi"></textarea>
+            <div class="modal-btns">
+                <button class="modal-btn no" onclick="closeModal('addEventModal')">Batal</button>
+                <button class="modal-btn yes" onclick="saveEvent()">Simpan</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PASSWORD MODAL -->
+    <div class="modal-overlay" id="passwordModal" onclick="closeModalOnOverlay(event, 'passwordModal')">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 style="margin-bottom:10px;">🔒 Masukkan Kode Admin</h3>
+            <input type="password" id="passwordInput" class="input-field" placeholder="Kode..." style="text-align:center; letter-spacing:5px;">
+            <div class="modal-btns">
+                <button class="modal-btn no" onclick="closeModal('passwordModal')">Batal</button>
+                <button class="modal-btn yes" onclick="checkPassword()">Lanjut</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- KONSULTASI MODAL -->
+    <div class="modal-overlay" id="konsultasiModal" onclick="closeModalOnOverlay(event, 'konsultasiModal')">
+        <div class="modal-box" onclick="event.stopPropagation()">
+            <h3 style="margin-bottom:15px;">📞 Hubungi Admin</h3>
+            <p style="font-size:14px; color:var(--text-muted); margin-bottom:20px;">Pilih admin yang ingin dihubungi via WhatsApp.</p>
+            <div style="display:flex; flex-direction:column; gap:10px;">
+                <a href="https://wa.me/6282227707573?text=Halo%20Kak%20Ginjal" target="_blank" class="report-btn-specific whatsapp">📞 Kak Ginjal</a>
+                <a href="https://wa.me/6283831217784?text=Halo%20Kak%20Vena" target="_blank" class="report-btn-specific whatsapp">📞 Kak Vena</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
